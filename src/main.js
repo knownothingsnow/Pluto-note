@@ -6,3 +6,5 @@ new Vue({
   el: 'body',
   components: { App }
 })
+
+console.log('this is a test')
