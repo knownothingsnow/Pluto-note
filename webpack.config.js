@@ -1,19 +1,12 @@
 var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
-  entry: {
-    app: './src/main.js'
-  },
+  entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, '../dist/static'),
-    publicPath: '/static/',
-    filename: '[name].js'
-  },
-  resolve: {
-    extensions: ['', '.js', '.vue'],
-    alias: {
-      'src': path.resolve(__dirname, '../src')
-    }
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/dist/',
+    filename: 'build.js'
   },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
@@ -26,12 +19,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel!eslint',
+        loader: 'babel',
         exclude: /node_modules/
-      },
-      {
-        test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
       },
       {
         test: /\.json$/,
@@ -47,12 +36,27 @@ module.exports = {
       }
     ]
   },
-  vue: {
-    loaders: {
-      js: 'babel!eslint'
-    }
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true
   },
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
-  }
+  devtool: 'eval-source-map'
+}
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = 'source-map'
+  // http://vuejs.github.io/vue-loader/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.optimize.OccurenceOrderPlugin()
+  ])
 }

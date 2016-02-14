@@ -1,4 +1,5 @@
 node_modules/
-npm-debug.log
-.idea/
-build
+dist/
+.idea
+plutonote.sql
+Dev-doc.md
