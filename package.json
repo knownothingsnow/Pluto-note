@@ -1,10 +1,11 @@
 {
   "name": "Pluto-note",
-  "description": "A Vue.js project",
+  "description": "A web-note powered by Vue.js",
   "author": "knownothingsnow <409268215@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot",
+    "server":"node bin/www",
+    "dev": "webpack-dev-server --inline --hot --color",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
@@ -17,7 +18,8 @@
     "serve-favicon": "~2.3.0",
     "vue": "^1.0.16",
     "vue-resource": "^0.7.0",
-    "vue-router": "^0.7.11"
+    "vue-router": "^0.7.11",
+    "vue-strap": "^1.0.7"
   },
   "devDependencies": {
     "babel-core": "^6.5.2",

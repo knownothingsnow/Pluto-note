@@ -15,5 +15,5 @@ export default {
       msg: 'Hello World!'
     }
   }
-}
+};
 </script>
