@@ -1,47 +1,54 @@
-var path = require('path')
-var webpack = require('webpack')
+var path    = require('path');
+var webpack = require('webpack');
 
 module.exports = {
-  entry: {user:'./public/user.js',admin:'./public/admin.js',login:'./public/login.js'},
-  output: {
-    path: path.resolve(__dirname, './public/build'),
+  entry        : {
+    index: './public/index.js',
+    login: './public/login.js',
+    admin: './public/admin.js'
+  },
+  output       : {
+    path      : path.resolve(__dirname, './public/build'),
     publicPath: '/public/build/',
-    filename: '[name].js'
+    filename  : '[name].js'
   },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
   },
-  module: {
+  module       : {
     loaders: [
       {
-        test: /\.vue$/,
+        test  : /\.vue$/,
         loader: 'vue'
       },
       {
-        test: /\.js$/,
-        loader: 'babel',
+        test   : /\.js$/,
+        loader : 'babel',
         exclude: /node_modules/
       },
       {
-        test: /\.json$/,
+        test  : /\.json$/,
         loader: 'json'
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test  : /\.(png|jpg|gif|svg)$/,
         loader: 'url',
-        query: {
+        query : {
           limit: 10000,
-          name: '[name].[ext]?[hash]'
+          name : '[name].[ext]?[hash]'
         }
       }
     ]
   },
-  devServer: {
+  plugins      : [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
+  devServer    : {
     historyApiFallback: true,
-    noInfo: true
+    noInfo            : true
   },
-  devtool: 'eval-source-map'
-}
+  devtool      : 'eval-source-map'
+};
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = 'source-map'

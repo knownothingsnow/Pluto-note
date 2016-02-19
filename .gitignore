@@ -3,3 +3,4 @@ dist/
 .idea
 plutonote.sql
 Dev-doc.md
+npm-debug.log
