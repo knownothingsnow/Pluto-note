@@ -10,11 +10,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-//开发环境中使用webpack热替换
-var webpack              = require('webpack');
-var config               = require('./webpack.config.js');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
+//开发环境中使用webpack
+var webpack = require('webpack');
+var config  = require('./webpack.config.js');
 
 var login = require('./routes/login');
 var index = require('./routes/index');
@@ -41,10 +39,10 @@ app.use(cookieParser('Wilson'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //调用webpack中间件打包
-app.use(webpackDevMiddleware(compiler, {
+app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
   // display no info to console (only warnings and errors)
-  noInfo: false,
+  noInfo    : true,
   //stats详细配置含义:https://webpack.github.io/docs/node.js-api.html#stats-tojson
   stats     : {
     colors      : true,
@@ -55,15 +53,9 @@ app.use(webpackDevMiddleware(compiler, {
     modules     : false
   }
 }));
+
 //实现热加载
-app.use(webpackHotMiddleware(compiler));
-// force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({action: 'reload'});
-    cb()
-  })
-});
+app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/login', login);
 app.use('/index', index);

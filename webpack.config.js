@@ -1,12 +1,13 @@
-var path    = require('path');
-var webpack = require('webpack');
+var path              = require('path');
+var webpack           = require('webpack');
 
 module.exports = {
-  entry        : {
-    index: './public/index.js',
-    login: './public/login.js',
-    admin: './public/admin.js'
-  },
+  entry        :
+    {
+      index: ['./public/index.js','webpack-hot-middleware/client'],
+      login: ['./public/login.js','webpack-hot-middleware/client'],
+      admin: ['./public/admin.js','webpack-hot-middleware/client']
+    },
   output       : {
     path      : path.resolve(__dirname, './public/build'),
     publicPath: '/public/build/',
@@ -20,6 +21,10 @@ module.exports = {
       {
         test  : /\.vue$/,
         loader: 'vue'
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
       },
       {
         test   : /\.js$/,
@@ -42,6 +47,7 @@ module.exports = {
   },
   plugins      : [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ],
   devServer    : {
     historyApiFallback: true,
