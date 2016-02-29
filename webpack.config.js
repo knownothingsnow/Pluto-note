@@ -23,10 +23,6 @@ module.exports = {
         loader: 'vue'
       },
       {
-        test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
-      },
-      {
         test   : /\.js$/,
         loader : 'babel',
         exclude: /node_modules/
@@ -36,7 +32,7 @@ module.exports = {
         loader: 'json'
       },
       {
-        test  : /\.(png|jpg|gif|svg)$/,
+        test  : /\.(png|jpg|gif|svg|ico)$/,
         loader: 'url',
         query : {
           limit: 10000,

@@ -3,6 +3,6 @@ import app from './components/loginPage/app.vue';
 
 /* eslint-disable no-new */
 new Vue({
-  el: 'body',
-  components: { app }
+  el        : 'body',
+  components: {app}
 });

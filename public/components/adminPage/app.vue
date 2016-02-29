@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>this is admin</h1>
-    <img class="logo" src="../../assets/logo.png">
+    <img class="logo" src="../../img/logo.png">
     <hello></hello>
   </div>
 </template>

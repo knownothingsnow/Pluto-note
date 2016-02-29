@@ -1,21 +1,39 @@
 <template>
-  <div id="main">
-    <h1>this is login</h1>
-    <img class="logo" src="../../assets/logo.png">
+  <div id="app">
+    <h1>Pluto note</h1>
+    <sign-in></sign-in>
   </div>
 </template>
 
-<script>
-
-  export default {
-    components: {
-      Hello
-    }
-  };
-</script>
-
 <style>
   body {
-    font-family : Helvetica, sans-serif;
+    height          : 100%;
+    font-family     : Helvetica, sans-serif;
+    background      : url("../../img/Pluto.jpg") no-repeat;
+    background-size : cover;
   }
+
+  div#app {
+    display         : flex;
+    height          : 100%;
+    flex-flow       : column wrap;
+    justify-content : center;
+  }
+
+  div#app h1 {
+    display         : inline-flex;
+    justify-content : center;
+    font-size       : 50px;
+    color           : #FFFFFF;
+  }
+
+
 </style>
+
+<script>
+  import signIn from './sign_in.vue'
+
+  export default {
+    components: {signIn}
+  };
+</script>
