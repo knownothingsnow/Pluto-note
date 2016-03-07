@@ -1,11 +1,14 @@
 /**
- * Created by Knight_Young on 2016/2/20 0020.
+ * 登录路由逻辑
+ * @author Knight Young
+ * @type {*|exports|module.exports}
  */
+'use strict';
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res) {
+
+router.all('/', function(req, res) {
   res.render('admin')
 });
 

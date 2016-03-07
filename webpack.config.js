@@ -1,13 +1,12 @@
-var path              = require('path');
-var webpack           = require('webpack');
+var path    = require('path');
+var webpack = require('webpack');
 
 module.exports = {
-  entry        :
-    {
-      index: ['./public/index.js','webpack-hot-middleware/client'],
-      login: ['./public/login.js','webpack-hot-middleware/client'],
-      admin: ['./public/admin.js','webpack-hot-middleware/client']
-    },
+  entry        : {
+    index: ['./public/index.js', 'webpack-hot-middleware/client'],
+    login: ['./public/login.js', 'webpack-hot-middleware/client'],
+    admin: ['./public/admin.js', 'webpack-hot-middleware/client']
+  },
   output       : {
     path      : path.resolve(__dirname, './public/build'),
     publicPath: '/public/build/',

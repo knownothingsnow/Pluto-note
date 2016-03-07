@@ -1,14 +1,14 @@
 <template>
   <div class="form-wrapper">
-    <form class="am-form">
+    <form class="am-form" method="post" action="/login/submit">
       <fieldset>
         <div class="am-form-group">
-          <label for="doc-ipt-email-1">账号</label>
-          <input type="email" class="" id="doc-ipt-email-1" placeholder="请输入账号">
+          <label for="user-id">账号</label>
+          <input type="text" class="" id="user-id" name="userId" placeholder="请输入账号">
         </div>
         <div class="am-form-group">
-          <label for="doc-ipt-pwd-1">密码</label>
-          <input type="password" class="" id="doc-ipt-pwd-1" placeholder="请输入密码">
+          <label for="user-password">密码</label>
+          <input type="password" class="" id="user-password" name="passWord" placeholder="请输入密码">
         </div>
         <div class="am-checkbox">
           <label>
@@ -16,25 +16,27 @@
           </label>
         </div>
       </fieldset>
-      <button type="button" class="am-btn am-radius am-btn-success">提交</button>
+      <input type="submit" class="am-btn am-radius am-btn-success">
     </form>
   </div>
 </template>
 
 <style>
   .form-wrapper {
-    display          : flex;
+    align-self: center;
     width            : 500px;
     padding          : 1%;
-    border-radius    : 10px;
+    border-radius    : 15px;
     background-color : #CCCCCC;
   }
 
   .form-wrapper form {
-    align-self : center;
+    /*align-self : center;*/
+    flex-basis:auto;
   }
 </style>
 <script>
+  'use strict';
   export default{
     data(){
       return {

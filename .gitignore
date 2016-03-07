@@ -1,6 +1,6 @@
 node_modules/
 dist/
-.idea
+public/build/
+.idea/
+
 plutonote.sql
-Dev-doc.md
-npm-debug.log

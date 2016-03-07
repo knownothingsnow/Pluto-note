@@ -8,7 +8,7 @@
 <style>
   body {
     height          : 100%;
-    font-family     : Helvetica, sans-serif;
+    font-family     : Helvetica,serif;
     background      : url("../../img/Pluto.jpg") no-repeat;
     background-size : cover;
   }
@@ -16,7 +16,7 @@
   div#app {
     display         : flex;
     height          : 100%;
-    flex-flow       : column wrap;
+    flex-direction  : column;
     justify-content : center;
   }
 
@@ -31,6 +31,7 @@
 </style>
 
 <script>
+  'use strict';
   import signIn from './sign_in.vue'
 
   export default {

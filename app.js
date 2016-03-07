@@ -2,24 +2,26 @@
  * 后端入口文件
  * @type {*|exports|module.exports}
  */
-var express      = require('express');
-var path         = require('path');
-var favicon      = require('serve-favicon');
-var logger       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
+'use strict';
+let express      = require('express');
+let path         = require('path');
+let favicon      = require('serve-favicon');
+let logger       = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser   = require('body-parser');
+let session      = require('express-session');
 
 //开发环境中使用webpack
-var webpack = require('webpack');
-var config  = require('./webpack.config.js');
+let webpack = require('webpack');
+let config  = require('./webpack.config.js');
 
-var login = require('./routes/login');
-var index = require('./routes/index');
-var admin = require('./routes/admin');
+let login = require('./routes/login');
+let index = require('./routes/index');
+let admin = require('./routes/admin');
+let yanzheng = require('./routes/yanzheng');
 
-var app      = express();
-var compiler = webpack(config);
+let app      = express();
+let compiler = webpack(config);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,13 +59,22 @@ app.use(require('webpack-dev-middleware')(compiler, {
 //实现热加载
 app.use(require('webpack-hot-middleware')(compiler));
 
+app.use(session({
+  secret           : 'secret', //secret的值建议使用随机字符串
+  resave           : true,
+  saveUninitialized: false,
+  cookie           : {maxAge: 60 * 1000 * 30} // 过期时间（毫秒）
+}));
+
+app.use('/', login);
 app.use('/login', login);
 app.use('/index', index);
 app.use('/admin', admin);
+app.use('/yanzheng', yanzheng);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err    = new Error('Not Found');
+  let err    = new Error('Not Found');
   err.status = 404;
   next(err);
 });
