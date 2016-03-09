@@ -1,3 +1,4 @@
+'use strict';
 /**
  * 数据库配置文件
  * Created by Knight_Young on 2016/2/18 0018.
@@ -15,5 +16,5 @@ var con = mysql.createConnection({
 });
 
 module.exports={
-  con:con
+  connect:con
 };

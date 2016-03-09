@@ -1,8 +1,9 @@
+'use strict';
 /**
  * 后端入口文件
  * @type {*|exports|module.exports}
+ * @author Knight Young
  */
-'use strict';
 let express      = require('express');
 let path         = require('path');
 let favicon      = require('serve-favicon');
@@ -18,7 +19,6 @@ let config  = require('./webpack.config.js');
 let login = require('./routes/login');
 let index = require('./routes/index');
 let admin = require('./routes/admin');
-let yanzheng = require('./routes/yanzheng');
 
 let app      = express();
 let compiler = webpack(config);
@@ -70,7 +70,6 @@ app.use('/', login);
 app.use('/login', login);
 app.use('/index', index);
 app.use('/admin', admin);
-app.use('/yanzheng', yanzheng);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

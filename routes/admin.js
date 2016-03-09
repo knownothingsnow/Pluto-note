@@ -1,11 +1,11 @@
+'use strict';
 /**
  * 登录路由逻辑
- * @author Knight Young
  * @type {*|exports|module.exports}
+ * @author Knight Young
  */
-'use strict';
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 
 router.all('/', function(req, res) {

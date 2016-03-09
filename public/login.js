@@ -1,29 +1,41 @@
 'use strict';
+/**
+ * 登录页面的入口文件
+ * @author Knight Young
+ */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import App from './components/loginPage/app.vue';
-import sign_in from './components/loginPage/sign_in.vue';
-import sign_up from './components/loginPage/sign_up.vue';
 
-/* eslint-disable no-new */
-new Vue({
-  el        : 'body',
-  //replace   : false,
-  components: {App}
+//components
+import app from './components/loginPage/app.vue';
+import sign_in from './components/loginPage/sign_in.vue';
+import register from './components/loginPage/register.vue';
+
+//let App=Vue.extend(app);
+
+ //install router
+Vue.use(VueRouter);
+
+let router = new VueRouter({
+  transitionOnLoad:false
 });
 
-// install router
-//Vue.use(VueRouter);
-//
-//var router = new VueRouter();
-//
-//router.map({
-//  '/sign_in': {
-//    component: sign_in
-//  },
-//  '/sign_up': {
-//    component: sign_up
-//  }
-//});
-//
-//router.start(app, 'body');
+router.beforeEach(function(){
+  window.scrollTo(0,0)
+});
+
+router.map({
+  '/sign_in': {
+    component: sign_in
+  },
+  '/register': {
+    component: register
+  }
+});
+
+ //default router
+router.redirect({
+  '*': '/sign_in'
+});
+
+router.start(app, 'app');

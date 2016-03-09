@@ -1,9 +1,9 @@
+'use strict';
 /**
  * 登录路由逻辑
  * @author Knight Young
  * @type {*|exports|module.exports}
  */
-'use strict';
 let express = require('express');
 let router  = express.Router();
 

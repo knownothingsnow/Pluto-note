@@ -4,15 +4,15 @@
       <fieldset>
         <div class="am-form-group">
           <label for="user-id">账号</label>
-          <input type="text" class="" id="user-id" name="userId" placeholder="请输入账号">
+          <input type="text" id="user-id" name="userId" placeholder="请输入账号">
         </div>
         <div class="am-form-group">
           <label for="user-password">密码</label>
-          <input type="password" class="" id="user-password" name="passWord" placeholder="请输入密码">
+          <input type="password" id="user-password" name="passWord" placeholder="请输入密码">
         </div>
         <div class="am-checkbox">
           <label>
-            <input type="checkbox"> 记住密码
+            <input type="checkbox">记住密码
           </label>
         </div>
       </fieldset>
@@ -23,17 +23,12 @@
 
 <style>
   .form-wrapper {
-    align-self: center;
     width            : 500px;
     padding          : 1%;
     border-radius    : 15px;
     background-color : #CCCCCC;
   }
 
-  .form-wrapper form {
-    /*align-self : center;*/
-    flex-basis:auto;
-  }
 </style>
 <script>
   'use strict';
