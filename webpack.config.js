@@ -3,9 +3,9 @@ var webpack = require('webpack');
 
 module.exports = {
   entry        : {
-    index: ['./public/index.js', 'webpack-hot-middleware/client'],
-    login: ['./public/login.js', 'webpack-hot-middleware/client'],
-    admin: ['./public/admin.js', 'webpack-hot-middleware/client']
+    index: './public/index.js',
+    login: './public/login.js',
+    admin: './public/admin.js'
   },
   output       : {
     path      : path.resolve(__dirname, './public/build'),
@@ -17,10 +17,6 @@ module.exports = {
   },
   module       : {
     loaders: [
-      {
-        test  : /\.vue$/,
-        loader: 'vue'
-      },
       {
         test   : /\.js$/,
         loader : 'babel',
@@ -39,14 +35,6 @@ module.exports = {
         }
       }
     ]
-  },
-  plugins      : [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
-  devServer    : {
-    historyApiFallback: true,
-    noInfo            : true
   },
   devtool      : 'eval-source-map'
 };

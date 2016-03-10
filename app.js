@@ -43,21 +43,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 //调用webpack中间件打包
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
+
   // display no info to console (only warnings and errors)
   noInfo    : true,
+
   //stats详细配置含义:https://webpack.github.io/docs/node.js-api.html#stats-tojson
   stats     : {
     colors      : true,
-    timings     : true,
-    hash        : false,
-    chunks      : false,
-    chunkModules: false,
-    modules     : false
+    chunks      : false
   }
 }));
 
 //实现热加载
 app.use(require('webpack-hot-middleware')(compiler));
+compiler.plugin('compilation', function (compilation) {
+  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+    hotMiddleware.publish({ action: 'reload' });
+    cb();
+  })
+});
 
 app.use(session({
   secret           : 'secret', //secret的值建议使用随机字符串
