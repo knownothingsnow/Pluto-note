@@ -1,13 +1,22 @@
 {
-  "name": "Pluto-note",
-  "description": "A web-note powered by Vue.js",
-  "author": "knownothingsnow <409268215@qq.com>",
-  "private": true,
-  "scripts": {
-    "dev": "node bin/www",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack.prod.conf.js"
+  "name": "express-webpack-full-live-reload-example",
+  "version": "1.0.0",
+  "description": "A workflow with full live reload for webpack&express application.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kenanpengyou/express-webpack-full-live-reload-example.git"
   },
+  "author": "liangzhu",
+  "main": "app.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=dev supervisor -i client app",
+    "browsersync": "cross-env NODE_ENV=dev node app_browsersync",
+    "build": "webpack",
+    "production": "webpack --config webpack.production.config.js -p & cross-env NODE_ENV=production node app"
+  },
+  "license": "MIT",
   "dependencies": {
+    "consolidate": "^0.14.0",
     "amazeui": "^2.5.2",
     "body-parser": "~1.15.0",
     "cookie-parser": "~1.4.1",
@@ -15,6 +24,7 @@
     "ejs": "^2.4.1",
     "express": "~4.13.4",
     "express-session": "^1.13.0",
+    "jquery": "^2.2.1",
     "morgan": "~1.6.1",
     "mysql": "^2.10.2",
     "serve-favicon": "~2.3.0"
@@ -25,15 +35,21 @@
     "babel-plugin-transform-runtime": "^6.5.2",
     "babel-preset-es2015": "^6.5.0",
     "babel-runtime": "^5.8.0",
+    "browser-sync": "^2.11.1",
+    "chokidar": "^1.4.2",
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
-    "eslint": "^1.6.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
-    "json-loader": "^0.5.4",
     "node-sass": "^3.4.2",
+    "npm-install-webpack-plugin": "^2.0.2",
+    "reload": "^0.7.0",
+    "resolve-url-loader": "^1.4.3",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.13"
+    "webpack": "^1.12.12",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-hot-middleware": "^2.7.1"
   }
 }

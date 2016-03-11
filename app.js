@@ -11,100 +11,71 @@ let logger       = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser   = require('body-parser');
 let session      = require('express-session');
+let consolidate = require('consolidate');
 
-//开发环境中使用webpack
-let webpack = require('webpack');
-let config  = require('./webpack.config.js');
+let login = require('./server/routes/login');
+let index = require('./server/routes/index');
+let admin = require('./server/routes/admin');
 
-let login = require('./routes/login');
-let index = require('./routes/index');
-let admin = require('./routes/admin');
+let isDev = process.env.NODE_ENV !== 'production';
+let app = express();
+let port = 3000;
 
-let app      = express();
-let compiler = webpack(config);
+app.engine('html', consolidate.ejs);
+app.set('view engine', 'html');
+app.set('views', path.resolve('./server/views'));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// local variables for all views
+app.locals.env = process.env.NODE_ENV || 'dev';
+app.locals.reload = true;
 
-// uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+if (isDev) {
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+    // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
+    var webpack = require('webpack'),
+        webpackDevMiddleware = require('webpack-dev-middleware'),
+        webpackHotMiddleware = require('webpack-hot-middleware'),
+        webpackDevConfig = require('./webpack.config.js');
 
-app.use(cookieParser());
-app.use(cookieParser('Wilson'));
+    var compiler = webpack(webpackDevConfig);
 
-//设置服务器静态资源目录,可以设置多目录
-app.use(express.static(path.join(__dirname, 'public')));
+    // attach to the compiler & the server
+    app.use(webpackDevMiddleware(compiler, {
 
-//调用webpack中间件打包
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: config.output.publicPath,
+        // public path should be the same with webpack config
+        publicPath: webpackDevConfig.output.publicPath,
+        noInfo: true,
+        stats: {
+            colors: true
+        }
+    }));
+    app.use(webpackHotMiddleware(compiler));
 
-  // display no info to console (only warnings and errors)
-  noInfo    : true,
+    app.use('/', login);
+    app.use('/login', login);
+    app.use('/index', index);
+    app.use('/admin', admin);
 
-  //stats详细配置含义:https://webpack.github.io/docs/node.js-api.html#stats-tojson
-  stats     : {
-    colors      : true,
-    chunks      : false
-  }
-}));
 
-//实现热加载
-app.use(require('webpack-hot-middleware')(compiler));
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' });
-    cb();
-  })
-});
+    // add "reload" to express, see: https://www.npmjs.com/package/reload
+    var reload = require('reload');
+    var http = require('http');
 
-app.use(session({
-  secret           : 'secret', //secret的值建议使用随机字符串
-  resave           : true,
-  saveUninitialized: false,
-  cookie           : {maxAge: 60 * 1000 * 30} // 过期时间（毫秒）
-}));
+    var server = http.createServer(app);
+    reload(server, app);
 
-app.use('/', login);
-app.use('/login', login);
-app.use('/index', index);
-app.use('/admin', admin);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  let err    = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error  : err
+    server.listen(port, function(){
+        console.log('App (dev) is now running on port 3000!');
     });
-  });
+} else {
+
+    // static assets served by express.static() for production
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use('/', login);
+    app.use('/login', login);
+    app.use('/index', index);
+    app.use('/admin', admin);
+    app.listen(port, function () {
+        console.log('App (production) is now running on port 3000!');
+    });
 }
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error  : {}
-  });
-});
-
-
-module.exports = app;

@@ -1,6 +1,4 @@
 node_modules/
-dist/
-public/build/
 .idea/
 
 plutonote.sql

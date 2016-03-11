@@ -1,58 +1,44 @@
-var path    = require('path');
 var webpack = require('webpack');
+var path = require('path');
 
-module.exports = {
-  entry        : {
-    index: './public/index.js',
-    login: './public/login.js',
-    admin: './public/admin.js'
-  },
-  output       : {
-    path      : path.resolve(__dirname, './public/build'),
-    publicPath: '/public/build/',
-    filename  : '[name].js'
-  },
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules'),
-  },
-  module       : {
-    loaders: [
-      {
-        test   : /\.js$/,
-        loader : 'babel',
-        exclude: /node_modules/
-      },
-      {
-        test  : /\.json$/,
-        loader: 'json'
-      },
-      {
-        test  : /\.(png|jpg|gif|svg|ico)$/,
-        loader: 'url',
-        query : {
-          limit: 10000,
-          name : '[name].[ext]?[hash]'
-        }
-      }
+var publicPath = 'http://localhost:3000/';
+var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
+
+var devConfig = {
+    entry: {
+        index: ['./client/indexPage/js/main.js', hotMiddlewareScript],
+        admin: ['./client/adminPage/js/main.js', hotMiddlewareScript],
+        login: ['./client/loginPage/js/main.js', hotMiddlewareScript]
+    },
+    output: {
+        filename: './[name].bundle.js',
+        path: path.resolve('./client/build'),
+        publicPath: publicPath
+    },
+    devtool: 'source-map',
+    module: {
+        loaders: [{ 
+          test: /\.js$/, 
+          loader: 'babel', 
+          exclude: /node_modules/
+        },
+        {
+            test: /\.(png|jpg)$/,
+            loader: 'url?limit=8192&context=client&name=[path][name].[ext]'
+        },
+        {   test: /\.css$/,
+            loader: 'style!css!'
+        }, 
+        {
+            test: /\.scss$/,
+            loader: 'style!css?sourceMap!resolve-url!sass?sourceMap'
+        }]
+    },
+    plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
     ]
-  },
-  devtool      : 'eval-source-map'
 };
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = 'source-map'
-  // http://vuejs.github.io/vue-loader/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.optimize.OccurenceOrderPlugin()
-  ])
-}
+module.exports = devConfig;
