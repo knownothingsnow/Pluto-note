@@ -1,8 +1,8 @@
 "use strict"
-function speak(){
+function speak() {
   alert('hello')
 }
 
-module.exports={
-  speak:speak
+module.exports = {
+  speak: speak
 };
