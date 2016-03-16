@@ -19,7 +19,6 @@ function register(user, callback) {
       console.log(err.constructor)
     }
     callback(results)
-
   })
 }
 
