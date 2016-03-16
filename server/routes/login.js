@@ -1,57 +1,47 @@
-'use strict';
+'use strict'
 /**
  * 登录路由逻辑
  * @author Knight Young
  * @type {*|exports|module.exports}
  */
-let express = require('express');
-let router  = express.Router();
+let express    = require('express')
+let router     = express.Router()
+let inputCheck = require('../modules/loginPage/inputCheck')
+
+//router.all('/', function (req, res) {
+//  res.render('loginPage/login')
+//})
 
 router.all('/', function (req, res) {
-res.render('login');
-});
+  if (req.session.userId) {
+    res.render('indexPage/index')
 
-// router.all('/', function (req, res) {
-//   if (req.session.user) {
-//     res.render('index');
+  } else {
+    res.render('loginPage/login')
+  }
+})
 
-//   } else {
-//     res.render('login');
+router.post('/login/submit', function (req, res) {
 
-//   }
-// });
+  //hack 此处对admin进行了特殊处理,正常情况应该有admin表
+  if (req.body.userId === 'ad' && req.body.userPassWord === 'ad') {
+    req.session.userId = req.body.userId
+    res.redirect('/admin')
 
-// router.all('/login/submit', function (req, res) {
-//   //todo 此处数据应该从数据库中取得
-//   let userId   = req.body.userId,
-//       passWord = req.body.passWord;
+  }
+  else {
+    inputCheck.checkUser(req.body, function (results) {
+      if (results) {
 
-//   let admin = {
-//     userId  : 'ad',
-//     passWord: 'ad'
-//   };
+        //todo session登录逻辑应该抽象
+        req.session.userId = req.body.userId
+        res.redirect('/index')
+      } else {
+        req.session.error = '用户名和密码不正确或不存在'
+        res.redirect('/')
+      }
+    })
+  }
+})
 
-//   let user = {
-//     userId  : '1',
-//     passWord: '1'
-//   };
-
-//   if (userId == admin.userId && passWord == admin.passWord) {
-//     console.log('this is admin');
-//     req.session.user = userId;
-//     res.redirect('/admin');
-
-//   }
-//   else if (userId === user.userId && passWord === user.passWord) {
-//     console.log('this is user');
-//     req.session.user = userId;
-//     res.redirect('/index');
-
-//   } else {
-//     req.session.error = '用户名和密码不正确或不存在';
-//     res.redirect('/');
-
-//   }
-// });
-
-module.exports = router;
+module.exports = router

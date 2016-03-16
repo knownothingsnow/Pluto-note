@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>稍等一下..</title>
+</head>
+<body>
+<h1><%= msg %>,<span id="time"></span>秒后跳转</h1>
+<script>
+  let seconds = 5
+  setInterval(function () {
+    if (seconds === 0) {
+      location.href = 'http://localhost:3000/'
+    }
+    document.getElementById('time').textContent = seconds
+    seconds --
+  }, 1000)
+</script>
+</body>
+</html>

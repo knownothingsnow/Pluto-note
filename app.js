@@ -1,43 +1,40 @@
-'use strict';
+'use strict'
 /**
  * 后端入口文件
  * @type {*|exports|module.exports}
  * @author Knight Young
  */
-let express      = require('express');
-let path         = require('path');
-let favicon      = require('serve-favicon');
-let logger       = require('morgan');
-let cookieParser = require('cookie-parser');
-let bodyParser   = require('body-parser');
-let session      = require('express-session');
-let consolidate  = require('consolidate');
+let express      = require('express')
+let path         = require('path')
+let favicon      = require('serve-favicon')
+let logger       = require('morgan')
+let cookieParser = require('cookie-parser')
+let bodyParser   = require('body-parser')
+let session      = require('express-session')
+let consolidate  = require('consolidate')
 
-let login = require('./server/routes/login');
-let index = require('./server/routes/index');
-let admin = require('./server/routes/admin');
+let isDev        = process.env.NODE_ENV !== 'production'
+let app          = express()
+let AllInterface = require('./server/routes/All-interface')
+let port         = 3000
 
-let isDev = process.env.NODE_ENV !== 'production';
-let app   = express();
-let port  = 3000;
-
-app.engine('html', consolidate.ejs);
-app.set('view engine', 'html');
-app.set('views', path.resolve('./server/views'));
+app.engine('html', consolidate.ejs)
+app.set('view engine', 'html')
+app.set('views', path.resolve('./server/views'))
 
 // local variables for all views
-app.locals.env    = process.env.NODE_ENV || 'dev';
-app.locals.reload = true;
+app.locals.env    = process.env.NODE_ENV || 'dev'
+app.locals.reload = true
 
 if (isDev) {
 
   // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
-  var webpack              = require('webpack'),
+  let webpack              = require('webpack'),
       webpackDevMiddleware = require('webpack-dev-middleware'),
       webpackHotMiddleware = require('webpack-hot-middleware'),
-      webpackDevConfig     = require('./webpack.config.js');
+      webpackDevConfig     = require('./webpack.config.js')
 
-  var compiler = webpack(webpackDevConfig);
+  let compiler = webpack(webpackDevConfig)
 
   // attach to the compiler & the server
   app.use(webpackDevMiddleware(compiler, {
@@ -48,35 +45,50 @@ if (isDev) {
     stats     : {
       colors: true
     }
-  }));
-  app.use(webpackHotMiddleware(compiler));
+  }))
+  app.use(webpackHotMiddleware(compiler))
 
-  app.use(express.static(path.join(__dirname, 'client')))
-  app.use('/', login);
-  app.use('/login', login);
-  app.use('/index', index);
-  app.use('/admin', admin);
+  // uncomment after placing your favicon in /public
+  app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')))
+  //app.use(logger('dev'))
 
+  app.use(bodyParser.json())//加载解析json的中间件
+  app.use(bodyParser.urlencoded({extended: false}))//加载解析urlencoded请求体的中间件
+
+  app.use(cookieParser())//加载解析cookie的中间件
+  app.use(cookieParser('Wilson'))
+
+  app.use(express.static(path.join(__dirname, 'client')))//设置client文件夹为存放静态文件的目录
+
+  app.use(session({
+    secret           : 'secret', //secret的值建议使用随机字符串
+    resave           : true,
+    saveUninitialized: false,
+    cookie           : {maxAge: 60 * 1000 * 30} // 过期时间（毫秒）
+  }))
+
+  //启用路由控制器
+  AllInterface(app)
 
   // add "reload" to express, see: https://www.npmjs.com/package/reload
-  var reload = require('reload');
-  var http   = require('http');
+  let reload = require('reload')
+  let http   = require('http')
 
-  var server = http.createServer(app);
-  reload(server, app);
+  let server = http.createServer(app)
+  reload(server, app)
 
   server.listen(port, function () {
-    console.log('App (dev) is now running on port 3000!');
-  });
+    console.log('App (dev) is now running on port 3000!')
+  })
 } else {
 
   // static assets served by express.static() for production
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.use('/', login);
-  app.use('/login', login);
-  app.use('/index', index);
-  app.use('/admin', admin);
+  app.use(express.static(path.join(__dirname, 'public')))
+
+  //启用路由
+  AllInterface(app)
+
   app.listen(port, function () {
-    console.log('App (production) is now running on port 3000!');
-  });
+    console.log('App (production) is now running on port 3000!')
+  })
 }

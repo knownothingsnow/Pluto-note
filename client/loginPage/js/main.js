@@ -1,11 +1,9 @@
 "use strict"
-
-require('amazeui/dist/css/amazeui.css')
+//scripts
 require('amazeui/dist/js/amazeui.js')
-var speak=require('./test.js')
-
 let $=require('jquery')
+//styles
+require('amazeui/dist/css/amazeui.css')
+require('../scss/main.scss')
 
-$('#aa').on('click',function(){
-  speak.speak();
-})
+

@@ -1,6 +1,6 @@
 "use strict"
 function speak() {
-  alert('hello')
+  alert('hi')
 }
 
 module.exports = {

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>index</title>
+</head>
+<body>
+
+<div class="am-g am-g-fixed">
+  <header class="am-u-lg-3 am-u-lg-centered">
+    <h1>Pluto Note</h1>
+  </header>
+</div>
+
+<div class="am-g am-g-fixed">
+  <div class="am-tabs" data-am-tabs="{noSwipe: 1}">
+    <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify am-u-lg-4 am-u-lg-centered">
+      <li class="am-active"><a href="#tab1">登录</a></li>
+      <li><a href="#tab2">注册</a></li>
+    </ul>
+    <div class="am-tabs-bd">
+      <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+        <form class="am-form" method="post" action="/login/submit">
+          <fieldset>
+            <div class="am-form-group">
+              <label for="userId">账号</label>
+              <input type="text" id="userId" name="userId" class="am-form-field" placeholder="先输入账号">
+            </div>
+            <div class="am-form-group">
+              <label for="userPassWord">密码</label>
+              <input type="password" id="userPassWord" name="userPassWord" class="am-form-field" placeholder="再输入密码">
+            </div>
+            <div class="am-checkbox">
+              <label>
+                <input type="checkbox">七天免登陆
+              </label>
+            </div>
+            <button type="submit" class="am-btn am-btn-primary">登录</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="am-tab-panel am-fade" id="tab2">
+        <form class="am-form" method="post" action="/register">
+          <fieldset>
+            <div class="am-form-group">
+              <label for="newId">新账号</label>
+              <input type="text" id="newId" name="newId" class="am-form-field" placeholder="新的账号">
+            </div>
+            <div class="am-form-group">
+              <label for="newPassWord">新密码</label>
+              <input type="password" id="newPassWord" name="newPassWord" class="am-form-field" placeholder="新的密码">
+            </div>
+            <button type="submit" class="am-btn am-btn-primary">提交</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/build/commons.bundle.js"></script>
+<script src="/build/login.bundle.js"></script>
+</body>
+</html>
