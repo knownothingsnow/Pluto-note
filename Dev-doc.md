@@ -10,17 +10,11 @@
 - 所属用户ID(外键)
 ---
 
-##分组
-- 分组ID groupId int 5(主键,自增)
-- 分组名 groupName varchar 10
-- 所属笔记本ID(外键)
----
-
 ##单篇笔记表
 - 单篇笔记ID noteId int 10(主键,自增)
 - 内容 content longtext
 - 星标标记 star bit 1
-- 所属分组ID (外键)
+- 所属笔记本ID(外键)
 
 #todo
 1. 前端demo
