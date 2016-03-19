@@ -12,14 +12,15 @@ let cookieParser = require('cookie-parser')
 let bodyParser   = require('body-parser')
 let session      = require('express-session')
 let consolidate  = require('consolidate')
+let handlebars   = require('express-handlebars');
 
 let isDev        = process.env.NODE_ENV !== 'production'
 let app          = express()
 let AllInterface = require('./server/routes/All-interface')
 let port         = 3000
 
-app.engine('html', consolidate.ejs)
-app.set('view engine', 'html')
+app.engine('.hbs', handlebars({extname: '.hbs'}))
+app.set('view engine', '.hbs')
 app.set('views', path.resolve('./server/views'))
 
 // local variables for all views

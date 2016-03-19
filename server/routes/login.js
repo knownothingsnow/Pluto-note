@@ -9,15 +9,16 @@ let router     = express.Router()
 let inputCheck = require('../modules/loginPage/inputCheck')
 
 router.all('/', function (req, res) {
-  if (req.session.userId) {
-    res.render('indexPage/index')
-  } else {
-    res.render('loginPage/login')
-  }
+  res.render('indexPage/index')
+  //if (req.session.userId) {
+  //  res.render('indexPage/index')
+  //} else {
+  //  res.render('loginPage/login')
+  //}
 })
 
 router.post('/login/submit', function (req, res) {
-
+//todo 在视图加上表单验证
   //hack 此处对admin进行了特殊处理,正常情况应该有admin表
   if (req.body.userId === 'ad' && req.body.userPassWord === 'ad') {
     req.session.userId = req.body.userId

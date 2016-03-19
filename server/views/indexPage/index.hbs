@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <title>index</title>
+</head>
+<body>
+<header class="am-topbar">
+  <h1 class="am-topbar-brand">
+    <a href="#">Pluto Note</a>
+  </h1>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+          data-am-collapse="{target: '#doc-topbar-collapse'}">
+    <span class="am-sr-only">导航切换</span>
+    <span class="am-icon-bars"></span>
+  </button>
+
+  <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+    <ul class="am-nav am-nav-pills am-topbar-nav">
+      <!--<li class="am-active"><a href="#">首页</a></li>-->
+      <!--<li><a href="#">项目</a></li>-->
+      <li><a href="#notebooks-list" data-am-offcanvas>我的笔记本</a></li>
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          切换编辑器<span class="am-icon-caret-down"></span></a>
+        <ul class="am-dropdown-content">
+          <li class="am-active"><a href="#">富文本</a></li>
+          <li><a href="#">Markdown</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!--todo 这里渲染本笔记本的所有笔记,标题前加上Tags-->
+    <select class="am-topbar-left" data-am-selected="{searchBox:1,btnWidth: '30%',btnSize:'sm',btnStyle:'success'}">
+      <optgroup label="{{notes.notetags}}"><!--这里是tags-->
+        <option value="{{notes.noteId}}">{{notes.noteName}}</option>
+      </optgroup>
+    </select>
+
+    <div class="am-topbar-right">
+      <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+        <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle>{{username}}<span class="am-icon-caret-down"></span></button>
+        <ul class="am-dropdown-content">
+          <li><a href="#">注销</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</header>
+
+<div id="editor"></div>
+
+
+<div id="notebooks-list" class="am-offcanvas">
+  <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+    <div class="am-offcanvas-content">
+      <button class="am-btn am-btn-success">重命名</button>
+      <button class="am-btn am-btn-danger">删除</button>
+      <ul class="am-list am-list-border">
+        <li><a href="#" class="am-text-truncate"><i class="am-icon-book am-icon-fw"></i>分组一<button type="button" class="am-btn am-btn-xs am-btn-default am-round">{{操作}}</button></a></li>
+        <li><a href="#" class="am-text-truncate"><i class="am-icon-book am-icon-fw"></i>分组二<button type="button" class="am-btn am-btn-xs am-btn-default am-round">{{操作}}</button></a></li>
+        <li><a href="#" class="am-text-truncate"><i class="am-icon-book am-icon-fw"></i>分组三<button type="button" class="am-btn am-btn-xs am-btn-default am-round">{{操作}}</button></a></li>
+        <li><a href="#" class="am-text-truncate"><i class="am-icon-book am-icon-fw"></i>分组四<button type="button" class="am-btn am-btn-xs am-btn-default am-round">{{操作}}</button></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="/build/commons.bundle.js"></script>
+<script src="/build/index.bundle.js"></script>
+<!--<script src="../../../client/build/commons.bundle.js"></script>-->
+<!--<script src="../../../client/build/index.bundle.js"></script>-->
+
+</body>
+</html>
