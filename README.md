@@ -1,2 +1,3 @@
 # Pluto-note
-一个基于Vue.js实现的web笔记.同时是我的大学毕业设计.
+我的大学毕业设计.
+基于AmameUI,jQuery,Handlebar,Express,Mysql实现.另外使用了wangeditor作为富文本编辑器.
