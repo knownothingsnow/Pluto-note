@@ -9,8 +9,13 @@ require('amazeui/dist/js/amazeui.js')
 require('wangEditor/dist/js/wangEditor.min.js')
 
 let init=require('./editor_init.js')
+// require('./init.js')
 
 $(function(){
   //初始化富文本编辑器
   init()
 })
+
+// var Parser = require('hyperdown');
+// var parser = new Parser();
+// parser.makeHtml('#mdtext#')

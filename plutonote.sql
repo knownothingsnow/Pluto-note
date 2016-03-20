@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50626
 File Encoding         : 65001
 
-Date: 2016-03-20 06:16:29
+Date: 2016-03-21 03:03:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `note`;
 CREATE TABLE `note` (
   `noteId` int(10) NOT NULL COMMENT '单篇笔记ID',
   `content` longtext NOT NULL COMMENT '内容',
-  `star` bit(1) DEFAULT NULL COMMENT '星标标记',
+  `isMarkdown` bit(1) NOT NULL COMMENT '文本类型,是markdown为true',
   `notebookId` int(5) NOT NULL COMMENT '所属笔记本ID(外键)',
   PRIMARY KEY (`noteId`),
   KEY `notebookId` (`notebookId`),
