@@ -20,9 +20,15 @@
 
   <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
     <ul class="am-nav am-nav-pills am-topbar-nav">
-      <!--<li class="am-active"><a href="#">首页</a></li>-->
-      <!--<li><a href="#">项目</a></li>-->
       <li><a href="#notebooks-list" data-am-offcanvas>我的笔记本</a></li>
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          文稿<span class="am-icon-caret-down"></span></a>
+        <ul class="am-dropdown-content">
+          <li><a href="#">重命名</a></li>
+          <li><a href="#">删除文稿</a></li>
+        </ul>
+      </li>
       <li class="am-dropdown" data-am-dropdown>
         <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
           切换编辑器<span class="am-icon-caret-down"></span></a>
@@ -35,7 +41,7 @@
 
     <!--todo 这里渲染本笔记本的所有笔记,标题前加上Tags-->
     <select class="am-topbar-left" data-am-selected="{searchBox:1,btnWidth: '30%',btnSize:'sm',btnStyle:'success'}">
-      <optgroup label="{{notes.notetags}}"><!--这里是tags-->
+      <optgroup label="{{notes.noteTags}}"><!--这里是tags-->
         <option value="{{notes.noteId}}">{{notes.noteName}}</option>
       </optgroup>
     </select>
