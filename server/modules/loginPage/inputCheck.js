@@ -14,7 +14,7 @@ let con = require('../connectDB.js')
  */
 function checkUser(user, callback) {
 
-  let sql = `SELECT userName, passWord FROM user WHERE userName="${user.userId || user.newId}" and passWord="${user.userPassWord || user.newPassWord}"`
+  let sql = `SELECT userId,userName, passWord FROM user WHERE userName="${user.userId || user.newId}" and passWord="${user.userPassWord || user.newPassWord}"`
 
   con.query(sql, function (error, results) {
     if (error) {throw error}

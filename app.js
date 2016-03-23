@@ -11,7 +11,7 @@ let logger       = require('morgan')
 let cookieParser = require('cookie-parser')
 let bodyParser   = require('body-parser')
 let session      = require('express-session')
-let consolidate  = require('consolidate')
+// let consolidate  = require('consolidate')
 let handlebars   = require('express-handlebars');
 
 let isDev        = process.env.NODE_ENV !== 'production'
@@ -27,9 +27,9 @@ app.set('views', path.resolve('./server/views'))
 app.locals.env    = process.env.NODE_ENV || 'dev'
 app.locals.reload = true
 
-if (isDev) {
+// if (isDev) {
 
-  // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
+/*  // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
   let webpack              = require('webpack'),
       webpackDevMiddleware = require('webpack-dev-middleware'),
       webpackHotMiddleware = require('webpack-hot-middleware'),
@@ -47,11 +47,11 @@ if (isDev) {
       colors: true
     }
   }))
-  app.use(webpackHotMiddleware(compiler))
+  app.use(webpackHotMiddleware(compiler))*/
 
   // uncomment after placing your favicon in /public
   app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')))
-  //app.use(logger('dev'))
+  app.use(logger('dev'))
 
   app.use(bodyParser.json())//加载解析json的中间件
   app.use(bodyParser.urlencoded({extended: false}))//加载解析urlencoded请求体的中间件
@@ -62,9 +62,10 @@ if (isDev) {
   app.use(express.static(path.join(__dirname, 'client')))//设置client文件夹为存放静态文件的目录
 
   app.use(session({
-    secret           : 'secret', //secret的值建议使用随机字符串
-    resave           : true,
-    saveUninitialized: false,
+    name             : 'Pluto',//表示cookie的name，默认cookie的name是：connect.sid
+    secret           : 'secret', //用来对session数据进行加密的字符串.这个属性值为必须指定的属性
+    resave           : true,//是指每次请求都重新设置session cookie，假设你的cookie是6000毫秒过期，每次请求都会再设置6000毫秒
+    saveUninitialized: false,//是指无论有没有session cookie，每次请求都设置个session cookie ，默认给个标示为 connect.sid
     cookie           : {maxAge: 60 * 1000 * 30} // 过期时间（毫秒）
   }))
 
@@ -81,15 +82,15 @@ if (isDev) {
   server.listen(port, function () {
     console.log('App (dev) is now running on port 3000!')
   })
-} else {
-
-  // static assets served by express.static() for production
-  app.use(express.static(path.join(__dirname, 'public')))
-
-  //启用路由
-  AllInterface(app)
-
-  app.listen(port, function () {
-    console.log('App (production) is now running on port 3000!')
-  })
-}
+// } else {
+//
+//   // static assets served by express.static() for production
+//   app.use(express.static(path.join(__dirname, 'public')))
+//
+//   //启用路由
+//   AllInterface(app)
+//
+//   app.listen(port, function () {
+//     console.log('App (production) is now running on port 3000!')
+//   })
+// }

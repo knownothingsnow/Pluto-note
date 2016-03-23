@@ -18,7 +18,7 @@ router.all('/', function (req, res) {
       register(req.body, function (results) {
         if (results) {
           //todo session登录逻辑应该抽象
-          req.session.userId = req.body.newId
+          req.session.userName = req.body.newId
           res.render('jump', {msg: '注册成功'})
         }
       })

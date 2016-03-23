@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="renderer" content="webkit"><!--For 360 Brower-->
+  <meta name="renderer" content="webkit">
   <title>index</title>
 </head>
 <body>
@@ -39,16 +39,21 @@
       </li>
     </ul>
 
-    <!--todo 这里渲染本笔记本的所有笔记,标题前加上Tags-->
+    {{! todo 这里渲染本笔记本的所有笔记,标题前加上Tags }}
     <select class="am-topbar-left" data-am-selected="{searchBox:1,btnWidth: '30%',btnSize:'sm',btnStyle:'success'}">
-      <optgroup label="{{notes.noteTags}}"><!--这里是tags-->
-        <option value="{{notes.noteId}}">{{notes.noteName}}</option>
-      </optgroup>
+      {{#notes}}
+        <optgroup label="{{tags}}"><!--这里是tags-->
+          {{#notes.data}}
+            <option value="{{noteId}}">{{noteName}}</option>
+          {{/notes.data}}
+        </optgroup>
+      {{/notes}}
     </select>
 
     <div class="am-topbar-right">
       <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
-        <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle>{{username}}<span class="am-icon-caret-down"></span></button>
+        <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle"
+                data-am-dropdown-toggle>{{username}}<span class="am-icon-caret-down"></span></button>
         <ul class="am-dropdown-content">
           <li><a href="#">注销</a></li>
         </ul>
@@ -61,18 +66,49 @@
 
 <div id="editor"></div>
 
-
 <div id="notebooks-list" class="am-offcanvas">
   <div class="am-offcanvas-bar am-offcanvas-bar-flip">
     <div class="am-offcanvas-content">
-      <button class="am-btn am-btn-success">重命名</button>
-      <button class="am-btn am-btn-danger">删除</button>
-      <ul class="am-list am-list-border">
-        <li><a href="#" class="am-text-truncate"><i class="am-icon-book am-icon-fw"></i>分组一<button type="button" class="am-btn am-btn-xs am-btn-default am-round">{{操作}}</button></a></li>
-        <li><a href="#" class="am-text-truncate"><i class="am-icon-book am-icon-fw"></i>分组二<button type="button" class="am-btn am-btn-xs am-btn-default am-round">{{操作}}</button></a></li>
-        <li><a href="#" class="am-text-truncate"><i class="am-icon-book am-icon-fw"></i>分组三<button type="button" class="am-btn am-btn-xs am-btn-default am-round">{{操作}}</button></a></li>
-        <li><a href="#" class="am-text-truncate"><i class="am-icon-book am-icon-fw"></i>分组四<button type="button" class="am-btn am-btn-xs am-btn-default am-round">{{操作}}</button></a></li>
-      </ul>
+      <button id="addNoteBook" class="am-btn am-btn-success">新建</button>
+      <button id="renameNoteBook" class="am-btn am-btn-warning">重命名</button>
+      <button id="deleteNoteBook" class="am-btn am-btn-danger">删除</button>
+      <script id="notebooksName-list" type="text/x-handlebars-template">
+        <ul class="am-list am-list-border">
+          {{#notebooks}}
+            <li>
+              <a href="#" class="am-text-truncate" data-notebookName="{{name}}">
+                <i class="am-icon-book am-icon-fw"></i>
+                {{name}}
+                <button type="button" class="am-btn am-btn-xs am-btn-default am-round">
+                  {操作}
+                </button>
+              </a>
+            </li>
+          {{/notebooks}}
+        </ul>
+      </script>
+    </div>
+  </div>
+</div>
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="newNoteBookPrompt">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">输入一个新笔记本名字</div>
+    <div class="am-modal-bd">
+      <input type="text" class="am-modal-prompt-input">
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+    </div>
+  </div>
+</div>
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="message-alert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd"></div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn data-am-modal-cancel">确定</span>
     </div>
   </div>
 </div>

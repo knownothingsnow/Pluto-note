@@ -1,25 +1,18 @@
 /*----------reset----------*/
 
-header.am-topbar{
-  margin-bottom: 0;
+header.am-topbar {
+  margin-bottom : 0;
 }
 
-//select{
-//  position: relative;
-//  display: block;
-//  line-height: 50px;
-//  padding: 0 10px;
-//}
-
-div.am-selected{
-float: left;
-    position: relative;
-    display: block;
-  margin-top: 8px;
-    padding: 0 10px;
+div.am-selected {
+  float      : left;
+  position   : relative;
+  display    : block;
+  margin-top : 8px;
+  padding    : 0 10px;
 }
 
-div#notebooks-list ul.am-list button{
-float: right;
+div#notebooks-list ul.am-list button {
+  float : right;
   //visibility:hidden;
 }
