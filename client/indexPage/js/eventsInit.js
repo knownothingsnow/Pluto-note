@@ -2,7 +2,7 @@
 /**
  * @author Knight Young
  */
-let handlebars = require('handlebars')
+let handlebars = require('../../../node_modules/handlebars/dist/handlebars.min')
 
 module.exports = function () {
   //为新建笔记本按钮绑定事件
@@ -26,7 +26,7 @@ module.exports = function () {
                 }
               })
             } else {//如果没重复,取得目前此用户的所有笔记本名
-              var template = Handlebars.compile($("#notebooksName-list").html())
+              var template = handlebars.compile($("#notebooksName-list").html())
               console.log(data.data)
             }
           },

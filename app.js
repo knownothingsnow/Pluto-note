@@ -12,7 +12,7 @@ let cookieParser = require('cookie-parser')
 let bodyParser   = require('body-parser')
 let session      = require('express-session')
 // let consolidate  = require('consolidate')
-let handlebars   = require('express-handlebars');
+let handlebars   = require('express-handlebars')
 
 let isDev        = process.env.NODE_ENV !== 'production'
 let app          = express()
@@ -27,9 +27,9 @@ app.set('views', path.resolve('./server/views'))
 app.locals.env    = process.env.NODE_ENV || 'dev'
 app.locals.reload = true
 
-// if (isDev) {
+if (isDev) {
 
-/*  // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
+  // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
   let webpack              = require('webpack'),
       webpackDevMiddleware = require('webpack-dev-middleware'),
       webpackHotMiddleware = require('webpack-hot-middleware'),
@@ -47,7 +47,7 @@ app.locals.reload = true
       colors: true
     }
   }))
-  app.use(webpackHotMiddleware(compiler))*/
+  app.use(webpackHotMiddleware(compiler))
 
   // uncomment after placing your favicon in /public
   app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')))
@@ -82,15 +82,15 @@ app.locals.reload = true
   server.listen(port, function () {
     console.log('App (dev) is now running on port 3000!')
   })
-// } else {
-//
-//   // static assets served by express.static() for production
-//   app.use(express.static(path.join(__dirname, 'public')))
-//
-//   //启用路由
-//   AllInterface(app)
-//
-//   app.listen(port, function () {
-//     console.log('App (production) is now running on port 3000!')
-//   })
-// }
+} else {
+
+  // static assets served by express.static() for production
+  app.use(express.static(path.join(__dirname, 'public')))
+
+  //启用路由
+  AllInterface(app)
+
+  app.listen(port, function () {
+    console.log('App (production) is now running on port 3000!')
+  })
+}
