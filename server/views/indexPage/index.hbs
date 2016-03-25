@@ -43,9 +43,7 @@
     <select class="am-topbar-left" data-am-selected="{searchBox:1,btnWidth: '30%',btnSize:'sm',btnStyle:'success'}">
       {{#notes}}
         <optgroup label="{{tags}}"><!--这里是tags-->
-          {{#notes.data}}
-            <option value="{{noteId}}">{{noteName}}</option>
-          {{/notes.data}}
+          <option value="{{noteId}}">{{header}}</option>
         </optgroup>
       {{/notes}}
     </select>
@@ -53,7 +51,7 @@
     <div class="am-topbar-right">
       <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
         <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle"
-                data-am-dropdown-toggle>{{userId}}<span class="am-icon-caret-down"></span></button>
+                data-am-dropdown-toggle>{{username}}<span class="am-icon-caret-down"></span></button>
         <ul class="am-dropdown-content">
           <li><a href="/logout">注销</a></li>
         </ul>
@@ -75,7 +73,7 @@
       <ul id="notebooksName-list" class="am-list am-list-border">
         {{#notebooks}}
           <li>
-            <a href="#" class="am-text-truncate" data-notebookName="{{name}}">
+            <a href="#" class="am-text-truncate" data-currentnotebookName="{{name}}">
               <i class="am-icon-book am-icon-fw"></i>
               {{name}}
               <button type="button" class="am-btn am-btn-xs am-btn-default am-round">

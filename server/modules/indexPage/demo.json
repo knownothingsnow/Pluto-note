@@ -13,13 +13,8 @@
   ],
   "notes": [
     {
-      "tags": "标签",
-      "date": [
-        {
-          "noteId": "1",
-          "noteName": "这是文章标题"
-        }
-      ]
+      "noteId": "1",
+      "header": "这是文章标题"
     }
   ]
 }

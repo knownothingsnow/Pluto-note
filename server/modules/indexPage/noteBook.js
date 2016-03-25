@@ -27,7 +27,7 @@ noteBook.addNoteBook = function (userId, notebookName, callback) {
  * @param {function}callback
  */
 noteBook.deleteNoteBook = function (notebookName, callback) {
-  let sql = `DELETE FROM notebook WHERE notebookName='${notebookName}'`
+  let sql = `DELETE FROM note WHERE notebookName='${notebookName}'`
   con.query(sql, function (err, results) {
     if (err) {throw err}
     callback(results)
