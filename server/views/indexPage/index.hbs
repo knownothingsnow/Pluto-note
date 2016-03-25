@@ -53,9 +53,9 @@
     <div class="am-topbar-right">
       <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
         <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle"
-                data-am-dropdown-toggle>{{username}}<span class="am-icon-caret-down"></span></button>
+                data-am-dropdown-toggle>{{userId}}<span class="am-icon-caret-down"></span></button>
         <ul class="am-dropdown-content">
-          <li><a href="#">注销</a></li>
+          <li><a href="/logout">注销</a></li>
         </ul>
       </div>
     </div>
@@ -72,20 +72,33 @@
       <button id="addNoteBook" class="am-btn am-btn-success">新建</button>
       <button id="renameNoteBook" class="am-btn am-btn-warning">重命名</button>
       <button id="deleteNoteBook" class="am-btn am-btn-danger">删除</button>
-      <script id="notebooksName-list" type="text/x-handlebars-template">
-        <ul class="am-list am-list-border">
-          {{#notebooks}}
-            <li>
-              <a href="#" class="am-text-truncate" data-notebookName="{{name}}">
-                <i class="am-icon-book am-icon-fw"></i>
-                {{name}}
-                <button type="button" class="am-btn am-btn-xs am-btn-default am-round">
-                  {操作}
-                </button>
-              </a>
-            </li>
-          {{/notebooks}}
-        </ul>
+      <ul id="notebooksName-list" class="am-list am-list-border">
+        {{#notebooks}}
+          <li>
+            <a href="#" class="am-text-truncate" data-notebookName="{{name}}">
+              <i class="am-icon-book am-icon-fw"></i>
+              {{name}}
+              <button type="button" class="am-btn am-btn-xs am-btn-default am-round">
+                {操作}
+              </button>
+            </a>
+          </li>
+        {{/notebooks}}
+      </ul>
+      <!--用于JS渲染的模板副本 #notebooksName-list-->
+      <!--hack 因为前后端的都会使用handlebars,所以后端会先于前端渲染script标签的内容,导致script内渲染不出结果.此处使用尖括号,在js中使用正则替换成正确的handlebars语法-->
+      <script id="notebooksName-list-tpl" type="text/x-handlebars-template">
+        <%#data%>
+        <li>
+          <a href="#" class="am-text-truncate" data-notebookName="<%notebookName%>">
+            <i class="am-icon-book am-icon-fw"></i>
+            <%notebookName%>
+            <button type="button" class="am-btn am-btn-xs am-btn-default am-round">
+              {操作}
+            </button>
+          </a>
+        </li>
+        <%/data%>
       </script>
     </div>
   </div>
@@ -117,6 +130,7 @@
 <script src="/build/index.bundle.js"></script>
 <!--<script src="../../../client/build/commons.bundle.js"></script>-->
 <!--<script src="../../../client/build/index.bundle.js"></script>-->
+
 
 </body>
 </html>

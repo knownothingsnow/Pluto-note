@@ -30,7 +30,7 @@ app.locals.reload = true
 if (isDev) {
 
   // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
-  let webpack              = require('webpack'),
+/*  let webpack              = require('webpack'),
       webpackDevMiddleware = require('webpack-dev-middleware'),
       webpackHotMiddleware = require('webpack-hot-middleware'),
       webpackDevConfig     = require('./webpack.config.js')
@@ -47,7 +47,7 @@ if (isDev) {
       colors: true
     }
   }))
-  app.use(webpackHotMiddleware(compiler))
+  app.use(webpackHotMiddleware(compiler))*/
 
   // uncomment after placing your favicon in /public
   app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')))

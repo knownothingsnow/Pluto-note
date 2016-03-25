@@ -8,12 +8,11 @@ let express    = require('express')
 let router     = express.Router()
 let inputCheck = require('../modules/loginPage/inputCheck')
 
-router.all('/', function (req, res) {
-  // res.render('indexPage/index')
+router.get('/', function (req, res) {
   if (req.session.userId) {
-   res.render('indexPage/index')
+    res.redirect('/index')
   } else {
-   res.render('loginPage/login')
+    res.render('loginPage/login')
   }
 })
 

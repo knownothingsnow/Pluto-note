@@ -25,9 +25,9 @@ module.exports = function () {
                   $('#message>.am-modal-hd').html = null
                 }
               })
-            } else {//如果没重复,取得目前此用户的所有笔记本名
-              var template = handlebars.compile($("#notebooksName-list").html())
-              console.log(data.data)
+            } else {//如果没重复,取得目前此用户的所有笔记本名并渲染
+              let template = handlebars.compile($("#notebooksName-list-tpl").html().replace(/<%/g,'{{').replace(/%>/g,'}}'))
+              $('#notebooksName-list').html(template(data))
             }
           },
           error   : function (error) {
