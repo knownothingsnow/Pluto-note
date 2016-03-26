@@ -9,13 +9,13 @@ require('../scss/main.scss')
 require('amazeui/dist/js/amazeui.js')
 require('wangEditor/dist/js/wangEditor.min.js')
 
-let editorInit=require('./editorInit.js')
+let textEditor=require('./textEditor.js')
 let eventsInit=require('./eventsInit.js')
 // require('./MarkdownInit.js')
 
 $(function(){
   //初始化富文本编辑器
-  editorInit()
+  textEditor.init()
   //加载事件绑定
   eventsInit()
 })

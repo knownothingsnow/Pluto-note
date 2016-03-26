@@ -15,7 +15,7 @@ let note = {}
  * @param notebookId
  * @param callback
  */
-note.addNoteBook = function (content, isMarkdown, notebookId, callback) {
+note.addNote = function (content, isMarkdown, notebookId, callback) {
   let sql = `INSERT INTO note(content, isMarkdown, notebookId) VALUES ('${content}',${isMarkdown},${notebookId})`
   con.query(sql, function (err, results) {
     if (err) {throw err}
@@ -28,7 +28,7 @@ note.addNoteBook = function (content, isMarkdown, notebookId, callback) {
  * @param {string}noteId
  * @param {function}callback
  */
-note.deleteNoteBook = function (noteId, callback) {
+note.deleteNote = function (noteId, callback) {
   let sql = `DELETE FROM note WHERE noteId='${noteId}'`
   con.query(sql, function (err, results) {
     if (err) {throw err}
@@ -37,14 +37,21 @@ note.deleteNoteBook = function (noteId, callback) {
 }
 
 /**
- * 重命名笔记
- * @param notebookId
- * @param newheader
- * @param header
+ * 重命名笔记标题
+ * @param noteId
+ * @param newHeader
  * @param callback
  */
-note.updateNoteBook = function (notebookId, newheader, header, callback) {
-  let sql = `UPDATE note SET header='${newheader}' WHERE notebookId=${notebookId} AND header='${header}'`
+note.updateNoteHeader = function (noteId, newHeader, callback) {
+  let sql = `UPDATE note SET header='${newHeader}' WHERE noteId=${noteId}`
+  con.query(sql, function (err, results) {
+    if (err) {throw err}
+    callback(results)
+  })
+}
+
+note.updateNoteContent = function (noteId, newContent, callback) {
+  let sql = `UPDATE note SET content='${newContent}' WHERE noteId=${noteId}`
   con.query(sql, function (err, results) {
     if (err) {throw err}
     callback(results)
@@ -56,8 +63,21 @@ note.updateNoteBook = function (notebookId, newheader, header, callback) {
  * @param notebookId
  * @param callback
  */
-note.selectAllNoteBook = function (notebookId, callback) {
+note.selectAllNoteHeader = function (notebookId, callback) {
   let sql = `SELECT noteId , header FROM note WHERE notebookId=${notebookId}`
+  con.query(sql, function (err, results) {
+    if (err) {throw err}
+    callback(results)
+  })
+}
+
+/**
+ * 查询一篇笔记的内容
+ * @param noteId
+ * @param callback
+ */
+note.selectOneNote = function (noteId, callback) {
+  let sql = `SELECT content FROM note WHERE noteId=${noteId}`
   con.query(sql, function (err, results) {
     if (err) {throw err}
     callback(results)

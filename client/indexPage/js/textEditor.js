@@ -3,9 +3,13 @@
  * @author Knight Young
  */
 
-module.exports=function(){
-  var editor = new wangEditor('editor')
-  editor.config.menus =[
+let textEditor = {}
+
+textEditor.init = function () {
+  //hack 将wangEditor实例绑到window对象上方便全局访问
+  window.editor          = new wangEditor('editor')
+  //编辑器配置
+  editor.config.menus = [
     'bold',
     'underline',
     'italic',
@@ -39,5 +43,15 @@ module.exports=function(){
   ]
 
   editor.create()
-  $('div#editor').height(screen.height-230)
+  $('div#editor').height(screen.height - 231)
 }
+
+textEditor.clear=function () {
+  editor.clear()
+}
+
+textEditor.append=function (html) {
+  editor.$txt.append(html)
+}
+
+module.exports  = textEditor

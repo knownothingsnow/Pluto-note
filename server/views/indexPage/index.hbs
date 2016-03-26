@@ -25,8 +25,10 @@
         <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
           文稿<span class="am-icon-caret-down"></span></a>
         <ul class="am-dropdown-content">
-          <li><a href="#">重命名</a></li>
-          <li><a href="#">删除文稿</a></li>
+          <li><a id="newNote" href="#">新建</a></li>
+          <li><a id="saveNote" href="#">保存</a></li>
+          <li><a id="renameNote" href="#">重命名</a></li>
+          <li><a id="deleteNote" href="#">删除</a></li>
         </ul>
       </li>
       <li class="am-dropdown" data-am-dropdown>
@@ -39,14 +41,27 @@
       </li>
     </ul>
 
-    {{! todo 这里渲染本笔记本的所有笔记,标题前加上Tags }}
-    <select class="am-topbar-left" data-am-selected="{searchBox:1,btnWidth: '30%',btnSize:'sm',btnStyle:'success'}">
+    {{! todo 标题前加上Tags }}
+    <select id="notes-list" class="am-topbar-left"
+            data-am-selected="{searchBox:1,btnWidth: '30%',btnSize:'sm',btnStyle:'success'}">
       {{#notes}}
         <optgroup label="{{tags}}"><!--这里是tags-->
           <option value="{{noteId}}">{{header}}</option>
         </optgroup>
       {{/notes}}
     </select>
+
+    <!--用于JS渲染的模板副本 #notes-list-->
+    <script id="notes-list-tpl" type="text/x-handlebars-template">
+      <select id="notes-list" class="am-topbar-left"
+              data-am-selected="{searchBox:1,btnWidth: '30%',btnSize:'sm',btnStyle:'success'}">
+        <%#notes%>
+          <optgroup label="<%tags%>"><!--这里是tags-->
+            <option value="<%noteId%>"><%header%></option>
+          </optgroup>
+        <%/notes%>
+      </select>
+    </script>
 
     <div class="am-topbar-right">
       <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
@@ -73,9 +88,9 @@
       <ul id="notebooksName-list" class="am-list am-list-border">
         {{#notebooks}}
           <li>
-            <a href="#" class="am-text-truncate" data-currentnotebookName="{{name}}">
+            <a href="#" class="am-text-truncate" data-currentnotebookName="{{notebookName}}">
               <i class="am-icon-book am-icon-fw"></i>
-              {{name}}
+              {{notebookName}}
               <button type="button" class="am-btn am-btn-xs am-btn-default am-round">
                 {操作}
               </button>
@@ -102,9 +117,9 @@
   </div>
 </div>
 
-<div class="am-modal am-modal-prompt" tabindex="-1" id="newNoteBookPrompt">
+<div class="am-modal am-modal-prompt" tabindex="-1" id="newDataPrompt">
   <div class="am-modal-dialog">
-    <div class="am-modal-hd">输入一个新笔记本名字</div>
+    <div class="am-modal-hd">aaa</div>
     <div class="am-modal-bd">
       <input type="text" class="am-modal-prompt-input">
     </div>
@@ -128,7 +143,7 @@
 <script src="/build/index.bundle.js"></script>
 <!--<script src="../../../client/build/commons.bundle.js"></script>-->
 <!--<script src="../../../client/build/index.bundle.js"></script>-->
-
+<!--<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>-->
 
 </body>
 </html>

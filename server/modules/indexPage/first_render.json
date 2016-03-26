@@ -2,13 +2,13 @@
   "username": "1",
   "notebooks": [
     {
-      "name": "JavaScript"
+      "notebookName": "JavaScript"
     },
     {
-      "name": "HTML"
+      "notebookName": "HTML"
     },
     {
-      "name": "CSS"
+      "notebookName": "CSS"
     }
   ],
   "notes": [

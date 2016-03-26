@@ -28,6 +28,7 @@
 6. 可以储存多篇笔记
 7. 完成笔记分组功能
 
-# 编码规范
-1. Vue组件在引用命名时首字母大写
-2. 控制语句结束的花括号前留一空行
+# 目前在express中使用的session值
+- req.session.userId 当前用户ID
+- req.session.userName 当前用户Name
+- req.session.notebookId 当前打开的笔记本ID

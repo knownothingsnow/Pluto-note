@@ -50,12 +50,26 @@ noteBook.updateNoteBook = function (userId, newNotebookName, notebookName, callb
 }
 
 /**
- * 查询所有此用户的笔记本
+ * 查询所有此用户的笔记本名
  * @param {string}userId
  * @param {function}callback
  */
 noteBook.selectAllNoteBook = function (userId, callback) {
   let sql = `SELECT notebookName FROM notebook WHERE userId=${userId}`
+  con.query(sql, function (err, results) {
+    if (err) {throw err}
+    callback(results)
+  })
+}
+
+/**
+ * 查询所有此用户的笔记本ID
+ * @param {string}userId
+ * @param {function}callback
+ */
+noteBook.selectNoteBooksId = function (userId, callback) {
+  let sql = `SELECT notebookId FROM notebook WHERE userId=${userId}`
+  console.log('sql:'+sql)
   con.query(sql, function (err, results) {
     if (err) {throw err}
     callback(results)
