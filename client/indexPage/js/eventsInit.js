@@ -47,7 +47,7 @@ module.exports = function () {
 
   /**********操作笔记接口**********/
 
-  //笔记切换
+  //切换笔记
   $('#notes-list').on('change', function () {
     $.ajax({
       url     : '/index/selectNote',
@@ -66,7 +66,31 @@ module.exports = function () {
     })
   })
 
-  //笔记保存
+  //添加笔记
+  $('#addNote').on('click', function () {
+    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('一片新的笔记')
+    $('#newDataPrompt').modal({
+      relatedTarget: this,
+      onConfirm    : function (e) {
+        $.ajax({
+          url     : '/index/addNote',
+          data    : {
+            header: e.data || ''
+          },
+          type    : 'post',
+          dataType: 'json',
+          success : function (data) {
+            if (data) {
+              //hack 异步修改dom时遇到问题,暂时通过刷新页面解决
+              location.reload()
+            }
+          }
+        })
+      }
+    })
+  })
+
+  //保存笔记
   $('#saveNote').on('click', function () {
     $.ajax({
       url     : '/index/saveNote',
@@ -88,30 +112,35 @@ module.exports = function () {
     })
   })
 
+  //重命名笔记
   $('#renameNote').on('click', function () {
-    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('输入这篇笔记的新名字')
+    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('重新起一个名字吧')
     $('#newDataPrompt').modal({
       relatedTarget: this,
       onConfirm    : function (e) {
-        let newHeader = e.data
+
         $.ajax({
           url     : '/index/renameNote',
           data    : {
             noteId   : $('#notes-list').val(),
-            newHeader: newHeader || ''
+            newHeader: e.data || ''
           },
           type    : 'post',
           dataType: 'json',
           success : function (data) {
             if (data) {
-              let template = handlebars.compile($("#notes-list-tpl")
-                .html()
-                .replace(/<%/g, '{{')
-                .replace(/%>/g, '}}'))
-              $('#notebooksName-list').html(template(data))
+              //hack 异步修改dom时遇到问题,暂时通过刷新页面解决
+              location.reload()
+              // let template = handlebars.compile($("#notes-list-tpl")
+              //   .html()
+              //   .replace(/<%/g, '{{')
+              //   .replace(/%>/g, '}}'))
+              // console.log(template(data))
+              // $('#notes-list').html(template(data))
             }
           }
         })
+
       }
     })
   })

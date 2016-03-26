@@ -25,7 +25,7 @@
         <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
           文稿<span class="am-icon-caret-down"></span></a>
         <ul class="am-dropdown-content">
-          <li><a id="newNote" href="#">新建</a></li>
+          <li><a id="addNote" href="#">新建</a></li>
           <li><a id="saveNote" href="#">保存</a></li>
           <li><a id="renameNote" href="#">重命名</a></li>
           <li><a id="deleteNote" href="#">删除</a></li>
@@ -53,14 +53,11 @@
 
     <!--用于JS渲染的模板副本 #notes-list-->
     <script id="notes-list-tpl" type="text/x-handlebars-template">
-      <select id="notes-list" class="am-topbar-left"
-              data-am-selected="{searchBox:1,btnWidth: '30%',btnSize:'sm',btnStyle:'success'}">
-        <%#notes%>
-          <optgroup label="<%tags%>"><!--这里是tags-->
-            <option value="<%noteId%>"><%header%></option>
-          </optgroup>
-        <%/notes%>
-      </select>
+      <%#notes%>
+        <optgroup label="<%tags%>"><!--这里是tags-->
+          <option value="<%noteId%>"><%header%></option>
+        </optgroup>
+      <%/notes%>
     </script>
 
     <div class="am-topbar-right">
