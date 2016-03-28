@@ -38,7 +38,7 @@ module.exports = function () {
             }
           },
           error   : function (error) {
-            console.log("更新error:" + error)
+            console.log(error)
           }
         })
       }
@@ -61,14 +61,14 @@ module.exports = function () {
         textEditor.append(data[0].content)
       },
       error   : function (error) {
-        console.log("更新error:" + error)
+        console.log(error)
       }
     })
   })
 
   //添加笔记
   $('#addNote').on('click', function () {
-    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('一片新的笔记')
+    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('给新笔记起个名字')
     $('#newDataPrompt').modal({
       relatedTarget: this,
       onConfirm    : function (e) {
@@ -103,11 +103,12 @@ module.exports = function () {
       success : function (data) {
         console.log(data)
         if (data) {
+          //todo 使用js收起下拉菜单,出现一个弹框,去掉此处alert
           alert('success!!')
         }
       },
       error   : function (error) {
-        console.log("更新error:" + error)
+        console.log(error)
       }
     })
   })
@@ -141,6 +142,24 @@ module.exports = function () {
           }
         })
 
+      }
+    })
+  })
+
+  //保存笔记
+  $('#deleteNote').on('click', function () {
+    $.ajax({
+      url     : '/index/deleteNote',
+      type    : 'post',
+      dataType: 'json',
+      success : function (data) {
+        console.log(data)
+        if (data) {
+          location.reload()
+        }
+      },
+      error   : function (error) {
+        console.log(error)
       }
     })
   })

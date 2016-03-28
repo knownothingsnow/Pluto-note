@@ -13,14 +13,13 @@ let router   = express.Router()
 let noteBook = require('../modules/indexPage/noteBook')
 let note     = require('../modules/indexPage/note')
 
+//路由入口
 router.all('/', function (req, res) {
   if (req.session.userId) {//如果用户已经登陆,收集首屏渲染所需的所有数据,然后渲染view
     noteBook.selectNoteBooksId(req.session.userId, function (results) {
 
-      console.log('req.session.userId'+req.session.userId)
-      console.log('results'+results)
       //在session里存储当前的笔记本ID
-      req.session.notebookId = results[0].notebookId
+      req.session.notebookId = results[0].notebookId + ''
 
       //收集首屏渲染所需要的数据
       let first_render = {
@@ -34,10 +33,24 @@ router.all('/', function (req, res) {
 
         note.selectAllNoteHeader(req.session.notebookId, function (results) {
 
+          //在session里存储当前的笔记ID
+          req.session.noteId = results[0].noteId
           //收集该笔记本ID下所有笔记名
           first_render.notes = results
-          res.render('indexPage/index', first_render)
 
+          note.selectOneNote(req.session.noteId, function (results) {
+
+            //封装首屏渲染所需数据的最后一步
+            //todo 使用handlebars渲染这项数据
+            first_render.first_note_content = results[0].content
+
+            console.log('notebookId' + req.session.notebookId)
+            console.log('noteId' + req.session.noteId)
+            console.log(first_render)
+
+            res.render('indexPage/index', first_render)
+
+          })
         })
       })
     })
@@ -49,14 +62,19 @@ router.all('/', function (req, res) {
 
 //新建笔记
 router.post('/addNote', function (req, res) {
-  console.log(req.session.notebookId)
-  note.addNote(req.body.header,req.session.notebookId, function (results) {
+
+  note.addNote(req.body.header, req.session.notebookId, function (results) {
     res.send(results)
   })
+
 })
 
 //获取一篇笔记的内容
 router.post('/selectNote', function (req, res) {
+
+  //在session里存储当前的笔记ID
+  req.session.noteId = req.body.noteId
+
   note.selectOneNote(req.body.noteId, function (results) {
     res.send(results)
   })
@@ -64,13 +82,16 @@ router.post('/selectNote', function (req, res) {
 
 //保存一篇笔记
 router.post('/saveNote', function (req, res) {
+
   note.updateNoteContent(req.body.noteId, req.body.content, function (results) {
     res.send(results)
   })
+
 })
 
 //重命名一篇笔记
 router.post('/renameNote', function (req, res) {
+
   note.updateNoteHeader(req.body.noteId, req.body.newHeader, function (results) {
     if (results) {
       note.selectAllNoteHeader(req.session.notebookId, function (notes) {
@@ -81,10 +102,15 @@ router.post('/renameNote', function (req, res) {
       })
     }
   })
+
 })
 
 //删除一篇笔记
 router.post('/deleteNote', function (req, res) {
+
+  note.deleteNote(req.session.noteId, function (results) {
+    res.send(results)
+  })
 
 })
 /**********操作笔记本的接口**********/
@@ -116,6 +142,5 @@ router.post('/addNoteBook', function (req, res) {
   })
 })
 
-/**********操作笔记的接口**********/
 
 module.exports = router

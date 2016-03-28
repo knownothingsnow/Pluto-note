@@ -26790,7 +26790,7 @@ webpackJsonp([1,0],[
 	            }
 	          },
 	          error: function error(_error) {
-	            console.log("更新error:" + _error);
+	            console.log(_error);
 	          }
 	        });
 	      }
@@ -26813,14 +26813,14 @@ webpackJsonp([1,0],[
 	        textEditor.append(data[0].content);
 	      },
 	      error: function error(_error2) {
-	        console.log("更新error:" + _error2);
+	        console.log(_error2);
 	      }
 	    });
 	  });
 
 	  //添加笔记
 	  $('#addNote').on('click', function () {
-	    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('一片新的笔记');
+	    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('给新笔记起个名字');
 	    $('#newDataPrompt').modal({
 	      relatedTarget: this,
 	      onConfirm: function onConfirm(e) {
@@ -26855,11 +26855,12 @@ webpackJsonp([1,0],[
 	      success: function success(data) {
 	        console.log(data);
 	        if (data) {
+	          //todo 使用js收起下拉菜单,出现一个弹框,去掉此处alert
 	          alert('success!!');
 	        }
 	      },
 	      error: function error(_error3) {
-	        console.log("更新error:" + _error3);
+	        console.log(_error3);
 	      }
 	    });
 	  });
@@ -26892,6 +26893,24 @@ webpackJsonp([1,0],[
 	            }
 	          }
 	        });
+	      }
+	    });
+	  });
+
+	  //保存笔记
+	  $('#deleteNote').on('click', function () {
+	    $.ajax({
+	      url: '/index/deleteNote',
+	      type: 'post',
+	      dataType: 'json',
+	      success: function success(data) {
+	        console.log(data);
+	        if (data) {
+	          location.reload();
+	        }
+	      },
+	      error: function error(_error4) {
+	        console.log(_error4);
 	      }
 	    });
 	  });
