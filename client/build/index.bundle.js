@@ -26757,6 +26757,7 @@ webpackJsonp([1,0],[
 	 */
 
 	var handlebars = __webpack_require__(22);
+	// let handlebars = require('handlebars')
 	var textEditor = __webpack_require__(13);
 
 	module.exports = function () {

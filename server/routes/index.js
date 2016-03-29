@@ -14,41 +14,45 @@ let note     = require('../modules/indexPage/note')
 //路由入口
 router.all('/', function (req, res) {
   if (req.session.userId) {//如果用户已经登陆,收集首屏渲染所需的所有数据,然后渲染view
+
+    //收集首屏渲染所需要的数据
+    let first_render = {
+      username: req.session.userName
+    }
+
     noteBook.selectNoteBooksId(req.session.userId, function (results) {
+      if (results) {
+        //在session里存储当前的笔记本ID
+        req.session.notebookId = results[0].notebookId
 
-      //在session里存储当前的笔记本ID
-      req.session.notebookId = results[0].notebookId
+        noteBook.selectAllNoteBook(req.session.userId, function (results) {
 
-      //收集首屏渲染所需要的数据
-      let first_render = {
-        username: req.session.userName
-      }
+          //收集该用户所有笔记本名
+          first_render.notebooks = results
 
-      noteBook.selectAllNoteBook(req.session.userId, function (results) {
+          note.selectAllNoteHeader(req.session.notebookId, function (results) {
 
-        //收集该用户所有笔记本名
-        first_render.notebooks = results
+            //在session里存储当前的笔记ID
+            req.session.noteId = results[0].noteId
 
-        note.selectAllNoteHeader(req.session.notebookId, function (results) {
+            //收集该笔记本ID下所有笔记名
+            first_render.notes = results
 
-          //在session里存储当前的笔记ID
-          req.session.noteId = results[0].noteId
+            note.selectOneNote(req.session.noteId, function (results) {
 
-          //收集该笔记本ID下所有笔记名
-          first_render.notes = results
+              //封装首屏渲染所需数据的最后一步
+              first_render.first_note_content = results[0].content
+              
+              res.render('indexPage/index', first_render)
 
-          note.selectOneNote(req.session.noteId, function (results) {
-
-            //封装首屏渲染所需数据的最后一步
-            first_render.first_note_content = results[0].content
-
-            console.log(req.session)
-
-            res.render('indexPage/index', first_render)
-
+            })
           })
         })
-      })
+      } else {
+        //新注册的用户没有首屏渲染的内容
+        res.render('indexPage/index', first_render)
+      }
+
     })
   } else {
     res.render('jump', {msg: '你还没有登录!'})

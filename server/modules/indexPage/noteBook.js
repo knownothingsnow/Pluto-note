@@ -81,7 +81,7 @@ noteBook.selectAllNoteBook = function (userId, callback) {
 
     if (err) {throw err}
 
-    callback(results)
+    results ? callback(results) : callback(false)
 
   })
 }
@@ -100,7 +100,7 @@ noteBook.selectNoteBooksId = function (userId, callback) {
 
     if (err) {throw err}
 
-    callback(results)
+    results.length!==0 ? callback(results) : callback(false)
 
   })
 }
