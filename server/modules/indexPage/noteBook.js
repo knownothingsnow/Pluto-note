@@ -15,6 +15,7 @@ module.exports = {
   addNoteBook: (userId, notebookName, callback) => {
 
     let sql = `INSERT INTO notebook(notebookName, userId) VALUES ('${notebookName}',${userId})`
+    console.log('addNoteBook')
     console.log('sql:' + sql)
 
     con.query(sql, function (err, results) {
@@ -35,6 +36,7 @@ module.exports = {
   deleteNoteBook: (notebookName, callback) => {
 
     let sql = `DELETE FROM note WHERE notebookName='${notebookName}'`
+    console.log('deleteNoteBook')
     console.log('sql:' + sql)
 
     con.query(sql, function (err, results) {
@@ -56,6 +58,7 @@ module.exports = {
   updateNoteBook: (userId, newNotebookName, notebookName, callback) => {
 
     let sql = `UPDATE notebook SET notebookName='${newNotebookName}' WHERE userId=${userId} AND notebookName='${notebookName}'`
+    console.log('updateNoteBook')
     console.log('sql:' + sql)
 
     con.query(sql, function (err, results) {
@@ -72,9 +75,10 @@ module.exports = {
    * @param {string}userId
    * @param {function}callback
    */
-  selectAllNoteBook: (userId, callback) => {
+  selectAllNoteBooksName: (userId, callback) => {
 
     let sql = `SELECT notebookName FROM notebook WHERE userId=${userId}`
+    console.log('selectAllNoteBooksName')
     console.log('sql:' + sql)
 
     con.query(sql, function (err, results) {
@@ -94,6 +98,7 @@ module.exports = {
   selectNoteBooksId: (userId, callback) => {
 
     let sql = `SELECT notebookId FROM notebook WHERE userId=${userId}`
+    console.log('selectNoteBooksId')
     console.log('sql:' + sql)
 
     con.query(sql, function (err, results) {
@@ -114,6 +119,7 @@ module.exports = {
   selectOneNoteBook: (userId, notebookName, callback) => {
 
     let sql = `SELECT notebookName FROM notebook WHERE userId=${userId} AND notebookName='${notebookName}'`
+    console.log('selectOneNoteBook')
     console.log('sql' + sql)
 
     con.query(sql, function (err, results) {

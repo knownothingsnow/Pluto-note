@@ -77,7 +77,7 @@
 <div id="editor">{{{first_note_content}}}</div>
 
 <div id="notebooks-list" class="am-offcanvas">
-  <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+  <div class="am-offcanvas-bar">
     <div class="am-offcanvas-content">
       <button id="addNoteBook" class="am-btn am-btn-success">新建</button>
       <button id="renameNoteBook" class="am-btn am-btn-warning">重命名</button>
@@ -85,7 +85,7 @@
       <ul id="notebooksName-list" class="am-list am-list-border">
         {{#notebooks}}
           <li>
-            <a href="#" class="am-text-truncate" data-currentnotebookName="{{notebookName}}">
+            <a href="#" class="am-text-truncate" data-currentNotebookId="{{notebookId}}">
               <i class="am-icon-book am-icon-fw"></i>
               {{notebookName}}
               <button type="button" class="am-btn am-btn-xs am-btn-default am-round">
@@ -100,7 +100,7 @@
       <script id="notebooksName-list-tpl" type="text/x-handlebars-template">
         <%#data%>
         <li>
-          <a href="#" class="am-text-truncate" data-notebookName="<%notebookName%>">
+          <a href="#" class="am-text-truncate" data-currentNotebookId="<%notebookId%>">
             <i class="am-icon-book am-icon-fw"></i>
             <%notebookName%>
             <button type="button" class="am-btn am-btn-xs am-btn-default am-round">

@@ -22,13 +22,19 @@ router.all('/', function (req, res) {
 
     noteBook.selectNoteBooksId(req.session.userId, function (results) {
       if (results) {
+
+        //装填该用户所有笔记本ID
+        first_render.notebooks = results
+
         //在session里存储当前的笔记本ID
         req.session.notebookId = results[0].notebookId
 
-        noteBook.selectAllNoteBook(req.session.userId, function (results) {
+        noteBook.selectAllNoteBooksName(req.session.userId, function (results) {
 
-          //收集该用户所有笔记本名
-          first_render.notebooks = results
+          //装填该用户所有笔记本名
+          for (let i = 0; i < first_render.notebooks.length; i ++) {
+            first_render.notebooks[i].notebookName = results[i].notebookName
+          }
 
           note.selectAllNoteHeader(req.session.notebookId, function (results) {
 
@@ -42,7 +48,7 @@ router.all('/', function (req, res) {
 
               //封装首屏渲染所需数据的最后一步
               first_render.first_note_content = results[0].content
-              
+
               res.render('indexPage/index', first_render)
 
             })
@@ -127,7 +133,7 @@ router.post('/addNoteBook', function (req, res) {
       noteBook.addNoteBook(req.session.userId, req.body.notebookName, function (results) {
 
         if (results) {
-          noteBook.selectAllNoteBook(req.session.userId, function (results) {
+          noteBook.selectAllNoteBooksName(req.session.userId, function (results) {
 
             res.send({
               repeat: false,

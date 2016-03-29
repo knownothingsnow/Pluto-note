@@ -2,12 +2,15 @@
   "username": "1",
   "notebooks": [
     {
+      "notebookId": "JavaScript",
       "notebookName": "JavaScript"
     },
     {
+      "notebookId": "HTML",
       "notebookName": "HTML"
     },
     {
+      "notebookId": "CSS",
       "notebookName": "CSS"
     }
   ],
