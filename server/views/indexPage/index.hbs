@@ -42,8 +42,8 @@
     </ul>
 
     {{! todo 标题前加上Tags }}
-    <select id="notes-list" class="am-topbar-left"
-            data-am-selected="{searchBox:1,btnWidth: '60%',btnSize:'sm',btnStyle:'success'}">
+    <select id="notes-list" class="am-topbar-left" onchange="aa(event)"
+            data-am-selected="{searchBox:1,btnWidth: '50%',btnSize:'sm',btnStyle:'success'}">
       {{#notes}}
         <optgroup label="{{tags}}"><!--这里是tags-->
           <option value="{{noteId}}">{{header}}</option>
@@ -74,7 +74,7 @@
 
 </header>
 
-<div id="editor"></div>
+<div id="editor">{{{first_note_content}}}</div>
 
 <div id="notebooks-list" class="am-offcanvas">
   <div class="am-offcanvas-bar am-offcanvas-bar-flip">
@@ -116,7 +116,7 @@
 
 <div class="am-modal am-modal-prompt" tabindex="-1" id="newDataPrompt">
   <div class="am-modal-dialog">
-    <div class="am-modal-hd">aaa</div>
+    <div class="am-modal-hd"></div>
     <div class="am-modal-bd">
       <input type="text" class="am-modal-prompt-input">
     </div>

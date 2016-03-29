@@ -24,11 +24,14 @@
 - ~~用户登录,用户和管理员的登录做在一起
 - ~~完成单篇笔记文本的增删改查
 - ~~可以储存多篇笔记
+- 笔记本相关功能
 - 支持上传图片
 - 为笔记增加tags
 - 增加对markdown格式的支持
-
+- 使用localstorge进行本地存储
+ 
 # 目前在express中使用的session值
 - req.session.userId 当前用户ID
 - req.session.userName 当前用户Name
+- req.session.noteId 当前打开的笔记ID
 - req.session.notebookId 当前打开的笔记本ID

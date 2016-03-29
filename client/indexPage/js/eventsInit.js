@@ -47,8 +47,9 @@ module.exports = function () {
 
   /**********操作笔记接口**********/
 
-  //切换笔记
-  $('#notes-list').on('change', function () {
+  // 切换笔记
+  $('#notes-list').on('change', function (e) {
+    console.log(e)
     $.ajax({
       url     : '/index/selectNote',
       data    : {
@@ -65,6 +66,7 @@ module.exports = function () {
       }
     })
   })
+  
 
   //添加笔记
   $('#addNote').on('click', function () {
@@ -81,11 +83,54 @@ module.exports = function () {
           dataType: 'json',
           success : function (data) {
             if (data) {
-              //hack 异步修改dom时遇到问题,暂时通过刷新页面解决
               location.reload()
             }
           }
         })
+      }
+    })
+  })
+
+  //删除笔记
+  $('#deleteNote').on('click', function () {
+    $.ajax({
+      url     : '/index/deleteNote',
+      type    : 'post',
+      dataType: 'json',
+      success : function (data) {
+        console.log(data)
+        if (data) {
+          location.reload()
+        }
+      },
+      error   : function (error) {
+        console.log(error)
+      }
+    })
+  })
+
+  //重命名笔记
+  $('#renameNote').on('click', function () {
+    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('重新起一个名字吧')
+    $('#newDataPrompt').modal({
+      relatedTarget: this,
+      onConfirm    : function (e) {
+
+        $.ajax({
+          url     : '/index/renameNote',
+          data    : {
+            noteId   : $('#notes-list').val(),
+            newHeader: e.data || ''
+          },
+          type    : 'post',
+          dataType: 'json',
+          success : function (data) {
+            if (data) {
+              location.reload()
+            }
+          }
+        })
+
       }
     })
   })
@@ -113,54 +158,4 @@ module.exports = function () {
     })
   })
 
-  //重命名笔记
-  $('#renameNote').on('click', function () {
-    $('#newDataPrompt>.am-modal-dialog').children('.am-modal-hd').text('重新起一个名字吧')
-    $('#newDataPrompt').modal({
-      relatedTarget: this,
-      onConfirm    : function (e) {
-
-        $.ajax({
-          url     : '/index/renameNote',
-          data    : {
-            noteId   : $('#notes-list').val(),
-            newHeader: e.data || ''
-          },
-          type    : 'post',
-          dataType: 'json',
-          success : function (data) {
-            if (data) {
-              //hack 异步修改dom时遇到问题,暂时通过刷新页面解决
-              location.reload()
-              // let template = handlebars.compile($("#notes-list-tpl")
-              //   .html()
-              //   .replace(/<%/g, '{{')
-              //   .replace(/%>/g, '}}'))
-              // console.log(template(data))
-              // $('#notes-list').html(template(data))
-            }
-          }
-        })
-
-      }
-    })
-  })
-
-  //保存笔记
-  $('#deleteNote').on('click', function () {
-    $.ajax({
-      url     : '/index/deleteNote',
-      type    : 'post',
-      dataType: 'json',
-      success : function (data) {
-        console.log(data)
-        if (data) {
-          location.reload()
-        }
-      },
-      error   : function (error) {
-        console.log(error)
-      }
-    })
-  })
 }

@@ -19,6 +19,7 @@ webpackJsonp([1,0],[
 	// require('./MarkdownInit.js')
 
 	$(function () {
+
 	  //初始化富文本编辑器
 	  textEditor.init();
 	  //加载事件绑定
@@ -26799,8 +26800,9 @@ webpackJsonp([1,0],[
 
 	  /**********操作笔记接口**********/
 
-	  //切换笔记
-	  $('#notes-list').on('change', function () {
+	  // 切换笔记
+	  $('#notes-list').on('change', function (e) {
+	    console.log(e);
 	    $.ajax({
 	      url: '/index/selectNote',
 	      data: {
@@ -26833,7 +26835,6 @@ webpackJsonp([1,0],[
 	          dataType: 'json',
 	          success: function success(data) {
 	            if (data) {
-	              //hack 异步修改dom时遇到问题,暂时通过刷新页面解决
 	              location.reload();
 	            }
 	          }
@@ -26842,21 +26843,16 @@ webpackJsonp([1,0],[
 	    });
 	  });
 
-	  //保存笔记
-	  $('#saveNote').on('click', function () {
+	  //删除笔记
+	  $('#deleteNote').on('click', function () {
 	    $.ajax({
-	      url: '/index/saveNote',
-	      data: {
-	        noteId: $('#notes-list').val(),
-	        content: editor.$txt.html()
-	      },
+	      url: '/index/deleteNote',
 	      type: 'post',
 	      dataType: 'json',
 	      success: function success(data) {
 	        console.log(data);
 	        if (data) {
-	          //todo 使用js收起下拉菜单,出现一个弹框,去掉此处alert
-	          alert('success!!');
+	          location.reload();
 	        }
 	      },
 	      error: function error(_error3) {
@@ -26882,14 +26878,7 @@ webpackJsonp([1,0],[
 	          dataType: 'json',
 	          success: function success(data) {
 	            if (data) {
-	              //hack 异步修改dom时遇到问题,暂时通过刷新页面解决
 	              location.reload();
-	              // let template = handlebars.compile($("#notes-list-tpl")
-	              //   .html()
-	              //   .replace(/<%/g, '{{')
-	              //   .replace(/%>/g, '}}'))
-	              // console.log(template(data))
-	              // $('#notes-list').html(template(data))
 	            }
 	          }
 	        });
@@ -26898,15 +26887,20 @@ webpackJsonp([1,0],[
 	  });
 
 	  //保存笔记
-	  $('#deleteNote').on('click', function () {
+	  $('#saveNote').on('click', function () {
 	    $.ajax({
-	      url: '/index/deleteNote',
+	      url: '/index/saveNote',
+	      data: {
+	        noteId: $('#notes-list').val(),
+	        content: editor.$txt.html()
+	      },
 	      type: 'post',
 	      dataType: 'json',
 	      success: function success(data) {
 	        console.log(data);
 	        if (data) {
-	          location.reload();
+	          //todo 使用js收起下拉菜单,出现一个弹框,去掉此处alert
+	          alert('success!!');
 	        }
 	      },
 	      error: function error(_error4) {

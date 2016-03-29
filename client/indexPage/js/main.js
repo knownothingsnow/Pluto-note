@@ -14,10 +14,13 @@ let eventsInit=require('./eventsInit.js')
 // require('./MarkdownInit.js')
 
 $(function(){
+
   //初始化富文本编辑器
   textEditor.init()
   //加载事件绑定
   eventsInit()
+
+
 })
 
 // var Parser = require('hyperdown');
