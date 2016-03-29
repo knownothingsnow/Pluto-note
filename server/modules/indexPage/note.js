@@ -15,12 +15,17 @@ let note = {}
  * @param callback
  */
 note.addNote = function (header, notebookId, callback) {
+
   // let sql = `INSERT INTO note(content, isMarkdown, notebookId) VALUES ('${content}',${isMarkdown},${notebookId})`
   let sql = `INSERT INTO note(header, notebookId) VALUES ('${header}',${notebookId})`
-  console.log(sql)
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -30,11 +35,16 @@ note.addNote = function (header, notebookId, callback) {
  * @param {function}callback
  */
 note.deleteNote = function (noteId, callback) {
+
   let sql = `DELETE FROM note WHERE noteId='${noteId}'`
-  console.log(sql)
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -45,11 +55,16 @@ note.deleteNote = function (noteId, callback) {
  * @param callback
  */
 note.updateNoteHeader = function (noteId, newHeader, callback) {
+
   let sql = `UPDATE note SET header='${newHeader}' WHERE noteId=${noteId}`
-  console.log(sql)
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -60,11 +75,16 @@ note.updateNoteHeader = function (noteId, newHeader, callback) {
  * @param callback
  */
 note.updateNoteContent = function (noteId, newContent, callback) {
+
   let sql = `UPDATE note SET content='${newContent}' WHERE noteId=${noteId}`
-  console.log(sql)
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -74,11 +94,16 @@ note.updateNoteContent = function (noteId, newContent, callback) {
  * @param callback
  */
 note.selectAllNoteHeader = function (notebookId, callback) {
+
   let sql = `SELECT noteId,header FROM note WHERE notebookId=${notebookId}`
-  console.log(sql)
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -88,11 +113,16 @@ note.selectAllNoteHeader = function (notebookId, callback) {
  * @param callback
  */
 note.selectOneNote = function (noteId, callback) {
+
   let sql = `SELECT content FROM note WHERE noteId=${noteId}`
-  console.log(sql)
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 

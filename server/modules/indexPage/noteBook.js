@@ -14,10 +14,16 @@ let noteBook = {}
  * @param {function}callback
  */
 noteBook.addNoteBook = function (userId, notebookName, callback) {
+
   let sql = `INSERT INTO notebook(notebookName, userId) VALUES ('${notebookName}',${userId})`
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -27,10 +33,16 @@ noteBook.addNoteBook = function (userId, notebookName, callback) {
  * @param {function}callback
  */
 noteBook.deleteNoteBook = function (notebookName, callback) {
+
   let sql = `DELETE FROM note WHERE notebookName='${notebookName}'`
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -42,10 +54,16 @@ noteBook.deleteNoteBook = function (notebookName, callback) {
  * @param {function}callback
  */
 noteBook.updateNoteBook = function (userId, newNotebookName, notebookName, callback) {
+
   let sql = `UPDATE notebook SET notebookName='${newNotebookName}' WHERE userId=${userId} AND notebookName='${notebookName}'`
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -55,10 +73,16 @@ noteBook.updateNoteBook = function (userId, newNotebookName, notebookName, callb
  * @param {function}callback
  */
 noteBook.selectAllNoteBook = function (userId, callback) {
+
   let sql = `SELECT notebookName FROM notebook WHERE userId=${userId}`
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -68,11 +92,16 @@ noteBook.selectAllNoteBook = function (userId, callback) {
  * @param {function}callback
  */
 noteBook.selectNoteBooksId = function (userId, callback) {
+
   let sql = `SELECT notebookId FROM notebook WHERE userId=${userId}`
-  console.log('sql:'+sql)
+  console.log('sql:' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
+
     callback(results)
+
   })
 }
 
@@ -83,16 +112,17 @@ noteBook.selectNoteBooksId = function (userId, callback) {
  * @param callback
  */
 noteBook.selectOneNoteBook = function (userId, notebookName, callback) {
+
   let sql = `SELECT notebookName FROM notebook WHERE userId=${userId} AND notebookName='${notebookName}'`
-  // console.log(sql)
+  console.log('sql' + sql)
+
   con.query(sql, function (err, results) {
+
     if (err) {throw err}
-    // callback(results.length)
-    if (results.length === 0) {//此时未重复
-      callback(false)
-    } else {
-      callback(true)
-    }
+
+    //未重复返回false
+    results.length === 0 ? callback(false) : callback(true)
+
   })
 }
 

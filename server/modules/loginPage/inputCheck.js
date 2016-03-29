@@ -20,9 +20,13 @@ module.exports = function (user, callback) {
     if (error) {throw error}
 
     if (results.length === 0) {
+
       callback(false)
+      
     } else {
+
       callback(results)
+
     }
   })
 }
