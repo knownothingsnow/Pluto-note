@@ -4,7 +4,6 @@
  * @author Knight Young
  */
 //   todo 解决回调地狱
-//   todo 首屏渲染(默认渲染第一个笔记本的第一篇笔记)
 //   todo 笔记的增删改,每次操作刷新列表,点击打开对应笔记
 //   todo 将当前笔记本的id存在session里,笔记本按钮的状态机,点击打开笔记本,重命名对应笔记本,删除笔记本
 let express  = require('express')
@@ -18,7 +17,7 @@ router.all('/', function (req, res) {
     noteBook.selectNoteBooksId(req.session.userId, function (results) {
 
       //在session里存储当前的笔记本ID
-      req.session.notebookId = results[0].notebookId + ''
+      req.session.notebookId = results[0].notebookId
 
       //收集首屏渲染所需要的数据
       let first_render = {
@@ -34,6 +33,7 @@ router.all('/', function (req, res) {
 
           //在session里存储当前的笔记ID
           req.session.noteId = results[0].noteId
+
           //收集该笔记本ID下所有笔记名
           first_render.notes = results
 
@@ -42,9 +42,7 @@ router.all('/', function (req, res) {
             //封装首屏渲染所需数据的最后一步
             first_render.first_note_content = results[0].content
 
-            console.log('notebookId' + req.session.notebookId)
-            console.log('noteId' + req.session.noteId)
-            console.log(first_render)
+            console.log(req.session)
 
             res.render('indexPage/index', first_render)
 

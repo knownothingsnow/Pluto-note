@@ -12,7 +12,7 @@ let con = require('../connectDB.js')
  * @param {function} callback
  */
 function register(user, callback) {
-  let sql = `INSERT INTO user(userName, passWord) VALUES ("${user.newId}","${user.newPassWord}")`
+  let sql = `INSERT INTO user(userName, passWord) VALUES ("${user.newName}","${user.newPassWord}")`
   con.query(sql, function (err, results) {
     if (err) {throw err}
     callback(results)
