@@ -26868,6 +26868,7 @@ webpackJsonp([1,0],[
 	        $.ajax({
 	          url: '/index/addNote',
 	          data: {
+	            saveTime: Date.now(),
 	            header: e.data || ''
 	          },
 	          type: 'post',
@@ -26944,12 +26945,13 @@ webpackJsonp([1,0],[
 	    });
 	  });
 
-	  //保存笔记
+	  //手动保存笔记
 	  $('#saveNote').on('click', function () {
 
 	    $.ajax({
 	      url: '/index/saveNote',
 	      data: {
+	        saveTime: Date.now(),
 	        content: editor.$txt.html()
 	      },
 	      type: 'post',
@@ -26966,6 +26968,31 @@ webpackJsonp([1,0],[
 	      }
 	    });
 	  });
+
+	  //自动保存笔记
+	  $('h1').off();
+	  setInterval(function () {
+	    $.ajax({
+	      url: '/index/autoSaveNote',
+	      data: {
+	        content: editor.$txt.html()
+	      },
+	      type: 'post',
+	      dataType: 'json',
+	      success: function success(data) {
+	        console.log(data);
+	        if (data) {
+	          $('h1').popover('open');
+	          setTimeout(function () {
+	            $('h1').popover('close');
+	          }, 1000);
+	        }
+	      },
+	      error: function error(_error5) {
+	        console.log(_error5);
+	      }
+	    });
+	  }, 30000);
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 

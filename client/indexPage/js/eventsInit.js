@@ -118,6 +118,7 @@ module.exports = function () {
         $.ajax({
           url     : '/index/addNote',
           data    : {
+            saveTime: Date.now(),
             header: e.data || ''
           },
           type    : 'post',
@@ -206,13 +207,14 @@ module.exports = function () {
     })
   })
 
-  //保存笔记
+  //手动保存笔记
   $('#saveNote').on('click', function () {
 
     $.ajax({
       url     : '/index/saveNote',
       data    : {
-        content: editor.$txt.html()
+        saveTime: Date.now(),
+        content : editor.$txt.html()
       },
       type    : 'post',
       dataType: 'json',
@@ -229,5 +231,30 @@ module.exports = function () {
     })
 
   })
+
+  //自动保存笔记
+  $('h1').off()
+  setInterval(()=> {
+    $.ajax({
+      url     : '/index/autoSaveNote',
+      data    : {
+        content: editor.$txt.html()
+      },
+      type    : 'post',
+      dataType: 'json',
+      success : function (data) {
+        console.log(data)
+        if (data) {
+          $('h1').popover('open')
+          setTimeout(()=> {
+            $('h1').popover('close')
+          }, 1000)
+        }
+      },
+      error   : function (error) {
+        console.log(error)
+      }
+    })
+  }, 30000)
 
 }

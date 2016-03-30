@@ -7,18 +7,19 @@
 let con = require('../connectDB.js')
 
 // todo 把这里的方法抽象出来
-/**
- * 添加笔记
- * @param header
- * @param notebookId
- * @param callback
- */
 module.exports={
 
-  addNote: (header, notebookId, callback) => {
+  /**
+   * 添加笔记
+   * @param header
+   * @param notebookId
+   * @param saveTime
+   * @param callback
+   */
+  addNote: (header, notebookId,saveTime, callback) => {
 
     // let sql = `INSERT INTO note(content, isMarkdown, notebookId) VALUES ('${content}',${isMarkdown},${notebookId})`
-    let sql = `INSERT INTO note(header, notebookId) VALUES ('${header}',${notebookId})`
+    let sql = `INSERT INTO note(header, notebookId, saveTime) VALUES ('${header}',${notebookId},'${saveTime}')`
     console.log('sql:' + sql)
 
     con.query(sql, function (err, results) {
@@ -113,7 +114,7 @@ module.exports={
    * @param noteId
    * @param callback
    */
-  selectOneNote: (noteId, callback) => {
+  selectOneNoteContent: (noteId, callback) => {
 
     let sql = `SELECT content FROM note WHERE noteId=${noteId}`
     console.log('sql:' + sql)
@@ -125,5 +126,25 @@ module.exports={
       callback(results)
 
     })
+  },
+
+  /**
+   * 查询一篇笔记的标题
+   * @param noteId
+   * @param callback
+   */
+  selectOneNoteHeader: (noteId, callback) => {
+
+    let sql = `SELECT header FROM note WHERE noteId=${noteId}`
+    console.log('sql:' + sql)
+
+    con.query(sql, function (err, results) {
+
+      if (err) {throw err}
+
+      callback(results)
+
+    })
   }
+
 }
