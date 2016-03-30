@@ -4,6 +4,12 @@ header.am-topbar {
   margin-bottom : 0;
 }
 
+#notes-list {
+  max-height : 300px;
+  width      : 500px;
+  overflow-y : scroll;
+}
+
 div.am-selected {
   float      : left;
   position   : relative;
@@ -12,7 +18,17 @@ div.am-selected {
   padding    : 0 10px;
 }
 
-div#notebooks-list ul.am-list button {
-  float : right;
-  //visibility:hidden;
+/*----------自定义----------*/
+div#notebooks-list ul {
+  a {
+    color : #000000;
+    button {
+      float : right;
+    }
+  }
+
+}
+
+.hidden {
+  visibility : hidden;
 }

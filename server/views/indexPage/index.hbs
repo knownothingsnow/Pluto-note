@@ -41,23 +41,27 @@
       </li>
     </ul>
 
-    {{! todo 标题前加上Tags }}
-    <select id="notes-list" class="am-topbar-left" onchange="aa(event)"
-            data-am-selected="{searchBox:1,btnWidth: '50%',btnSize:'sm',btnStyle:'success'}">
-      {{#notes}}
-        <optgroup label="{{tags}}"><!--这里是tags-->
-          <option value="{{noteId}}">{{header}}</option>
-        </optgroup>
-      {{/notes}}
-    </select>
+    <div class="am-topbar-left">
+      <div class="am-dropdown" data-am-dropdown="{boundary: 'h1'}">
+        <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle"
+                data-am-dropdown-toggle>笔记列表<span class="am-icon-caret-down"></span></button>
+        <ul id="notes-list" class="am-dropdown-content">
+          {{#notes}}
+            <li data-noteid="{{noteId}}"><a href="#"><span class="note-tags">#{{tags}}&nbsp;</span>{{header}}</a></li>
+          {{/notes}}
+        </ul>
+      </div>
+    </div>
 
     <!--用于JS渲染的模板副本 #notes-list-->
+    <script id="one-note-of-list-tpl" type="text/x-handlebars-template">
+      <li data-noteid="<%noteId%>"><a href="#"><span class="note-tags">#<%tags%>&nbsp;</span><%header%></a></li>
+    </script>
+
     <script id="notes-list-tpl" type="text/x-handlebars-template">
-      <%#notes%>
-        <optgroup label="<%tags%>"><!--这里是tags-->
-          <option value="<%noteId%>"><%header%></option>
-        </optgroup>
-      <%/notes%>
+      <%#list%>
+        <li data-noteid="<%noteId%>"><a href="#"><span class="note-tags">#<%tags%>&nbsp;</span><%header%></a></li>
+      <%/list%>
     </script>
 
     <div class="am-topbar-right">
@@ -88,9 +92,7 @@
             <a href="#" class="am-text-truncate" data-currentNotebookId="{{notebookId}}">
               <i class="am-icon-book am-icon-fw"></i>
               {{notebookName}}
-              <button type="button" class="am-btn am-btn-xs am-btn-default am-round">
-                {操作}
-              </button>
+              <button type="button" class="am-btn am-btn-xs am-btn-default am-round hidden"></button>
             </a>
           </li>
         {{/notebooks}}
@@ -136,11 +138,20 @@
   </div>
 </div>
 
+<div class="am-modal am-modal-alert" tabindex="-1" id="alert-msg">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd"></div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
+
 <script src="/build/commons.bundle.js"></script>
 <script src="/build/index.bundle.js"></script>
 <!--<script src="../../../client/build/commons.bundle.js"></script>-->
 <!--<script src="../../../client/build/index.bundle.js"></script>-->
-<!--<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>-->
+<!--<script src="/indexPage/js/jquery.min.js"></script>-->
 
 </body>
 </html>

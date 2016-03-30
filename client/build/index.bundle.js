@@ -26761,6 +26761,19 @@ webpackJsonp([1,0],[
 	var textEditor = __webpack_require__(13);
 
 	module.exports = function () {
+	  /*判断移动端跳转PC*/
+	  // var sUserAgent = navigator.userAgent.toLowerCase();
+	  // var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+	  // var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+	  // var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+	  // var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+	  // var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+	  // var bIsAndroid = sUserAgent.match(/android/i) == "android";
+	  // var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+	  // var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+	  // if (!(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) ){
+	  //   window.location.href=url ;
+	  // }
 	  /**********操作笔记本的接口**********/
 
 	  //新建笔记本按钮
@@ -26769,6 +26782,7 @@ webpackJsonp([1,0],[
 	    $('#newDataPrompt').modal({
 	      relatedTarget: this,
 	      onConfirm: function onConfirm(e) {
+
 	        $.ajax({
 	          url: '/index/addNoteBook',
 	          data: {
@@ -26799,20 +26813,43 @@ webpackJsonp([1,0],[
 	    });
 	  });
 
+	  //删除笔记本按钮
+	  $('#deleteNoteBook').on('click', function () {
+	    $('#notebooksName-list').data('store', 'delete');
+	    $('#notebooksName-list button').text('删除').addClass('am-btn-danger').removeClass('hidden am-btn-warning');
+	  });
+
+	  //修改笔记本按钮
+	  $('#renameNoteBook').on('click', function () {
+	    $('#notebooksName-list').data('store', 'rename');
+	    $('#notebooksName-list button').text('重命名').addClass('am-btn-warning').removeClass('hidden am-btn-danger');
+	  });
+
+	  //收起侧边栏清除掉列表button的样式
+	  $('#notebooks-list').on('close.offcanvas.amui', function () {
+	    $('#notebooksName-list button').text('').addClass('hidden');
+	  });
+
 	  /**********操作笔记接口**********/
 
 	  // 切换笔记
-	  $('#notes-list').on('change', function (e) {
+
+	  $('#notes-list').on('click', function (e) {
+	    console.log(e.target);
 	    console.log(e);
 	    $.ajax({
 	      url: '/index/selectNote',
 	      data: {
-	        noteId: $(this).val() //当前的noteId
+	        noteId: $(e.target).parent().data('noteid') //当前的noteId
 	      },
 	      type: 'post',
 	      dataType: 'json',
 	      success: function success(data) {
+	        //关闭下拉菜单
+	        $('#notes-list').parent().dropdown('close');
+	        //清除编辑器内容
 	        textEditor.clear();
+	        //插入新内容
 	        textEditor.append(data[0].content);
 	      },
 	      error: function error(_error2) {
@@ -26827,6 +26864,7 @@ webpackJsonp([1,0],[
 	    $('#newDataPrompt').modal({
 	      relatedTarget: this,
 	      onConfirm: function onConfirm(e) {
+
 	        $.ajax({
 	          url: '/index/addNote',
 	          data: {
@@ -26835,8 +26873,17 @@ webpackJsonp([1,0],[
 	          type: 'post',
 	          dataType: 'json',
 	          success: function success(data) {
+
 	            if (data) {
-	              location.reload();
+	              //重新渲染笔记列表
+	              data.header = e.data;
+	              var template = handlebars.compile($("#one-note-of-list-tpl").html().replace(/<%/g, '{{').replace(/%>/g, '}}'));
+	              $('#notes-list').append(template(data));
+
+	              textEditor.clear();
+
+	              document.querySelector('#alert-msg .am-modal-hd').textContent = '新建成功';
+	              $('#alert-msg').modal('open');
 	            }
 	          }
 	        });
@@ -26846,15 +26893,20 @@ webpackJsonp([1,0],[
 
 	  //删除笔记
 	  $('#deleteNote').on('click', function () {
+
 	    $.ajax({
 	      url: '/index/deleteNote',
 	      type: 'post',
 	      dataType: 'json',
 	      success: function success(data) {
-	        console.log(data);
-	        if (data) {
-	          location.reload();
-	        }
+
+	        var template = handlebars.compile($("#notes-list-tpl").html().replace(/<%/g, '{{').replace(/%>/g, '}}'));
+	        $('#notes-list').html(template(data));
+	        textEditor.clear();
+	        textEditor.append(data.newContent);
+
+	        document.querySelector('#alert-msg .am-modal-hd').textContent = '删除成功';
+	        $('#alert-msg').modal('open');
 	      },
 	      error: function error(_error3) {
 	        console.log(_error3);
@@ -26872,14 +26924,19 @@ webpackJsonp([1,0],[
 	        $.ajax({
 	          url: '/index/renameNote',
 	          data: {
-	            noteId: $('#notes-list').val(),
 	            newHeader: e.data || ''
 	          },
 	          type: 'post',
 	          dataType: 'json',
 	          success: function success(data) {
 	            if (data) {
-	              location.reload();
+	              var template = handlebars.compile($("#notes-list-tpl").html().replace(/<%/g, '{{').replace(/%>/g, '}}'));
+	              $('#notes-list').html(template(data));
+
+	              textEditor.clear();
+
+	              document.querySelector('#alert-msg .am-modal-hd').textContent = '重命名成功';
+	              $('#alert-msg').modal('open');
 	            }
 	          }
 	        });
@@ -26889,10 +26946,10 @@ webpackJsonp([1,0],[
 
 	  //保存笔记
 	  $('#saveNote').on('click', function () {
+
 	    $.ajax({
 	      url: '/index/saveNote',
 	      data: {
-	        noteId: $('#notes-list').val(),
 	        content: editor.$txt.html()
 	      },
 	      type: 'post',
@@ -26900,8 +26957,8 @@ webpackJsonp([1,0],[
 	      success: function success(data) {
 	        console.log(data);
 	        if (data) {
-	          //todo 使用js收起下拉菜单,出现一个弹框,去掉此处alert
-	          alert('success!!');
+	          document.querySelector('#alert-msg .am-modal-hd').textContent = '保存成功';
+	          $('#alert-msg').modal('open');
 	        }
 	      },
 	      error: function error(_error4) {
@@ -26921,7 +26978,7 @@ webpackJsonp([1,0],[
 
 
 	// module
-	exports.push([module.id, "/*----------reset----------*/\n\nheader.am-topbar {\n  margin-bottom: 0;\n}\n\ndiv.am-selected {\n  float: left;\n  position: relative;\n  display: block;\n  margin-top: 8px;\n  padding: 0 10px;\n}\n\ndiv#notebooks-list ul.am-list button {\n  float: right;\n}", ""]);
+	exports.push([module.id, "@charset \"UTF-8\";\n\n/*----------reset----------*/\n\nheader.am-topbar {\n  margin-bottom: 0;\n}\n\n#notes-list {\n  max-height: 300px;\n  width: 500px;\n  overflow-y: scroll;\n}\n\ndiv.am-selected {\n  float: left;\n  position: relative;\n  display: block;\n  margin-top: 8px;\n  padding: 0 10px;\n}\n\n/*----------自定义----------*/\n\ndiv#notebooks-list ul a {\n  color: #000000;\n}\n\ndiv#notebooks-list ul a button {\n  float: right;\n}\n\n.hidden {\n  visibility: hidden;\n}", ""]);
 
 	// exports
 

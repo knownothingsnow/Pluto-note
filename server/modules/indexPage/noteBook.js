@@ -30,12 +30,12 @@ module.exports = {
 
   /**
    * 删除笔记本
-   * @param {string}notebookName
+   * @param {string}notebookId
    * @param {function}callback
    */
-  deleteNoteBook: (notebookName, callback) => {
+  deleteNoteBook: (notebookId, callback) => {
 
-    let sql = `DELETE FROM note WHERE notebookName='${notebookName}'`
+    let sql = `DELETE FROM note WHERE notebookId='${notebookId}'`
     console.log('deleteNoteBook')
     console.log('sql:' + sql)
 
@@ -50,14 +50,13 @@ module.exports = {
 
   /**
    * 重命名笔记本
-   * @param {string}userId
+   * @param {string}notebookId
    * @param {string}newNotebookName
-   * @param {string}notebookName
    * @param {function}callback
    */
-  updateNoteBook: (userId, newNotebookName, notebookName, callback) => {
+  updateNoteBook: (notebookId, newNotebookName, callback) => {
 
-    let sql = `UPDATE notebook SET notebookName='${newNotebookName}' WHERE userId=${userId} AND notebookName='${notebookName}'`
+    let sql = `UPDATE notebook SET notebookName='${newNotebookName}' WHERE notebookId=${notebookId}`
     console.log('updateNoteBook')
     console.log('sql:' + sql)
 

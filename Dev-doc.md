@@ -29,7 +29,9 @@
 - 为笔记增加tags
 - 增加对markdown格式的支持
 - 使用localstorge进行本地存储
- 
+- 支持resize切换到移动版编辑器
+- 能够保存历史版本
+
 # 目前在express中使用的session值
 - req.session.userId 当前用户ID
 - req.session.userName 当前用户Name

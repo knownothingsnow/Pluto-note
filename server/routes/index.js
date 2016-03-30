@@ -22,7 +22,6 @@ router.all('/', function (req, res) {
 
     noteBook.selectNoteBooksId(req.session.userId, function (results) {
       if (results) {
-
         //装填该用户所有笔记本ID
         first_render.notebooks = results
 
@@ -41,12 +40,12 @@ router.all('/', function (req, res) {
             //在session里存储当前的笔记ID
             req.session.noteId = results[0].noteId
 
-            //收集该笔记本ID下所有笔记名
+            //装填该笔记本ID下所有笔记名
             first_render.notes = results
 
             note.selectOneNote(req.session.noteId, function (results) {
 
-              //封装首屏渲染所需数据的最后一步
+              //装填首屏渲染所需数据的最后一步
               first_render.first_note_content = results[0].content
 
               res.render('indexPage/index', first_render)
@@ -58,7 +57,6 @@ router.all('/', function (req, res) {
         //新注册的用户没有首屏渲染的内容
         res.render('indexPage/index', first_render)
       }
-
     })
   } else {
     res.render('jump', {msg: '你还没有登录!'})
@@ -70,7 +68,16 @@ router.all('/', function (req, res) {
 router.post('/addNote', function (req, res) {
 
   note.addNote(req.body.header, req.session.notebookId, function (results) {
-    res.send(results)
+
+    if (results.affectedRows === 1) {
+
+      //更新当前的noteId
+      req.session.noteId = results.insertId
+
+      res.send({noteId: results.insertId})
+
+    }
+
   })
 
 })
@@ -82,15 +89,20 @@ router.post('/selectNote', function (req, res) {
   req.session.noteId = req.body.noteId
 
   note.selectOneNote(req.body.noteId, function (results) {
+
     res.send(results)
+
   })
+
 })
 
 //保存一篇笔记
 router.post('/saveNote', function (req, res) {
 
-  note.updateNoteContent(req.body.noteId, req.body.content, function (results) {
+  note.updateNoteContent(req.session.noteId, req.body.content, function (results) {
+
     res.send(results)
+
   })
 
 })
@@ -98,15 +110,18 @@ router.post('/saveNote', function (req, res) {
 //重命名一篇笔记
 router.post('/renameNote', function (req, res) {
 
-  note.updateNoteHeader(req.body.noteId, req.body.newHeader, function (results) {
-    if (results) {
+  note.updateNoteHeader(req.session.noteId, req.body.newHeader, function (results) {
+
+    if (results.affectedRows === 1) {
+
       note.selectAllNoteHeader(req.session.notebookId, function (notes) {
 
         //收集该笔记本ID下所有笔记名
-        res.send(notes)
+        res.send({list: notes})
 
       })
     }
+
   })
 
 })
@@ -115,7 +130,31 @@ router.post('/renameNote', function (req, res) {
 router.post('/deleteNote', function (req, res) {
 
   note.deleteNote(req.session.noteId, function (results) {
-    res.send(results)
+
+    let data = {}
+
+    if (results.affectedRows === 1) {
+
+      //清除当前的noteId
+      note.selectAllNoteHeader(req.session.notebookId, function (results) {
+
+        //在删除后将session内的noteId切换到第一篇笔记
+        req.session.noteId = results[0].noteId
+
+        data.list = results
+
+        note.selectOneNote(req.session.noteId, function (results) {
+
+          data.newContent = results[0].content
+
+          //将所删除笔记本的ID和数据库中第一篇笔记的内容传到前端
+          res.send(data)
+
+        })
+      })
+
+    }
+
   })
 
 })
@@ -126,7 +165,6 @@ router.post('/deleteNote', function (req, res) {
 router.post('/addNoteBook', function (req, res) {
   // 如果传入的笔记本名已经存在就返回{done: false}
   noteBook.selectOneNoteBook(req.session.userId, req.body.notebookName, function (result) {
-    // console.log(result)
     if (result) {
       res.send({repeat: true})
     } else {
@@ -135,15 +173,28 @@ router.post('/addNoteBook', function (req, res) {
         if (results) {
           noteBook.selectAllNoteBooksName(req.session.userId, function (results) {
 
-            res.send({
-              repeat: false,
-              data  : results
-            })
+            res.send({repeat: false, data: results})
 
           })
         }
 
       })
+    }
+  })
+})
+
+router.post('/deleteNoteBook', function (req, res) {
+  noteBook.deleteNoteBook(req.body.notebookId, function (results) {
+    if (results) {
+      res.send({msg: '删除成功'})
+    }
+  })
+})
+
+router.post('/renameNoteBook', function (req, res) {
+  noteBook.updateNoteBook(req.notebookId, req.newNotebookName, function (results) {
+    if (results) {
+      res.send({msg: '修改成功'})
     }
   })
 })
