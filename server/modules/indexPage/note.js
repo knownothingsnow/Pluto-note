@@ -7,7 +7,7 @@
 let con = require('../connectDB.js')
 
 // todo 把这里的方法抽象出来
-module.exports={
+module.exports = {
 
   /**
    * 添加笔记
@@ -16,15 +16,15 @@ module.exports={
    * @param saveTime
    * @param callback
    */
-  addNote: (header, notebookId,saveTime, callback) => {
+  addNote: (header, notebookId, saveTime, callback) => {
 
     // let sql = `INSERT INTO note(content, isMarkdown, notebookId) VALUES ('${content}',${isMarkdown},${notebookId})`
     let sql = `INSERT INTO note(header, notebookId, saveTime) VALUES ('${header}',${notebookId},'${saveTime}')`
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -41,9 +41,9 @@ module.exports={
     let sql = `DELETE FROM note WHERE noteId='${noteId}'`
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -61,9 +61,9 @@ module.exports={
     let sql = `UPDATE note SET header='${newHeader}' WHERE noteId=${noteId}`
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -81,9 +81,9 @@ module.exports={
     let sql = `UPDATE note SET content='${newContent}' WHERE noteId=${noteId}`
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -100,9 +100,9 @@ module.exports={
     let sql = `SELECT noteId,header FROM note WHERE notebookId=${notebookId}`
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -119,9 +119,9 @@ module.exports={
     let sql = `SELECT content FROM note WHERE noteId=${noteId}`
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -138,9 +138,9 @@ module.exports={
     let sql = `SELECT header FROM note WHERE noteId=${noteId}`
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 

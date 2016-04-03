@@ -4,14 +4,6 @@
     {
       "notebookId": "JavaScript",
       "notebookName": "JavaScript"
-    },
-    {
-      "notebookId": "HTML",
-      "notebookName": "HTML"
-    },
-    {
-      "notebookId": "CSS",
-      "notebookName": "CSS"
     }
   ],
   "notes": [
@@ -20,5 +12,11 @@
       "header": "这是文章标题"
     }
   ],
-  "first_note_content":"一段html"
+  "records": [
+    {
+      "recordId": "1",
+      "saveTime": "这是文章标题"
+    }
+  ],
+  "content": "一段html"
 }

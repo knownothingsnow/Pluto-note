@@ -87,10 +87,10 @@
       <ul id="notebooksName-list" class="am-list am-list-border">
         {{#notebooks}}
           <li>
-            <a href="#" class="am-text-truncate" data-currentNotebookId="{{notebookId}}">
+            <a href="#" class="am-text-truncate">
               <i class="am-icon-book am-icon-fw"></i>
               {{notebookName}}
-              <button type="button" class="am-btn am-btn-xs am-btn-default am-round hidden"></button>
+              <button type="button" class="am-btn am-btn-xs am-btn-default am-round hidden" data-notebookId="{{notebookId}}"></button>
             </a>
           </li>
         {{/notebooks}}
@@ -98,18 +98,17 @@
       <!--用于JS渲染的模板副本 #notebooksName-list-->
       <!--hack 因为前后端的都会使用handlebars,所以后端会先于前端渲染script标签的内容,导致script内渲染不出结果.此处使用尖括号,在js中使用正则替换成正确的handlebars语法-->
       <script id="notebooksName-list-tpl" type="text/x-handlebars-template">
-        <%#data%>
+        <%#notebooks%>
         <li>
-          <a href="#" class="am-text-truncate" data-currentNotebookId="<%notebookId%>">
+          <a href="#" class="am-text-truncate">
             <i class="am-icon-book am-icon-fw"></i>
             <%notebookName%>
-            <button type="button" class="am-btn am-btn-xs am-btn-default am-round">
-              {操作}
-            </button>
+            <button type="button" class="am-btn am-btn-xs am-btn-default am-round" data-notebookId="<%notebookId%>"></button>
           </a>
         </li>
-        <%/data%>
+        <%/notebooks%>
       </script>
+
     </div>
   </div>
 </div>

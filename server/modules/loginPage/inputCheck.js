@@ -12,21 +12,22 @@ let con = require('../connectDB.js')
  * @param {Object} user
  * @param {function} callback
  */
-module.exports=  (user, callback) => {
-
+module.exports = (user, callback) => {
+  
   let sql = `SELECT userId,userName, passWord FROM user WHERE userName="${user.userName || user.newName}" and passWord="${user.userPassWord || user.newPassWord}"`
-
-  con.query(sql, function (error, results) {
-    if (error) {throw error}
-
-    if (results.length === 0) {
-
+  
+  console.log(con)
+  con.query(sql, function(error, results) {
+    if(error) {throw error}
+    
+    if(results.length === 0) {
+      
       callback(false)
-
+      
     } else {
-
+      
       callback(results)
-
+      
     }
   })
 }

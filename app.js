@@ -27,27 +27,27 @@ app.set('views', path.resolve('./server/views'))
 app.locals.env    = process.env.NODE_ENV || 'dev'
 app.locals.reload = true
 
-if (isDev) {
+if(isDev) {
 
   // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
-/*  let webpack              = require('webpack'),
-      webpackDevMiddleware = require('webpack-dev-middleware'),
-      webpackHotMiddleware = require('webpack-hot-middleware'),
-      webpackDevConfig     = require('./webpack.config.js')
+  /*  let webpack              = require('webpack'),
+   webpackDevMiddleware = require('webpack-dev-middleware'),
+   webpackHotMiddleware = require('webpack-hot-middleware'),
+   webpackDevConfig     = require('./webpack.config.js')
 
-  let compiler = webpack(webpackDevConfig)
+   let compiler = webpack(webpackDevConfig)
 
-  // attach to the compiler & the server
-  app.use(webpackDevMiddleware(compiler, {
+   // attach to the compiler & the server
+   app.use(webpackDevMiddleware(compiler, {
 
-    // public path should be the same with webpack config
-    publicPath: webpackDevConfig.output.publicPath,
-    noInfo    : true,
-    stats     : {
-      colors: true
-    }
-  }))
-  app.use(webpackHotMiddleware(compiler))*/
+   // public path should be the same with webpack config
+   publicPath: webpackDevConfig.output.publicPath,
+   noInfo    : true,
+   stats     : {
+   colors: true
+   }
+   }))
+   app.use(webpackHotMiddleware(compiler))*/
 
   // uncomment after placing your favicon in /public
   app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')))
@@ -79,7 +79,7 @@ if (isDev) {
   let server = http.createServer(app)
   reload(server, app)
 
-  server.listen(port, function () {
+  server.listen(port, function() {
     console.log('App (dev) is now running on port 3000!')
   })
 } else {
@@ -90,7 +90,7 @@ if (isDev) {
   //启用路由
   AllInterface(app)
 
-  app.listen(port, function () {
+  app.listen(port, function() {
     console.log('App (production) is now running on port 3000!')
   })
 }

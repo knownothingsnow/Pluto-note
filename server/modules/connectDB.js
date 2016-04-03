@@ -4,15 +4,18 @@
  * Created by Knight_Young on 2016/2/18 0018.
  * @type {exports|module.exports}
  */
-let mysql = require('mysql')
+let mysql = require('promise-mysql')
+
 
 //创建与数据库连接的实例
-let con = mysql.createConnection({
+let con        = mysql.createConnection({
   host    : '127.0.0.1',
   user    : 'kunkka',
   password: '',
   database: 'plutonote',
   charset : 'utf8_general_ci'
 })
+module.exports = con
 
-module.exports=con
+
+

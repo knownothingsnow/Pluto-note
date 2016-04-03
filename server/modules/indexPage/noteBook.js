@@ -18,9 +18,9 @@ module.exports = {
     console.log('addNoteBook')
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -39,9 +39,9 @@ module.exports = {
     console.log('deleteNoteBook')
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -60,9 +60,9 @@ module.exports = {
     console.log('updateNoteBook')
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       callback(results)
 
@@ -80,9 +80,9 @@ module.exports = {
     console.log('selectAllNoteBooksName')
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       results ? callback(results) : callback(false)
 
@@ -94,15 +94,15 @@ module.exports = {
    * @param {string}userId
    * @param {function}callback
    */
-  selectNoteBooksId: (userId, callback) => {
+  selectAllNoteBooksId: (userId, callback) => {
 
     let sql = `SELECT notebookId FROM notebook WHERE userId=${userId}`
-    console.log('selectNoteBooksId')
+    console.log('selectAllNoteBooksId')
     console.log('sql:' + sql)
 
-    con.query(sql, function (err, results) {
-
-      if (err) {throw err}
+    con.query(sql).then(function(err, results) {
+      
+      if(err) {throw err}
 
       results.length !== 0 ? callback(results) : callback(false)
 
@@ -115,15 +115,15 @@ module.exports = {
    * @param notebookName
    * @param callback
    */
-  selectOneNoteBook: (userId, notebookName, callback) => {
+  checkNotebookName: (userId, notebookName, callback) => {
 
     let sql = `SELECT notebookName FROM notebook WHERE userId=${userId} AND notebookName='${notebookName}'`
-    console.log('selectOneNoteBook')
+    console.log('checkNotebookName')
     console.log('sql' + sql)
 
-    con.query(sql, function (err, results) {
+    con.query(sql, function(err, results) {
 
-      if (err) {throw err}
+      if(err) {throw err}
 
       //未重复返回false
       results.length === 0 ? callback(false) : callback(true)

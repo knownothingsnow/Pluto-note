@@ -26,15 +26,17 @@
 - ~~可以储存多篇笔记
 - ~~可以自动保存笔记
 - 笔记本相关功能
-- 支持上传图片
-- 为笔记增加tags
 - 增加对markdown格式的支持
-- 使用localstorge进行本地存储
 - 支持resize切换到移动版编辑器
 - 能够保存历史版本
+
+- 支持上传图片
+- 使用localstorge进行本地存储
+
 
 # 目前在express中使用的session值
 - req.session.userId 当前用户ID
 - req.session.userName 当前用户Name
+- req.session.recordId 当前文稿记录ID
 - req.session.noteId 当前打开的文稿ID
 - req.session.notebookId 当前打开的笔记本ID
