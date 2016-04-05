@@ -14,7 +14,6 @@ let router = express.Router()
 //路由入口,首屏渲染
 router.all('/', function(req, res, next) {
   if(req.session.userId) {//如果用户已经登陆,收集首屏渲染所需的所有数据,然后渲染view
-
     // 装填首屏渲染所需要的数据
     req.session.first_render = {
       username: req.session.userName
@@ -23,6 +22,7 @@ router.all('/', function(req, res, next) {
     con.query(Notebook.selectAllNotebooks(req.session.userId)).then(function(results) {
 
       if(results.length === 0) {//此用户没有笔记本
+
         //新建笔记本
         con.query(Notebook.addNotebook(req.session.userId, '新建笔记本')).then(function(results) {
 
@@ -49,10 +49,13 @@ router.all('/', function(req, res, next) {
     }).catch(function(error) {
       throw error
     })
+
   } else {
     res.render('jump', {msg: '你还没有登录!'})
   }
+
 }, function(req, res, next) {
+
   con.query(Note.selectAllNotes(req.session.notebookId)).then(function(results) {
 
     if(results.length === 0) {//此笔记本没有文稿
@@ -69,9 +72,9 @@ router.all('/', function(req, res, next) {
         req.session.noteId = results.insertId
 
         next()
+
       })
     } else {
-
       //该笔记本有文稿，直接装填notes
       req.session.first_render.notes = results
 
@@ -80,11 +83,15 @@ router.all('/', function(req, res, next) {
 
       next()
     }
+
   }).catch(function(error) {
     throw error
   })
+
 }, function(req, res) {
+
   con.query(Record.selectAllRecords(req.session.noteId)).then(function(results) {
+
     if(results.length === 0) {//此用户没有文稿记录
       let now = Date.now()
 
@@ -104,10 +111,8 @@ router.all('/', function(req, res, next) {
 
         console.log(req.session.first_render)
         res.render('indexPage/index', req.session.first_render)
-
       })
     } else {
-
       //更新session.recordId
       req.session.recordId = results[0].recordId
 
@@ -116,11 +121,12 @@ router.all('/', function(req, res, next) {
 
       console.log(req.session.first_render)
       res.render('indexPage/index', req.session.first_render)
-
     }
+
   }).catch(function(error) {
     throw error
   })
+
 })
 
 
