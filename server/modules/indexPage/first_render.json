@@ -15,8 +15,8 @@
   "records": [
     {
       "recordId": "1",
-      "saveTime": "这是文章标题"
+      "saveTime": "这是文章标题",
+      "type": 0
     }
-  ],
-  "content": "一段html"
+  ]
 }

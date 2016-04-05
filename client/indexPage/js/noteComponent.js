@@ -57,7 +57,7 @@ module.exports = function () {
 
             if (data) {//重新渲染笔记列表
               data.header  = e.data
-              let template = handlebars.compile($("#one-note-of-list-tpl")
+              let template = handlebars.compile($("#one-Note-of-list-tpl")
                 .html()
                 .replace(/<%/g, '{{')
                 .replace(/%>/g, '}}'))

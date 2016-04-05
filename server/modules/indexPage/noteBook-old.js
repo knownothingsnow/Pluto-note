@@ -92,21 +92,22 @@ module.exports = {
   /**
    * 查询所有此用户的笔记本ID
    * @param {string}userId
-   * @param {function}callback
    */
-  selectAllNoteBooksId: (userId, callback) => {
+  selectAllNoteBooksId: (userId) => {
+    return new Promise((resolve, reject)=> {
+      let sql = `SELECT notebookId FROM notebook WHERE userId=${userId}`
+      console.log('selectAllNoteBooksId')
+      console.log('sql:' + sql)
+      con.query(sql).then(function(err, results) {
 
-    let sql = `SELECT notebookId FROM notebook WHERE userId=${userId}`
-    console.log('selectAllNoteBooksId')
-    console.log('sql:' + sql)
+        if(err) {reject(err)}
 
-    con.query(sql).then(function(err, results) {
-      
-      if(err) {throw err}
+        results.length !== 0 ? resolve(results) : resolve(false)
 
-      results.length !== 0 ? callback(results) : callback(false)
+      })
 
     })
+
   },
 
   /**

@@ -5,8 +5,8 @@
  */
 let express  = require('express')
 let router   = express.Router()
-let noteBook = require('../modules/indexPage/noteBook')
-let note     = require('../modules/indexPage/note')
+let noteBook = require('../modules/indexPage/noteBook-old')
+let note     = require('../modules/indexPage/note-old')
 
 //路由入口
 router.all('/', function (req, res) {

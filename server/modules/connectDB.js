@@ -8,7 +8,7 @@ let mysql = require('promise-mysql')
 
 
 //创建与数据库连接的实例
-let con        = mysql.createConnection({
+let con        = mysql.createPool({
   host    : '127.0.0.1',
   user    : 'kunkka',
   password: '',
