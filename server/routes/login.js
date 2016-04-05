@@ -29,9 +29,7 @@ router.post('/login/submit', function(req, res) {
 
     } else { res.render('jump', {msg: '用户名和密码不正确或不存在'}) }
 
-  }).catch(function(error) {
-    throw error
-  })
+  }).catch(function(error) { throw error })
 
 })
 
