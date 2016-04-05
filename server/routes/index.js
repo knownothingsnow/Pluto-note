@@ -46,9 +46,7 @@ router.all('/', function(req, res, next) {
 
         next()
       }
-    }).catch(function(error) {
-      throw error
-    })
+    }).catch(function(error) { throw error })
 
   } else {
     res.render('jump', {msg: '你还没有登录!'})
@@ -84,9 +82,7 @@ router.all('/', function(req, res, next) {
       next()
     }
 
-  }).catch(function(error) {
-    throw error
-  })
+  }).catch(function(error) { throw error })
 
 }, function(req, res) {
 
@@ -123,9 +119,7 @@ router.all('/', function(req, res, next) {
       res.render('indexPage/index', req.session.first_render)
     }
 
-  }).catch(function(error) {
-    throw error
-  })
+  }).catch(function(error) { throw error })
 
 })
 
