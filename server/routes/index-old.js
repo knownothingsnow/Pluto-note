@@ -20,7 +20,7 @@ router.all('/', function (req, res) {
     noteBook.selectAllNoteBooksId(req.session.userId, function (results) {
       if (results) {
         //装填该用户所有笔记本ID
-        first_render.notebooks = results
+        data.notebooks = results
 
         //在session里存储当前的笔记本ID
         req.session.notebookId = results[0].notebookId
@@ -28,8 +28,8 @@ router.all('/', function (req, res) {
         noteBook.selectAllNoteBooksName(req.session.userId, function (results) {
 
           //装填该用户所有笔记本名
-          for (let i = 0; i < first_render.notebooks.length; i ++) {
-            first_render.notebooks[i].notebookName = results[i].notebookName
+          for (let i = 0; i < data.notebooks.length; i ++) {
+            data.notebooks[i].notebookName = results[i].notebookName
           }
 
           note.selectAllNoteHeader(req.session.notebookId, function (results) {
@@ -39,18 +39,18 @@ router.all('/', function (req, res) {
               req.session.noteId = results[0].noteId
 
               //装填该笔记本ID下所有笔记名
-              first_render.notes = results
+              data.notes = results
 
               note.selectOneNoteContent(req.session.noteId, function (results) {
 
                 //装填首屏渲染所需数据的最后一步
-                first_render.first_note_content = results[0].content
+                data.first_note_content = results[0].content
 
-                res.render('indexPage/index', first_render)
+                res.render('indexPage/index', data)
 
               })
             } else {//当前笔记本存在但是没有文稿内容,只渲染笔记本列表
-              res.render('indexPage/index', first_render)
+              res.render('indexPage/index', data)
             }
 
           })
@@ -58,7 +58,7 @@ router.all('/', function (req, res) {
 
       } else {
         //新注册的用户没有首屏渲染的内容
-        res.render('indexPage/index', first_render)
+        res.render('indexPage/index', data)
       }
     })
   } else {

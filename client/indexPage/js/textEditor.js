@@ -42,8 +42,9 @@ textEditor.init = function () {
     'redo'
   ]
 
+  $('#editor').height(document.querySelector('html').offsetHeight - 74)
+
   editor.create()
-  $('div#editor').height(screen.height - 231)
 }
 
 textEditor.clear=function () {

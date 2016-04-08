@@ -2,8 +2,8 @@
 /**
  * @author Knight Young
  */
-let handlebars = require('../../../node_modules/handlebars/dist/handlebars.min')
-let textEditor = require('./textEditor')
+let handlebars = require('../../../../node_modules/handlebars/dist/handlebars.min.js')
+let textEditor = require('./../textEditor')
 
 module.exports = function () {
 
@@ -163,28 +163,28 @@ module.exports = function () {
   })
 
   //自动保存笔记
-  $('h1').off()
-  setInterval(()=> {
-    $.ajax({
-      url     : '/index/autoSaveNote',
-      data    : {
-        content: editor.$txt.html()
-      },
-      type    : 'post',
-      dataType: 'json',
-      success : function (data) {
-        console.log(data)
-        if (data) {
-          $('h1').popover('open')
-          setTimeout(()=> {
-            $('h1').popover('close')
-          }, 1000)
-        }
-      },
-      error   : function (error) {
-        console.log(error)
-      }
-    })
-  }, 30000)
+  // $('h1').off()
+  // setInterval(()=> {
+  //   $.ajax({
+  //     url     : '/index/autoSaveNote',
+  //     data    : {
+  //       content: editor.$txt.html()
+  //     },
+  //     type    : 'post',
+  //     dataType: 'json',
+  //     success : function (data) {
+  //       console.log(data)
+  //       if (data) {
+  //         $('h1').popover('open')
+  //         setTimeout(()=> {
+  //           $('h1').popover('close')
+  //         }, 1000)
+  //       }
+  //     },
+  //     error   : function (error) {
+  //       console.log(error)
+  //     }
+  //   })
+  // }, 30000)
 
 }

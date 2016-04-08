@@ -9,6 +9,7 @@
 div#notebooks-list ul {
   a {
     color : #000000;
+    height: 52px;
     button {
       float : right;
     }
@@ -19,16 +20,7 @@ div#notebooks-list ul {
   }
 }
 
-body{
-
-}
 //导航栏
 header.am-topbar {
-  margin-bottom: 0;
-  //float:left;width:100%;
-}
-
-//编辑器容器
-#editor {
-  //height: 100px;
+  margin-bottom : 0;
 }
