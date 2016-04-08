@@ -1,13 +1,12 @@
 var webpack = require('webpack')
 var path    = require('path')
 
-var publicPath = 'http://localhost:3000/'
+var publicPath = 'http://192.168.191.1:3000//'
 // var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true'
 
 var devConfig = {
   entry  : {
     index: './client/indexPage/js/main.js',
-    admin: './client/adminPage/js/main.js',
     login: './client/loginPage/js/main.js'
     // index: ['./client/indexPage/js/main.js', hotMiddlewareScript],
     // admin: ['./client/adminPage/js/main.js', hotMiddlewareScript],
