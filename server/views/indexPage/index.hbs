@@ -8,7 +8,7 @@
 </head>
 <body>
 <header class="am-topbar">
-  <h1 class="am-topbar-brand" data-am-popover="{content: '自动保存成功'}">Pluto Note</h1>
+  <h1 class="am-topbar-brand" data-am-popover="{content: '保存成功'}">Pluto Note</h1>
 
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
           data-am-collapse="{target: '#menu-buttons'}">
@@ -24,9 +24,10 @@
           文稿<span class="am-icon-caret-down"></span></a>
         <ul class="am-dropdown-content">
           <li><a id="addNote" href="#">新建</a></li>
-          <li><a id="saveNote" href="#">保存</a></li>
-          <li><a id="renameNote" href="#">重命名</a></li>
           <li><a id="deleteNote" href="#">删除</a></li>
+          <li><a id="saveRecord" href="#">保存</a></li>
+          <li><a id="renameNote" href="#">重命名</a></li>
+          <li><a id="addRecord" href="#">另存为历史版本</a></li>
         </ul>
       </li>
       <li class="am-dropdown" data-am-dropdown>
@@ -43,8 +44,8 @@
     <div class="am-topbar-left">
       <div class="am-dropdown" data-am-dropdown="{boundary: 'h1'}">
         <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle"
-                data-am-dropdown-toggle>笔记列表<span class="am-icon-caret-down"></span></button>
-        <ul id="notes-list" class="am-dropdown-content">
+                data-am-dropdown-toggle>{{defaultHeader}}<span class="am-icon-caret-down"></span></button>
+        <ul id="notes-list" class="am-dropdown-content" style="width: 400px;">
           {{#notes}}
             <li data-noteid="{{noteId}}"><a href="#">{{header}}</a></li>
           {{/notes}}
@@ -114,7 +115,7 @@
 <div id="records-list" class="am-offcanvas">
   <div class="am-offcanvas-bar am-offcanvas-bar-flip">
     <div class="am-offcanvas-content">
-      <h2>{{defaultHeader}}</h2>
+      <h2>历史版本</h2>
 
       <ul id="recordsName-list" class="am-list am-list-border">
         {{#records}}
@@ -122,7 +123,7 @@
             <a href="#" class="am-text-truncate">
               <i class="am-icon-book am-icon-fw"></i>
               {{saveTime}}
-              <button type="button" class="am-btn am-btn-xs am-btn-default am-round"
+              <button type="button" class="am-btn am-btn-xs am-btn-danger am-round"
                       data-recordId="{{recordId}}">删除
               </button>
             </a>

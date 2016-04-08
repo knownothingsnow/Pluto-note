@@ -1,15 +1,22 @@
 //文稿列表
-#notes-list {
-  max-height : 300px;
-  width      : 500px;
-  overflow-y : scroll;
+.am-topbar-left {
+  button {
+    max-width : 210px;
+  }
+
+  #notes-list {
+    max-height : 300px;
+    width      : 500px;
+    overflow-y : scroll;
+  }
 }
 
 //笔记本列表
 div#notebooks-list ul {
   a {
-    color : #000000;
-    height: 52px;
+    color  : #000000;
+    height : 52px;
+
     button {
       float : right;
     }
@@ -17,6 +24,19 @@ div#notebooks-list ul {
 
   .hidden {
     visibility : hidden;
+  }
+}
+
+//文稿记录列表
+div#records-list {
+  a {
+    color  : #000000;
+    height : 52px;
+    font-size : 1rem;
+
+    button {
+      float : right;
+    }
   }
 }
 

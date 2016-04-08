@@ -48,7 +48,8 @@ textEditor.init = function () {
 }
 
 textEditor.clear=function () {
-  editor.clear()
+  // editor.clear()
+  editor.$txt.html('')
 }
 
 textEditor.append=function (html) {

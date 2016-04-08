@@ -19,5 +19,19 @@ module.exports = {
     console.log('selectAllNotes-->' + sql)
     return sql
 
+  },
+
+  deleteNote: (noteId) => {
+
+    let sql = `DELETE FROM note WHERE noteId='${noteId}'`
+    console.log('deleteNote-->' + sql)
+    return sql
+
+  },
+  renameNote: (noteId, newHeader) => {
+
+    let sql = `UPDATE note SET header='${newHeader}' WHERE noteId=${noteId}`
+    console.log('renameNote-->' + sql)
+    return sql
   }
 }

@@ -176,6 +176,9 @@ module.exports = function() {
         dataType: 'json',
         success : function(data) {
 
+          //收起边栏
+          $('#notebooks-list').offCanvas('close')
+
           //清除编辑器内容
           textEditor.clear()
 
