@@ -1,24 +1,11 @@
-/*----------reset----------*/
-
-header.am-topbar {
-  margin-bottom : 0;
-}
-
+//文稿列表
 #notes-list {
   max-height : 300px;
   width      : 500px;
   overflow-y : scroll;
 }
 
-div.am-selected {
-  float      : left;
-  position   : relative;
-  display    : block;
-  margin-top : 8px;
-  padding    : 0 10px;
-}
-
-/*----------自定义----------*/
+//笔记本列表
 div#notebooks-list ul {
   a {
     color : #000000;
@@ -27,8 +14,21 @@ div#notebooks-list ul {
     }
   }
 
+  .hidden {
+    visibility : hidden;
+  }
 }
 
-.hidden {
-  visibility : hidden;
+body{
+
+}
+//导航栏
+header.am-topbar {
+  margin-bottom: 0;
+  //float:left;width:100%;
+}
+
+//编辑器容器
+#editor {
+  //height: 100px;
 }

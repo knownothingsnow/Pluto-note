@@ -37,6 +37,7 @@
           <li><a href="#">Markdown</a></li>
         </ul>
       </li>
+      <li><a href="#records-list" data-am-offcanvas>历史记录</a></li>
     </ul>
 
     <div class="am-topbar-left">
@@ -45,27 +46,23 @@
                 data-am-dropdown-toggle>笔记列表<span class="am-icon-caret-down"></span></button>
         <ul id="notes-list" class="am-dropdown-content">
           {{#notes}}
-            <li data-noteid="{{noteId}}"><a href="#"><span class="note-tags">#{{tags}}&nbsp;</span>{{header}}</a></li>
+            <li data-noteid="{{noteId}}"><a href="#">{{header}}</a></li>
           {{/notes}}
         </ul>
       </div>
     </div>
 
     <!--用于JS渲染的模板副本 #notes-list-->
-    <script id="one-note-of-list-tpl" type="text/x-handlebars-template">
-      <li data-noteid="<%noteId%>"><a href="#"><span class="note-tags">#<%tags%>&nbsp;</span><%header%></a></li>
-    </script>
-
     <script id="notes-list-tpl" type="text/x-handlebars-template">
-      <%#list%>
-        <li data-noteid="<%noteId%>"><a href="#"><span class="note-tags">#<%tags%>&nbsp;</span><%header%></a></li>
-      <%/list%>
+      <%#notes%>
+      <li data-noteid="<%noteId%>"><a href="#"><%header%></a></li>
+      <%/notes%>
     </script>
 
     <div class="am-topbar-right">
       <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
         <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle"
-                data-am-dropdown-toggle>{{username}}<span class="am-icon-caret-down"></span></button>
+                data-am-dropdown-toggle>{{username}}</button>
         <ul class="am-dropdown-content">
           <li><a href="/logout">注销</a></li>
         </ul>
@@ -76,7 +73,7 @@
 
 </header>
 
-<div id="editor">{{{first_note_content}}}</div>
+<textarea id="editor">{{{defaultContent}}}</textarea>
 
 <div id="notebooks-list" class="am-offcanvas">
   <div class="am-offcanvas-bar">
@@ -84,26 +81,27 @@
       <button id="addNoteBook" class="am-btn am-btn-success">新建</button>
       <button id="renameNoteBook" class="am-btn am-btn-warning">重命名</button>
       <button id="deleteNoteBook" class="am-btn am-btn-danger">删除</button>
-      <ul id="notebooksName-list" class="am-list am-list-border">
+      <ul id="notebookNames-list" class="am-list am-list-border">
         {{#notebooks}}
           <li>
             <a href="#" class="am-text-truncate">
               <i class="am-icon-book am-icon-fw"></i>
               {{notebookName}}
-              <button type="button" class="am-btn am-btn-xs am-btn-default am-round hidden" data-notebookId="{{notebookId}}"></button>
+              <button type="button" class="am-btn am-btn-xs am-btn-default am-round hidden"
+                      data-notebookId="{{notebookId}}"></button>
             </a>
           </li>
         {{/notebooks}}
       </ul>
-      <!--用于JS渲染的模板副本 #notebooksName-list-->
-      <!--hack 因为前后端的都会使用handlebars,所以后端会先于前端渲染script标签的内容,导致script内渲染不出结果.此处使用尖括号,在js中使用正则替换成正确的handlebars语法-->
-      <script id="notebooksName-list-tpl" type="text/x-handlebars-template">
+      <!--用于JS渲染的模板副本 #notebookNames-list-->
+      <script id="notebookNames-list-tpl" type="text/x-handlebars-template">
         <%#notebooks%>
         <li>
           <a href="#" class="am-text-truncate">
             <i class="am-icon-book am-icon-fw"></i>
             <%notebookName%>
-            <button type="button" class="am-btn am-btn-xs am-btn-default am-round" data-notebookId="<%notebookId%>"></button>
+            <button type="button" class="am-btn am-btn-xs am-btn-default am-round hidden"
+                    data-notebookId="<%notebookId%>"></button>
           </a>
         </li>
         <%/notebooks%>
@@ -113,15 +111,39 @@
   </div>
 </div>
 
-<div class="am-modal am-modal-prompt" tabindex="-1" id="newDataPrompt">
-  <div class="am-modal-dialog">
-    <div class="am-modal-hd"></div>
-    <div class="am-modal-bd">
-      <input type="text" class="am-modal-prompt-input">
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+<div id="records-list" class="am-offcanvas">
+  <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+    <div class="am-offcanvas-content">
+      <h2>{{defaultHeader}}</h2>
+
+      <ul id="recordsName-list" class="am-list am-list-border">
+        {{#records}}
+          <li>
+            <a href="#" class="am-text-truncate">
+              <i class="am-icon-book am-icon-fw"></i>
+              {{saveTime}}
+              <button type="button" class="am-btn am-btn-xs am-btn-default am-round"
+                      data-recordId="{{recordId}}">删除
+              </button>
+            </a>
+          </li>
+        {{/records}}
+      </ul>
+      <!--用于JS渲染的模板副本 #recordsName-list-->
+      <script id="recordsName-list-tpl" type="text/x-handlebars-template">
+        <%#records%>
+        <li>
+          <a href="#" class="am-text-truncate">
+            <i class="am-icon-book am-icon-fw"></i>
+            <%saveTime%>
+            <button type="button" class="am-btn am-btn-xs am-btn-default am-round"
+                    data-recordId="<%recordId%>">删除
+            </button>
+          </a>
+        </li>
+        <%/records%>
+      </script>
+
     </div>
   </div>
 </div>
@@ -135,11 +157,55 @@
   </div>
 </div>
 
-<div class="am-modal am-modal-alert" tabindex="-1" id="alert-msg">
+<!--hack 此处代码原则上可以复用，但是尝试复用时会出现奇怪的BUG，所以分开四个modal组件使用-->
+<div class="am-modal am-modal-prompt" tabindex="-1" id="add-notebook-prompt">
   <div class="am-modal-dialog">
-    <div class="am-modal-hd"></div>
+    <div class="am-modal-hd">请输入新笔记本名</div>
+    <div class="am-modal-bd">
+      <input type="text" class="am-modal-prompt-input">
+    </div>
     <div class="am-modal-footer">
-      <span class="am-modal-btn">确定</span>
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+    </div>
+  </div>
+</div>
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="rename-notebook-prompt">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">重命名笔记本</div>
+    <div class="am-modal-bd">
+      <input type="text" class="am-modal-prompt-input">
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+    </div>
+  </div>
+</div>
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="add-note-prompt">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">添加新的文稿</div>
+    <div class="am-modal-bd">
+      <input type="text" class="am-modal-prompt-input">
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+    </div>
+  </div>
+</div>
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="rename-note-prompt">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">为当前文稿输入新名字</div>
+    <div class="am-modal-bd">
+      <input type="text" class="am-modal-prompt-input">
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>提交</span>
     </div>
   </div>
 </div>
