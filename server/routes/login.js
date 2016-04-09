@@ -20,7 +20,7 @@ router.post('/login/submit', function(req, res) {
 
   con.query(login.inputCheck(req.body)).then(function(results) {
 
-    if(results) {
+    if(results.length===1) {
 
       req.session.userId   = results[0].userId
       req.session.userName = results[0].userName
