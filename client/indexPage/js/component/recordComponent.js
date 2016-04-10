@@ -2,13 +2,12 @@
 /**
  * @author Knight Young
  */
-let textEditor = require('./../textEditor')
 let Refresh    = require('./ListRefresh')
 
 /**
  * '历史记录'侧边栏的功能
  */
-module.exports = function() {
+module.exports = function(Editor) {
 
   $('#recordsName-list').on('click', function(e) {
     switch(e.target.tagName) {
@@ -27,10 +26,10 @@ module.exports = function() {
             $('#records-list').offCanvas('close')
 
             //清除编辑器内容
-            textEditor.clear()
+            Editor.clear()
 
             //插入新内容
-            textEditor.append(data.defaultContent)
+            Editor.append(data.defaultContent)
           },
           error   : function(error) {
             console.log(error.name + ": " + error.message);
@@ -50,10 +49,10 @@ module.exports = function() {
           success : function(data) {
 
             //清除编辑器内容
-            textEditor.clear()
+            Editor.clear()
 
             //插入新内容
-            textEditor.append(data.defaultContent)
+            Editor.append(data.defaultContent)
 
             //刷新列表
             Refresh.record(data)

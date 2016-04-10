@@ -2,13 +2,12 @@
 /**
  * @author Knight Young
  */
-let textEditor = require('./../textEditor')
-let Refresh    = require('./ListRefresh')
+let Refresh = require('./ListRefresh')
 
 /**
  * '文稿'下拉菜单的功能
  */
-module.exports = function() {
+module.exports = function(Editor) {
 
   // 切换笔记
   $('#notes-list').on('click', function(e) {
@@ -32,14 +31,14 @@ module.exports = function() {
         Refresh.record(data)
 
         //清除编辑器内容
-        textEditor.clear()
+        Editor.clear()
 
         //插入新内容
-        textEditor.append(data.defaultContent)
+        Editor.append(data.defaultContent)
 
       },
       error   : function(error) {
-         console.log(error.name + ": " + error.message);
+        console.log(error.name + ": " + error.message);
       }
     })
 
@@ -65,10 +64,10 @@ module.exports = function() {
             Refresh.record(data)
 
             //清除编辑器内容
-            textEditor.clear()
+            Editor.clear()
 
             //插入新内容
-            textEditor.append(data.defaultContent)
+            Editor.append(data.defaultContent)
 
             //弹出提示信息
             $('#message-alert .am-modal-hd').text('新建文稿成功')
@@ -101,10 +100,10 @@ module.exports = function() {
         Refresh.record(data)
 
         //清除编辑器内容
-        textEditor.clear()
+        Editor.clear()
 
         //插入新内容
-        textEditor.append(data.defaultContent)
+        Editor.append(data.defaultContent)
 
         //弹出提示信息
         $('#message-alert .am-modal-hd').text('删除文稿成功')
@@ -112,7 +111,7 @@ module.exports = function() {
 
       },
       error   : function(error) {
-         console.log(error.name + ": " + error.message);
+        console.log(error.name + ": " + error.message);
       }
     })
 
@@ -171,10 +170,10 @@ module.exports = function() {
         Refresh.record(data)
 
         //清除编辑器内容
-        textEditor.clear()
+        Editor.clear()
 
         //插入新内容
-        textEditor.append(data.defaultContent)
+        Editor.append(data.defaultContent)
 
         //弹出提示信息
         $('#message-alert .am-modal-hd').text('你留下了一条新历史存档')
@@ -216,7 +215,7 @@ module.exports = function() {
   //   return setInterval(saveRecord(), 3000)
   //
   // }
-
+  let timer
   //手动保存笔记
   $('#saveRecord').on('click', function() {
     $.ajax({
@@ -230,30 +229,43 @@ module.exports = function() {
         console.log(data)
         //弹出提示信息
         $('h1').popover('open')
-        setTimeout(()=> { $('h1').popover('close') }, 1000)
+        // setTimeout(()=> { $('h1').popover('close') }, 1000)
+        resetTimer()
       },
-      error   : function(error) {  console.log(error.name + ": " + error.message); }
+      error   : function(error) { console.log(error.name + ": " + error.message); }
     })
   })
 
   //自动保存笔记
   $('h1').off()
-  // setInterval(function() {
-  //   $.ajax({
-  //     url     : '/index/saveRecord',
-  //     data    : {
-  //       content: editor.$txt.html()
-  //     },
-  //     type    : 'post',
-  //     dataType: 'json',
-  //     success : function(data) {
-  //       console.log(data)
-  //       //弹出提示信息
-  //       $('h1').popover('open')
-  //       setTimeout(()=> { $('h1').popover('close') }, 1000)
-  //     },
-  //     error   : function(error) {  console.log(error.name + ": " + error.message); }
-  //   })
-  // }, 30000)
+
+  //启动计时器
+  let initialTimer = ()=> {
+    timer = setInterval(function() {
+      $.ajax({
+        url     : '/index/saveRecord',
+        data    : {
+          content: editor.$txt.html()
+        },
+        type    : 'post',
+        dataType: 'json',
+        success : function(data) {
+          console.log(data)
+          //弹出提示信息
+          $('h1').popover('open')
+          setTimeout(()=> { $('h1').popover('close') }, 1000)
+        },
+        error   : function(error) { console.log(error.name + ": " + error.message); }
+      })
+    }, 30000)
+  }
+
+  //重置计时器
+  let resetTimer = ()=> {
+    clearInterval(timer)
+    initialTimer()
+  }
+
+  initialTimer()
 
 }

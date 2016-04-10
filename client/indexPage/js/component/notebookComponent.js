@@ -2,21 +2,19 @@
 /**
  * @author Knight Young
  */
-let textEditor = require('./../textEditor')
-let Refresh    = require('./ListRefresh')
+let Refresh = require('./ListRefresh')
 
 /**
  * '我的笔记本'侧边栏的功能
  */
-module.exports = function() {
+module.exports = function(Editor) {
   
   //新建笔记本按钮
   $('#addNoteBook').on('click', ()=> {
-    // console.log('addNoteBook!!!')
+
     $('#add-notebook-prompt').modal({
       relatedTarget: this,
       onConfirm    : function(e) {
-        // console.log('inner :' + e.data)
 
         $.ajax({
           url     : '/index/addNoteBook',
@@ -74,18 +72,17 @@ module.exports = function() {
 
     if(e.target.tagName === 'BUTTON') {
 
-      let $thisId = $(e.target)[0].dataset.notebookid
-      // console.log('this id is ->' + $thisId)
+      //缓存notebookId
+      $('#renameNoteBook').data('notebookId', $(e.target)[0].dataset.notebookid)
 
       let $store = $('#notebookNames-list').data('store')
-      // console.log('this target is ->' + e.target.tagName)
 
       if($store === 'delete') {
-        // console.log('delete inner :' + $thisId)
+
         $.ajax({
           url     : '/index/deleteNoteBook',
           data    : {
-            notebookId: $thisId //当前的notebookId
+            notebookId: $('#renameNoteBook').data('notebookId')
           },
           type    : 'post',
           dataType: 'json',
@@ -95,10 +92,10 @@ module.exports = function() {
             $('div.am-topbar-left button').text(data.defaultHeader)
 
             //清除编辑器内容
-            textEditor.clear()
+            Editor.clear()
 
             //插入新内容
-            textEditor.append(data.defaultContent)
+            Editor.append(data.defaultContent)
 
             //刷新列表
             Refresh.notebook(data)
@@ -111,71 +108,60 @@ module.exports = function() {
 
       } else if($store === 'rename') {
 
-        let newNotebookName = window.prompt('为你的笔记本起个新名字')
+        $('#rename-notebook-prompt').modal({
+          relatedTarget: this,
+          onConfirm    : (e)=> {
 
-        if(! newNotebookName) {
-          //弹出提示信息
-          $('#message-alert .am-modal-hd').text('笔记本名不能为空')
-          $('#message-alert').modal('open')
-          return
-        }
-        // (function(notebookId) {
-        //   console.log('rename outer :' + notebookId)
-        //
-        //   $('#rename-notebook-prompt').modal({
-        //     relatedTarget: this,
-        //     onConfirm    : (e)=> {
-        //       console.log('rename inner :' + notebookId)
-        let data = {
-          notebookId     : $thisId,
-          newNotebookName: newNotebookName
-        }
+            //取得缓存的notebookId
+            let $thisId = $('#renameNoteBook').data('notebookId')
 
-        // console.log(data)
-
-        $.ajax({
-          url     : '/index/renameNoteBook',
-          data    : data,
-          type    : 'post',
-          dataType: 'json',
-          success : function(data) {
-
-            if(data.repeat) {//输入的名字重复了
-
-              //刷新当前标题
-              $('div.am-topbar-left button').text(data.defaultHeader)
-
-              //弹出提示信息
-              $('#message-alert .am-modal-hd').text('该笔记本已经存在')
-              $('#message-alert').modal('open')
-
-            } else {
-
-              //清除编辑器内容
-              textEditor.clear()
-
-              //插入新内容
-              textEditor.append(data.defaultContent)
-
-              //刷新列表
-              Refresh.notebook(data)
-              Refresh.note(data)
-              Refresh.record(data)
+            let data = {
+              notebookId     : $thisId,
+              newNotebookName: e.data || ''
             }
 
-          },
-          error   : function(error) { console.log(error) }
+            $.ajax({
+              url     : '/index/renameNoteBook',
+              data    : data,
+              type    : 'post',
+              dataType: 'json',
+              success : function(data) {
+
+                if(data.repeat) {//输入的名字重复了
+
+                  //刷新当前标题
+                  $('div.am-topbar-left button').text(data.defaultHeader)
+
+                  //弹出提示信息
+                  $('#message-alert .am-modal-hd').text('该笔记本已经存在')
+                  $('#message-alert').modal('open')
+
+                } else {
+
+                  //清除编辑器内容
+                  Editor.clear()
+
+                  //插入新内容
+                  Editor.append(data.defaultContent)
+
+                  //刷新列表
+                  Refresh.notebook(data)
+                  Refresh.note(data)
+                  Refresh.record(data)
+
+                }
+
+              },
+              error   : function(error) { console.log(error) }
+            })
+
+          }
         })
-        //
-        //     }
-        //   })
-        // })($thisId)
+
       }
     } else if(e.target.tagName === 'A' || 'I') {//切换笔记本
 
       let $thisId = $(e.target)[0].children[1].dataset.notebookid
-      // console.log($thisId)
-      //     console.log('this target is ->' + e.target.tagName)
 
       $.ajax({
         url     : '/index/switchNotebook',
@@ -190,10 +176,10 @@ module.exports = function() {
           $('#notebooks-list').offCanvas('close')
 
           //清除编辑器内容
-          textEditor.clear()
+          Editor.clear()
 
           //插入新内容
-          textEditor.append(data.defaultContent)
+          Editor.append(data.defaultContent)
 
           //刷新当前标题
           $('div.am-topbar-left button').text(data.defaultHeader)
