@@ -16,7 +16,6 @@ router.get('/', function(req, res) {
 })
 
 router.post('/login/submit', function(req, res) {
-  //todo 在视图加上表单验证
 
   con.query(login.inputCheck(req.body)).then(function(results) {
 
