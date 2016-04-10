@@ -1,7 +1,7 @@
 var webpack = require('webpack')
 var path    = require('path')
 
-var publicPath = 'http://localhost:3000/'
+var publicPath = 'http://192.168.43.31:3000/'
 // var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true'
 
 var devConfig = {

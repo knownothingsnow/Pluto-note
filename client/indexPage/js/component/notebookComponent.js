@@ -33,6 +33,9 @@ module.exports = function() {
 
             } else {
 
+              //刷新当前标题
+              $('div.am-topbar-left button').text(data.defaultHeader)
+
               //刷新列表
               Refresh.notebook(data)
               Refresh.note(data)
@@ -87,6 +90,9 @@ module.exports = function() {
           dataType: 'json',
           success : function(data) {
 
+            //刷新当前标题
+            $('div.am-topbar-left button').text(data.defaultHeader)
+
             //清除编辑器内容
             textEditor.clear()
 
@@ -135,6 +141,9 @@ module.exports = function() {
 
             if(data.repeat) {//输入的名字重复了
 
+              //刷新当前标题
+              $('div.am-topbar-left button').text(data.defaultHeader)
+
               //弹出提示信息
               $('#message-alert .am-modal-hd').text('该笔记本已经存在')
               $('#message-alert').modal('open')
@@ -161,7 +170,7 @@ module.exports = function() {
         //   })
         // })($thisId)
       }
-    } else if(e.target.tagName === 'A' || 'I') {
+    } else if(e.target.tagName === 'A' || 'I') {//切换笔记本
 
       let $thisId = $(e.target)[0].children[1].dataset.notebookid
       // console.log($thisId)
@@ -185,6 +194,9 @@ module.exports = function() {
           //插入新内容
           textEditor.append(data.defaultContent)
 
+          //刷新当前标题
+          $('div.am-topbar-left button').text(data.defaultHeader)
+          
           //刷新列表
           Refresh.note(data)
           Refresh.record(data)

@@ -25,6 +25,9 @@ module.exports = function() {
         //关闭下拉菜单
         $('#notes-list').parent().dropdown('close')
 
+        //刷新当前标题
+        $('div.am-topbar-left button').text(data.defaultHeader)
+
         //刷新列表
         Refresh.record(data)
 
@@ -90,6 +93,9 @@ module.exports = function() {
       dataType: 'json',
       success : function(data) {
 
+        //刷新当前标题
+        $('div.am-topbar-left button').text(data.defaultHeader)
+
         //刷新列表
         Refresh.note(data)
         Refresh.record(data)
@@ -127,6 +133,9 @@ module.exports = function() {
           type    : 'post',
           dataType: 'json',
           success : function(data) {
+
+            //刷新当前标题
+            $('div.am-topbar-left button').text(data.defaultHeader)
 
             //刷新列表
             Refresh.note(data)
