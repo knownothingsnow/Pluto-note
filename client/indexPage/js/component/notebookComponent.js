@@ -5,9 +5,10 @@
 let textEditor = require('./../textEditor')
 let Refresh    = require('./ListRefresh')
 
+/**
+ * '我的笔记本'侧边栏的功能
+ */
 module.exports = function() {
-  
-  /**********操作笔记本的接口**********/
   
   //新建笔记本按钮
   $('#addNoteBook').on('click', ()=> {

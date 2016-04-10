@@ -1,19 +1,16 @@
 'use strict'
 /**
- * @type {*|exports|module.exports}
+ * 主页面路由逻辑
  * @author Knight Young
+ * @type {*|exports|module.exports}
  */
-let express  = require('express')
-let Notebook = require('../modules/indexPage/noteBook')
-let Note     = require('../modules/indexPage/note')
-let Record   = require('../modules/indexPage/record')
-let con      = require('../modules/connectDB.js')
+let express  = require('express'),
+    Notebook = require('../modules/indexPage/noteBook'),
+    Note     = require('../modules/indexPage/note'),
+    Record   = require('../modules/indexPage/record'),
+    con      = require('../modules/connectDB.js')
 
 let router = express.Router()
-
-// con.query().then(function(results) {
-//   console.log(results)
-// }).catch(function(error) { throw error })
 
 let checkNotebook = function(req, res, next) {
   
@@ -147,11 +144,15 @@ let checkRecord = function(req, res, next) {
       
       //该用户有文稿记录，直接装填record
       req.session.data.records = results
+
+      //将defaultHeader更新为当前noteId对应的header
       for(let note of req.session.data.notes) {
         if(note.noteId == req.session.noteId) {
           req.session.data.defaultHeader = note.header
         }
       }
+
+      //defaultContent默认装填最新的文稿记录
       req.session.data.defaultContent = req.session.data.records[req.session.data.records.length - 1].content
 
       // console.log('recordId:' + req.session.recordId)
@@ -177,7 +178,9 @@ router.all('/', [checkNotebook, checkNote, checkRecord], function(req, res) {
 
 /**********操作文稿接口**********/
 
-//切换文稿
+/**
+ * 切换文稿
+ */
 router.post('/switchNote', function(req, res, next) {
   
   //更新当前的文稿ID
@@ -191,7 +194,9 @@ router.post('/switchNote', function(req, res, next) {
 
 })
 
-//新建文稿
+/**
+ * 新建文稿
+ */
 router.post('/addNote', function(req, res, next) {
   
   con.query(Note.addNote(req.session.notebookId, req.body.newHeader)).then(function(results) {
@@ -207,7 +212,9 @@ router.post('/addNote', function(req, res, next) {
   
 })
 
-//删除一篇文稿
+/**
+ * 删除文稿
+ */
 router.post('/deleteNote', function(req, res, next) {
   
   con.query(Note.deleteNote(req.session.noteId)).then(function(results) {
@@ -222,18 +229,22 @@ router.post('/deleteNote', function(req, res, next) {
   
 })
 
-//自动或手动保存一篇文稿
+/**
+ * 自动或手动保存文稿
+ */
 router.post('/saveRecord', function(req, res, next) {
   
   con.query(Record.updateRecord(req.session.noteId, req.session.recordId, req.body.content)).then(function(results) {
-    console.log(results.affectedRows)
+
     if(results.affectedRows === 1) { next() }
     
   }).catch(function(error) { throw error })
   
 }, function(req, res) { res.send({msg: 'ok'}) })
 
-//另存为历史版本
+/**
+ * 另存为历史版本
+ */
 router.post('/addRecord', function(req, res, next) {
   let time = new Date(Date.now())
   let now  = time.toLocaleDateString() + ' ' + time.toString().slice(16, 24)
@@ -250,7 +261,9 @@ router.post('/addRecord', function(req, res, next) {
   
 })
 
-//重命名一篇文稿
+/**
+ * 重命名文稿
+ */
 router.post('/renameNote', function(req, res, next) {
   
   con.query(Note.renameNote(req.session.noteId, req.body.newHeader)).then(function(results) {
@@ -269,12 +282,12 @@ router.post('/renameNote', function(req, res, next) {
 /**********操作笔记本的接口**********/
 
 /**
- * 添加笔记本接口
+ * 添加笔记本
  */
 router.post('/addNoteBook', function(req, res, next) {
   // 如果传入的笔记本名已经存在就返回{repeat: true}
   con.query(Notebook.checkNotebookName(req.session.userId, req.body.notebookName)).then(function(results) {
-    console.log(results)
+
     results.length !== 0 ? res.send({repeat: true}) : next()
     
   }).catch(function(error) { throw error })
@@ -282,10 +295,8 @@ router.post('/addNoteBook', function(req, res, next) {
 }, function(req, res, next) {
   
   con.query(Notebook.addNotebook(req.session.userId, req.body.notebookName)).then(function(results) {
-    console.log('addNotebook')
-    if(results.affectedRows === 1) {
-      next()
-    }
+
+    if(results.affectedRows === 1) { next() }
     
   }).catch(function(error) { throw error })
   
@@ -298,7 +309,7 @@ router.post('/addNoteBook', function(req, res, next) {
 })
 
 /**
- * 删除笔记本接口
+ * 删除笔记本
  */
 router.post('/deleteNoteBook', function(req, res, next) {
   
@@ -316,7 +327,7 @@ router.post('/deleteNoteBook', function(req, res, next) {
 })
 
 /**
- * 重命名笔记本接口
+ * 重命名笔记本
  */
 router.post('/renameNoteBook', function(req, res, next) {
   // 如果传入的笔记本名已经存在就返回{repeat: true}
@@ -329,7 +340,7 @@ router.post('/renameNoteBook', function(req, res, next) {
 }, function(req, res, next) {
   
   con.query(Notebook.updateNoteBook(req.body.notebookId, req.body.newNotebookName)).then(function(results) {
-    console.log(results.affectedRows)
+
     if(results.affectedRows === 1) { next() }
     
   }).catch(function(error) { throw error })
@@ -342,13 +353,63 @@ router.post('/renameNoteBook', function(req, res, next) {
   
 })
 
+/**
+ * 切换笔记本
+ */
 router.post('/switchNotebook', function(req, res, next) {
-  console.log(req.body.notebookId)
+
   req.session.notebookId = req.body.notebookId
+
   next()
+
 }, [checkNote, checkRecord], function(req, res) {
+
   res.send(req.session.data)
+
 })
 
+/**
+ * 切换文稿记录
+ */
+router.post('/switchRecord', function(req, res, next) {
+
+  next()
+
+}, [checkRecord], function(req, res) {
+
+  req.session.recordId = req.body.recordId
+
+  //将defaultContent修正为所选文稿记录的content
+  for(let record of req.session.data.records) {
+    if(record.recordId == req.session.recordId) {
+      req.session.data.defaultContent = record.content
+    }
+  }
+
+  res.send(req.session.data)
+
+})
+
+/**
+ * 删除文稿记录
+ */
+router.post('/deleteRecord', function(req, res, next) {
+
+  con.query(Record.deleteRecord(req.body.recordId)).then(function(results) {
+
+    if(results.affectedRows === 1) { next() }
+
+  }).catch(function(error) { throw error })
+
+}, [checkRecord], function(req, res) {
+
+  console.log(req.session.data.records)
+  res.send(req.session.data)
+
+})
 
 module.exports = router
+
+// con.query().then(function(results) {
+//   console.log(results)
+// }).catch(function(error) { throw error })

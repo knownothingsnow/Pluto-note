@@ -27,6 +27,14 @@ module.exports = {
     console.log('updateRecord-->' + sql)
     return sql
 
+  },
+
+  deleteRecord: (recordId) => {
+
+    let sql = `DELETE FROM record WHERE recordId='${recordId}'`
+    console.log('deleteRecord-->' + sql)
+    return sql
+
   }
 
 }

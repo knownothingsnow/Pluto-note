@@ -5,12 +5,12 @@
 let textEditor = require('./../textEditor')
 let Refresh    = require('./ListRefresh')
 
+/**
+ * '文稿'下拉菜单的功能
+ */
 module.exports = function() {
 
-  /**********操作笔记接口**********/
-
   // 切换笔记
-
   $('#notes-list').on('click', function(e) {
 
     $.ajax({

@@ -15,6 +15,9 @@ router.get('/', function(req, res) {
 
 })
 
+/**
+ * 登录请求处理
+ */
 router.post('/login/submit', function(req, res) {
 
   con.query(login.inputCheck(req.body)).then(function(results) {

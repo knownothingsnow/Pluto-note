@@ -28,10 +28,12 @@ module.exports = {
     return sql
 
   },
+
   renameNote: (noteId, newHeader) => {
 
     let sql = `UPDATE note SET header='${newHeader}' WHERE noteId=${noteId}`
     console.log('renameNote-->' + sql)
     return sql
   }
+  
 }
