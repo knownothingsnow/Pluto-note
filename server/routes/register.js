@@ -13,7 +13,7 @@ let express = require('express'),
 router.all('/', function(req, res, next) {
   
   con.query(login.inputCheck(req.body)).then(function(results) {
-    console.log(results)
+
     if(results.length !== 0) {//用户名存在
 
       res.render('jump', {msg: '该用户名已经被注册过,换个名字试试.'})

@@ -6,7 +6,6 @@
  */
 let mysql = require('promise-mysql')
 
-
 //创建与数据库连接的实例
 let con        = mysql.createPool({
   host    : '127.0.0.1',
@@ -15,6 +14,7 @@ let con        = mysql.createPool({
   database: 'plutonote',
   charset : 'utf8_general_ci'
 })
+
 module.exports = con
 
 

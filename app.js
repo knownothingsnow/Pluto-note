@@ -4,15 +4,14 @@
  * @type {*|exports|module.exports}
  * @author Knight Young
  */
-let express      = require('express')
-let path         = require('path')
-let favicon      = require('serve-favicon')
-let logger       = require('morgan')
-let cookieParser = require('cookie-parser')
-let bodyParser   = require('body-parser')
-let session      = require('express-session')
-// let consolidate  = require('consolidate')
-let handlebars   = require('express-handlebars')
+let express      = require('express'),
+    path         = require('path'),
+    favicon      = require('serve-favicon'),
+    logger       = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser   = require('body-parser'),
+    session      = require('express-session'),
+    handlebars   = require('express-handlebars')
 
 let isDev        = process.env.NODE_ENV !== 'production'
 let app          = express()
@@ -23,33 +22,11 @@ app.engine('.hbs', handlebars({extname: '.hbs'}))
 app.set('view engine', '.hbs')
 app.set('views', path.resolve('./server/views'))
 
-// local variables for all views
 app.locals.env    = process.env.NODE_ENV || 'dev'
 app.locals.reload = true
 
 if(isDev) {
 
-  // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
-  /*  let webpack              = require('webpack'),
-   webpackDevMiddleware = require('webpack-dev-middleware'),
-   webpackHotMiddleware = require('webpack-hot-middleware'),
-   webpackDevConfig     = require('./webpack.config.js')
-
-   let compiler = webpack(webpackDevConfig)
-
-   // attach to the compiler & the server
-   app.use(webpackDevMiddleware(compiler, {
-
-   // public path should be the same with webpack config
-   publicPath: webpackDevConfig.output.publicPath,
-   noInfo    : true,
-   stats     : {
-   colors: true
-   }
-   }))
-   app.use(webpackHotMiddleware(compiler))*/
-
-  // uncomment after placing your favicon in /public
   app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')))
   app.use(logger('dev'))
 
@@ -72,7 +49,6 @@ if(isDev) {
   //启用路由控制器
   AllInterface(app)
 
-  // add "reload" to express, see: https://www.npmjs.com/package/reload
   let reload = require('reload')
   let http   = require('http')
 

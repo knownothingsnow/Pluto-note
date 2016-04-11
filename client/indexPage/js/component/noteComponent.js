@@ -159,8 +159,7 @@ module.exports = function(Editor) {
     $.ajax({
       url     : '/index/addRecord',
       data    : {
-        content: editor.$txt.html(),
-        type   : 0
+        content: editor.$txt.html()
       },
       type    : 'post',
       dataType: 'json',
@@ -187,34 +186,7 @@ module.exports = function(Editor) {
 
   })
   
-  // let saveRecord = function() {
-  //
-  //   $.ajax({
-  //     url     : '/index/saveRecord',
-  //     data    : {
-  //       content: editor.$txt.html()
-  //     },
-  //     type    : 'post',
-  //     dataType: 'json',
-  //     success : function(data) {
-  //       console.log(data)
-  //       //弹出提示信息
-  //       $('h1').popover('open')
-  //       setTimeout(()=> { $('h1').popover('close') }, 1000)
-  //     },
-  //     error   : function(error) {  console.log(error.name + ": " + error.message); }
-  //   })
-  //
-  //   // timerId=resetTimer(timerId)
-  //
-  // }
 
-  // function resetTimer(timerId) {
-  //
-  //   clearInterval(timerId)
-  //   return setInterval(saveRecord(), 3000)
-  //
-  // }
   let timer
   //手动保存笔记
   $('#saveRecord').on('click', function() {
@@ -226,11 +198,12 @@ module.exports = function(Editor) {
       type    : 'post',
       dataType: 'json',
       success : function(data) {
+
         console.log(data)
         //弹出提示信息
         $('h1').popover('open')
-        // setTimeout(()=> { $('h1').popover('close') }, 1000)
         resetTimer()
+        
       },
       error   : function(error) { console.log(error.name + ": " + error.message); }
     })

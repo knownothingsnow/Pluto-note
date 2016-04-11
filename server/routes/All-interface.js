@@ -9,6 +9,5 @@ module.exports = function (app) {
   app.use('/login', require('./login'))
   app.use('/logout', require('./logout'))
   app.use('/index', require('./index'))
-  app.use('/admin', require('./admin'))
   app.use('/register', require('./register'))
 }

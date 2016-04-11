@@ -1,8 +1,8 @@
 //文稿列表
 .am-topbar-left {
   button {
-    margin-left: 20px;
-    max-width : 210px;
+    //margin-left : 20px;
+    max-width   : 210px;
   }
 
   #notes-list {
@@ -31,8 +31,8 @@ div#notebooks-list ul {
 //文稿记录列表
 div#records-list {
   a {
-    color  : #000000;
-    height : 52px;
+    color     : #000000;
+    height    : 52px;
     font-size : 1rem;
 
     button {

@@ -55,11 +55,7 @@ let checkNotebook = function(req, res, next) {
       }
     }).catch(function(error) { throw error })
     
-  } else {
-    
-    res.render('jump', {msg: '你还没有登录!'})
-    
-  }
+  } else { res.render('jump', {msg: '你还没有登录!'}) }
   
 }
 
@@ -122,17 +118,11 @@ let checkRecord = function(req, res, next) {
         req.session.data.records        = [{
           recordId: results.insertId,
           content : '',
-          saveTime: now,
-          type    : 0
+          saveTime: now
         }]
         req.session.data.defaultHeader  = req.session.data.notes[0].header
         req.session.data.defaultContent = req.session.data.records[0].content
 
-        // console.log('recordId:' + req.session.recordId)
-        // console.log('noteId:' + req.session.noteId)
-        // console.log('notebookId:' + req.session.notebookId)
-        // console.log(req.session.data.defaultHeader)
-        // console.log(req.session.data.defaultContent)
         next()
         
       })
@@ -155,11 +145,6 @@ let checkRecord = function(req, res, next) {
       //defaultContent默认装填最新的文稿记录
       req.session.data.defaultContent = req.session.data.records[req.session.data.records.length - 1].content
 
-      // console.log('recordId:' + req.session.recordId)
-      // console.log('noteId:' + req.session.noteId)
-      // console.log('notebookId:' + req.session.notebookId)
-      // console.log(req.session.data.defaultHeader)
-      // console.log(req.session.data.defaultContent)
       next()
 
     }
@@ -200,8 +185,7 @@ router.post('/switchNote', function(req, res, next) {
 router.post('/addNote', function(req, res, next) {
   
   con.query(Note.addNote(req.session.notebookId, req.body.newHeader)).then(function(results) {
-    
-    console.log(results)
+
     if(results.affectedRows === 1) { next() }
     
   }).catch(function(error) { throw error })
@@ -246,10 +230,12 @@ router.post('/saveRecord', function(req, res, next) {
  * 另存为历史版本
  */
 router.post('/addRecord', function(req, res, next) {
+
+  //生成当前时间字符串
   let time = new Date(Date.now())
   let now  = time.toLocaleDateString() + ' ' + time.toString().slice(16, 24)
 
-  con.query(Record.addRecord(req.session.noteId, req.body.content, now, req.body.type)).then(function(results) {
+  con.query(Record.addRecord(req.session.noteId, req.body.content, now)).then(function(results) {
     
     if(results.affectedRows === 1) { next() }
     
@@ -303,7 +289,7 @@ router.post('/addNoteBook', function(req, res, next) {
 }, [checkNotebook, checkNote, checkRecord], function(req, res) {
   
   req.session.data.repeat = false
-  console.log(req.session.data.notebooks)
+
   res.send(req.session.data)
   
 })
@@ -320,8 +306,7 @@ router.post('/deleteNoteBook', function(req, res, next) {
   }).catch(function(error) { throw error })
   
 }, [checkNotebook, checkNote, checkRecord], function(req, res) {
-  
-  console.log(req.session.data.notebooks)
+
   res.send(req.session.data)
   
 })
@@ -332,7 +317,7 @@ router.post('/deleteNoteBook', function(req, res, next) {
 router.post('/renameNoteBook', function(req, res, next) {
   // 如果传入的笔记本名已经存在就返回{repeat: true}
   con.query(Notebook.checkNotebookName(req.session.userId, req.body.newNotebookName)).then(function(results) {
-    console.log(results)
+
     results.length !== 0 ? res.send({repeat: true}) : next()
     
   }).catch(function(error) { throw error })
@@ -348,7 +333,7 @@ router.post('/renameNoteBook', function(req, res, next) {
 }, [checkNotebook, checkNote, checkRecord], function(req, res) {
   
   req.session.data.repeat = false
-  console.log(req.session.data.notebooks)
+
   res.send(req.session.data)
   
 })
@@ -403,13 +388,11 @@ router.post('/deleteRecord', function(req, res, next) {
 
 }, [checkRecord], function(req, res) {
 
-  console.log(req.session.data.records)
   res.send(req.session.data)
 
 })
 
 module.exports = router
-
 // con.query().then(function(results) {
 //   console.log(results)
 // }).catch(function(error) { throw error })

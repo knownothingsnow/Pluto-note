@@ -6,42 +6,23 @@
 module.exports = {
   
   selectAllNotebooks: (userId)=> {
-    
-    let sql = `SELECT notebookId,notebookName FROM notebook WHERE userId=${userId}`
-    console.log('selectAllNotebooks-->'+ sql)
-    return sql
-    
+    return `SELECT notebookId,notebookName FROM notebook WHERE userId=${userId}`
   },
 
   addNotebook: (userId, notebookName) => {
-
-    let sql = `INSERT INTO notebook(userId, notebookName) VALUES (${userId},'${notebookName}')`
-    console.log('addNotebook-->'+ sql)
-    return sql
-
+    return `INSERT INTO notebook(userId, notebookName) VALUES (${userId},'${notebookName}')`
   },
 
   deleteNoteBook: (notebookId) => {
-
-    let sql = `DELETE FROM notebook WHERE notebookId='${notebookId}'`
-    console.log('deleteNoteBook-->'+ sql)
-    return sql
-
+    return `DELETE FROM notebook WHERE notebookId='${notebookId}'`
   },
 
   updateNoteBook: (notebookId, newNotebookName) => {
-
-    let sql = `UPDATE notebook SET notebookName='${newNotebookName}' WHERE notebookId=${notebookId}`
-    console.log('updateNoteBook-->'+ sql)
-    return sql
-    
+    return `UPDATE notebook SET notebookName='${newNotebookName}' WHERE notebookId=${notebookId}`
   },
 
   checkNotebookName: (userId, notebookName) => {
-
-    let sql = `SELECT notebookName FROM notebook WHERE userId=${userId} AND notebookName='${notebookName}'`
-    console.log('checkNotebookName-->'+ sql)
-    return sql
-
+    return `SELECT notebookName FROM notebook WHERE userId=${userId} AND notebookName='${notebookName}'`
   }
+  
 }

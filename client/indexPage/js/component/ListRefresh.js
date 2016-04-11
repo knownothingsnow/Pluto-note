@@ -17,9 +17,6 @@ module.exports = {
       .replace(/%>/g, '}}'))
     $('#notebookNames-list').html(notebookTpl(data))
 
-    // console.log('notebookTpl:')
-    // console.log(notebookTpl(data))
-
   },
 
   /**
@@ -34,9 +31,6 @@ module.exports = {
       .replace(/%>/g, '}}'))
     $('#notes-list').html(noteTpl(data))
 
-    // console.log('noteTpl:')
-    // console.log(noteTpl(data))
-
   },
 
   /**
@@ -50,9 +44,6 @@ module.exports = {
       .replace(/<%/g, '{{')
       .replace(/%>/g, '}}'))
     $('#recordsName-list').html(recordTpl(data))
-
-    // console.log('recordTpl:')
-    // console.log(recordTpl(data))
 
   }
 
