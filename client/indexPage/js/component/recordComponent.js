@@ -12,7 +12,7 @@ module.exports = function(Editor) {
   $('#recordsName-list').on('click', function(e) {
     switch(e.target.tagName) {
 
-      case 'A' || 'I'://切换文稿记录
+      case 'A' || 'I'://切换历史记录
         $.ajax({
           url     : '/index/switchRecord',
           data    : {
@@ -37,7 +37,7 @@ module.exports = function(Editor) {
         })
         break
 
-      case 'BUTTON'://删除文稿记录
+      case 'BUTTON'://删除历史记录
         console.log($(e.target).data('recordid'))
         $.ajax({
           url     : '/index/deleteRecord',

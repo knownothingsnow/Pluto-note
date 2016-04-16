@@ -153,7 +153,7 @@ module.exports = function(Editor) {
     })
   })
   
-  //添加文稿记录
+  //添加历史记录
   $('#addRecord').on('click', ()=> {
 
     $.ajax({
@@ -198,12 +198,11 @@ module.exports = function(Editor) {
       type    : 'post',
       dataType: 'json',
       success : function(data) {
-
         console.log(data)
         //弹出提示信息
         $('h1').popover('open')
+        setTimeout(()=> { $('h1').popover('close') }, 1000)
         resetTimer()
-        
       },
       error   : function(error) { console.log(error.name + ": " + error.message); }
     })
@@ -230,7 +229,7 @@ module.exports = function(Editor) {
         },
         error   : function(error) { console.log(error.name + ": " + error.message); }
       })
-    }, 30000)
+    }, 50000)
   }
 
   //重置计时器

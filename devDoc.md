@@ -37,6 +37,6 @@
 # 目前在express中使用的session值
 - req.session.userId 当前用户ID
 - req.session.userName 当前用户Name
-- req.session.recordId 当前文稿记录ID
+- req.session.recordId 当前历史记录ID
 - req.session.noteId 当前打开的文稿ID
 - req.session.notebookId 当前打开的笔记本ID

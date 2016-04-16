@@ -34,7 +34,7 @@ module.exports = {
   },
 
   /**
-   * 刷新文稿记录列表
+   * 刷新历史记录列表
    * @param data
    */
   record: (data)=> {
