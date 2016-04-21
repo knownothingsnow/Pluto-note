@@ -229,7 +229,7 @@ module.exports = function(Editor) {
         },
         error   : function(error) { console.log(error.name + ": " + error.message); }
       })
-    }, 50000)
+    }, 30000)
   }
 
   //重置计时器
