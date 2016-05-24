@@ -1,0 +1,428 @@
+[33mcommit 9b1edc50e6498f0790cc9243fed3fd7967d3cc63[m
+Author: knownothingsnow <--global>
+Date:   Tue May 24 23:58:14 2016 +0800
+
+    修改readme.md
+
+[33mcommit e097a1567ee50bc10a3f57e5124088e24c6bdd18[m
+Author: Knight Young <--global>
+Date:   Tue May 24 23:52:49 2016 +0800
+
+    修改readme.md
+
+[33mcommit 67814eaa5295180f6cc3467b66ecf65df4fd7185[m
+Author: Knight Young <Knight Young>
+Date:   Tue May 24 23:10:29 2016 +0800
+
+    精简sql接口语句
+
+[33mcommit 86d133465d02ef9d6517879b3d00d5e0845f063a[m
+Author: Knight Young <Knight Young>
+Date:   Sat May 21 15:19:05 2016 +0800
+
+    change readme.md
+
+[33mcommit 8bc90f96bbd7a5e86cc4c705c63b19055d5f2d8a[m
+Author: Knight Young <Knight Young>
+Date:   Sat May 21 15:16:44 2016 +0800
+
+    change readme.md
+
+[33mcommit d4c4f5fc1a3c3f4c4ac92d4a7baeab159e97b11a[m
+Author: Knight Young <Knight Young>
+Date:   Sat May 21 15:15:20 2016 +0800
+
+    change readme.md;delete devDoc.md
+
+[33mcommit a5124d5bc6ffe5c4aca90f5f9ff0f668de97e26c[m
+Author: knownothingsnow <knightyoung3000@gmail.com>
+Date:   Thu Apr 21 13:41:06 2016 +0800
+
+    change all files line ending to LF
+
+[33mcommit cb73b077b05ae2ed2a98b1fda539a558642b95a0[m
+Author: knownothingsnow <knightyoung3000@gmail.com>
+Date:   Sat Apr 16 13:19:51 2016 +0800
+
+    细节修改
+
+[33mcommit 8c265c99fe4950a67854fcbd9775812db49ba243[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Mon Apr 11 08:57:19 2016 +0800
+
+    清除原有代码的调试部分
+
+[33mcommit e44416d9c19c4cc2affc5d956b433835b14649ef[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Mon Apr 11 08:56:06 2016 +0800
+
+    删除多余文件，清楚原有代码的调试部分
+
+[33mcommit 71fe926171c07b2049e76c52e756f39a2bcd8d43[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sun Apr 10 17:14:30 2016 +0800
+
+    添加移动端支持,修复重命名笔记本名的遗留问题
+
+[33mcommit 394351840e36c5a51df6af156a1cbed1c8848e61[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sun Apr 10 14:46:05 2016 +0800
+
+    完成历史记录的切换和删除
+
+[33mcommit 393aa83fdd53eae28f65eb0f3f787507c213a083[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sun Apr 10 11:40:46 2016 +0800
+
+    登录页面加入表单验证
+
+[33mcommit 88995570a1bf86f8d905c121a4e67cf9cdc402d5[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sun Apr 10 11:22:24 2016 +0800
+
+    调整异步刷新的细节
+
+[33mcommit cda250215b22c3300c62ab36189da81335ed3838[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sat Apr 9 16:20:13 2016 +0800
+
+    微调跳转页面
+
+[33mcommit 0061fe5cc34cd61ebdc36566c541c682f62b6bdf[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sat Apr 9 15:40:35 2016 +0800
+
+    delete old files
+
+[33mcommit 7f594d9129983f7b9f0aee372e4751040d871472[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sat Apr 9 02:39:53 2016 +0800
+
+    peomise-mysql 改造笔记模块
+
+[33mcommit 4bdc9bae7264ab7a9ee9c8c8af12b1c5f0ec0f6d[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Fri Apr 8 14:50:29 2016 +0800
+
+    peomise-mysql 改造笔记本模块;修改client/indexPage/js目录;
+
+[33mcommit 1f1ad872108b9729cf21f9793b173a1c7939c4e9[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Fri Apr 8 10:53:31 2016 +0800
+
+    修改项目基础文件
+
+[33mcommit aa9d5ff1e640688a198f012735143098e6e7abc8[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Fri Apr 8 10:45:58 2016 +0800
+
+    调整视图
+
+[33mcommit 197670f559a253a954566be69adfc7c958a96740[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Fri Apr 8 10:42:45 2016 +0800
+
+    添加wangeditor 移动版，修改登录页面图片
+
+[33mcommit 8929e9dba14417c312e9f7018875dc6c98f16fc0[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Apr 5 16:15:48 2016 +0800
+
+    delete adminPage
+
+[33mcommit a35240af61d05f0fb4d917c6675bffd807acb255[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Apr 5 16:14:07 2016 +0800
+
+    promise-mysql 改造登录注册
+
+[33mcommit df7be4c7baa6f18880138a3172a91d710a8ce005[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Apr 5 15:36:44 2016 +0800
+
+    一些微调
+
+[33mcommit d59590261a8d6e1ba0ced4c2bd4b2339547a8b6c[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Apr 5 15:25:33 2016 +0800
+
+    promise-mysql  改造首屏渲染
+
+[33mcommit ca6399701d18385dac067e5330a8358fe197bf22[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Mon Apr 4 03:59:59 2016 +0800
+
+    屏蔽build文件夹;原eventInit.js拆分成3个文件;数据库新增文稿记录表;精简npm包;准备通过promise-mysql替换mysql模块,大规模重构
+
+[33mcommit 393d10cd7a19651be6e8476ff37360ff294431ab[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Wed Mar 30 23:24:32 2016 +0800
+
+    添加自动保存功能,手动保存时可以保存时间戳
+
+[33mcommit 4aa4f8f48c4b526c6f45931989d26d5a8701a7a9[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Wed Mar 30 22:09:15 2016 +0800
+
+    笔记的操作全部改成异步刷新
+
+[33mcommit f45a95b44ee8b0283d7a3d6932b27cc89a92498e[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Mar 29 22:27:11 2016 +0800
+
+    修改首屏渲染的数据格式
+
+[33mcommit 9aafa304d8465b912238e3b9d802962a3531489e[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Mar 29 20:41:35 2016 +0800
+
+    忽略client/bulid文件夹
+
+[33mcommit cb14eacdb712ec872ad2e49ebb840c76bbf20884[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Mar 29 20:34:50 2016 +0800
+
+    优化代码格式,将一些函数改成了箭头函数
+
+[33mcommit 739588ddde2ac77976a4cfbeee560770c5c57f86[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Mar 29 19:23:41 2016 +0800
+
+    fixbug 新用户因为程序不够健壮无法登录
+
+[33mcommit 46dfefe36c362113376002741fe5860af253056b[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Mar 29 18:50:44 2016 +0800
+
+    代码格式优化
+
+[33mcommit 7e373bb0bf7fceb528d8f4dd8f67e51b3bb0e06a[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Mar 29 17:38:42 2016 +0800
+
+    微调一些不合理的细节
+
+[33mcommit 31b61bf883bae6b42b7bbdf7aa1511f529b9acb6[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Tue Mar 29 15:59:56 2016 +0800
+
+    update Dev-doc.md
+
+[33mcommit 418a7a1bb9e095eee3926326186c26262b780e6e[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Mon Mar 28 16:10:52 2016 +0800
+
+    update Dev-doc.md
+
+[33mcommit 52e2194be85cb0d0bb6370ac2e027f6583473eae[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Mon Mar 28 13:56:35 2016 +0800
+
+    完成笔记的增删改查
+
+[33mcommit a097e1f949e364349344f20a7319744c1b1b6e1d[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sun Mar 27 07:08:24 2016 +0800
+
+    添加 添加笔记
+
+[33mcommit 5efd9e5060ca3d920247c247b6026b7f1ecbbbfb[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sun Mar 27 00:03:58 2016 +0800
+
+    添加 重命名笔记
+    删除 pageInit.js
+
+[33mcommit b01629ff73c61be1b23d45405d5597633d97c90c[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sat Mar 26 04:54:39 2016 +0800
+
+    睡前一更
+
+[33mcommit 9a4727d0a505cc620c22ad3cd7164cd8e1f2ba9d[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sat Mar 26 02:56:22 2016 +0800
+
+    完成 添加笔记本并渲染
+
+[33mcommit 437d7525731e9cc2418374496be12fa219c1b81c[m
+Author: Knight Young <409268215@qq.com>
+Date:   Thu Mar 24 17:53:17 2016 +0800
+
+    update package.json
+
+[33mcommit 7d974f8cb3e3806bf6a4238270601519f6b49f74[m
+Author: Knight Young <409268215@qq.com>
+Date:   Thu Mar 24 06:24:24 2016 +0800
+
+    添加笔记本功能第一阶段
+
+[33mcommit eee8940ef843d60deb9e8667b10a730f0a14c480[m
+Author: Knight Young <409268215@qq.com>
+Date:   Mon Mar 21 03:46:40 2016 +0800
+
+    微调
+
+[33mcommit ae542a7184720b069158e312abfaa637dcc1fcd1[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sun Mar 20 16:12:24 2016 +0800
+
+    add modules/indexPage
+
+[33mcommit be74ff03f714f201964fbc0b62e06e5ade94f121[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sun Mar 20 06:18:26 2016 +0800
+
+    更新项目基础文件
+
+[33mcommit 467dddb51987647eece3ee6c851edfe66f8d15a8[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sun Mar 20 06:00:33 2016 +0800
+
+    update README.md
+
+[33mcommit 4e88d35be036b33c2660279f60b6290f9955b7e5[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sun Mar 20 05:53:52 2016 +0800
+
+    模板引擎从ejs改用handlebar,完成主界面布局
+
+[33mcommit e11e7e9f3004afb97508c47f38857149acd32f77[m
+Author: Knight Young <409268215@qq.com>
+Date:   Wed Mar 16 21:22:35 2016 +0800
+
+    删除多余文件夹
+
+[33mcommit c561154af103f47272d7730ac46043197f7b8685[m
+Author: Knight Young <409268215@qq.com>
+Date:   Wed Mar 16 21:13:18 2016 +0800
+
+    小修改
+
+[33mcommit 1f351ceefda8dc514bfdfdc9f258c2892d07861e[m
+Author: Knight Young <409268215@qq.com>
+Date:   Wed Mar 16 20:52:54 2016 +0800
+
+    登录 注册
+
+[33mcommit 9596412e89e7aa2fc172e5b9c343be4a83dd8f36[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sat Mar 12 02:23:58 2016 +0800
+
+    webpack配置完成
+
+[33mcommit 6b97e588d4b2f6bba2e637d4036067f5853dbf43[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sat Mar 12 02:23:26 2016 +0800
+
+    webpack配置完成
+
+[33mcommit 7a91588da9b988069d9146e0347d86fdcc25fc45[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sat Mar 12 01:22:52 2016 +0800
+
+    add WebPack.optimize.CommonsChunkPlugin
+
+[33mcommit 1ef3ee55c558f5e7ed6b73d0ec0d4a17afeaf13c[m
+Author: Knight Young <409268215@qq.com>
+Date:   Fri Mar 11 17:37:13 2016 +0800
+
+    修改目录结构,加上了webpack热替换
+
+[33mcommit 8e63562ec59951611a002bca07e53bb15ac28d17[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Thu Mar 10 16:46:15 2016 +0800
+
+    改用jquery实现
+
+[33mcommit 17aa9d5d9a3e781529b201405939e15056721b7c[m
+Author: Knight Young <409268215@qq.com>
+Date:   Thu Mar 10 03:53:22 2016 +0800
+
+    去掉flex;使用vue-router
+
+[33mcommit a5dac9901402578f41d18513b2f74f43af0095c5[m
+Author: Knight Young <409268215@qq.com>
+Date:   Mon Mar 7 15:26:20 2016 +0800
+
+    基本的登录逻辑
+
+[33mcommit 1b91a37e5c3d90b25c2faff1a71d9c9547ceef8f[m
+Author: Knight Young <409268215@qq.com>
+Date:   Mon Feb 29 22:34:12 2016 +0800
+
+    暂时去掉sass,bootstarp用AmazeUI替代
+
+[33mcommit e7cfefa7ca27b608bd581ea449169ff7627b74ca[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sat Feb 20 08:00:12 2016 +0800
+
+    webpack终于配好了
+
+[33mcommit 1a1815625ca3178e255c5423f57b4d65e4f3be97[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sat Feb 20 03:20:26 2016 +0800
+
+    配置webpack在服务端的调用,重组vue组件文件夹
+
+[33mcommit 900c930f497c673f9adf2f5bca8abf2fd0d52244[m
+Author: Knight Young <409268215@qq.com>
+Date:   Thu Feb 18 17:14:44 2016 +0800
+
+    基本逻辑拆分成三个页面
+
+[33mcommit e88a3db9bcc6a55a175fd276313b3a7c8dec8971[m
+Author: Knight Young <409268215@qq.com>
+Date:   Tue Feb 16 01:24:28 2016 +0800
+
+    完善目录,改用ejs
+
+[33mcommit 84f9a203b9fbb3473fb69dc0a5abe295298ba6a6[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Sun Feb 14 23:11:57 2016 +0800
+
+    delete bulid
+
+[33mcommit 2b97d43ba1da9b0cf08bd40f0913286dd10f5a0f[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sun Feb 14 23:08:58 2016 +0800
+
+    delete old files
+
+[33mcommit 596d1e97cc8c576cf346b8e2f1cbfe48da380948[m
+Author: Knight Young <409268215@qq.com>
+Date:   Sun Feb 14 23:01:20 2016 +0800
+
+    add express and other tools
+
+[33mcommit c76335e6421ff1315086cef6cf328f7cfe916122[m
+Author: Knight Young <409268215@qq.com>
+Date:   Mon Feb 8 17:41:52 2016 +0800
+
+    add webpack.config.js
+
+[33mcommit ba97ee3e48f595a9e1cf7d099afc7d74b16b4dd4[m
+Author: knownothingsnow <409268215@qq.com>
+Date:   Wed Feb 3 18:07:16 2016 +0800
+
+    add webpack.config.js
+
+[33mcommit 6f1ec327bd5a04010aad6d9dbc83795c88dfba90[m
+Author: Knight Young <409268215@qq.com>
+Date:   Fri Jan 22 01:01:47 2016 +0800
+
+    vue-cli初始化
+
+[33mcommit 3a352b9ea834390f73dea88eb1c3fde814398aa4[m
+Author: Knight Young <409268215@qq.com>
+Date:   Fri Jan 22 00:50:58 2016 +0800
+
+    add readme.md
+    
+    仓库初始化
+
+[33mcommit 4711ab62c5ab14714fb18e909aae2f91869adb8a[m
+Author: Knight Young <409268215@qq.com>
+Date:   Fri Jan 22 00:49:25 2016 +0800
+
+    Initial commit
