@@ -4,25 +4,15 @@
  */
 
 module.exports = {
-  
-  selectAllNotebooks: (userId)=> {
-    return `SELECT notebookId,notebookName FROM notebook WHERE userId=${userId}`
-  },
 
-  addNotebook: (userId, notebookName) => {
-    return `INSERT INTO notebook(userId, notebookName) VALUES (${userId},'${notebookName}')`
-  },
+  selectAllNotebooks: (userId) => `SELECT notebookId,notebookName FROM notebook WHERE userId=${userId}`,
 
-  deleteNoteBook: (notebookId) => {
-    return `DELETE FROM notebook WHERE notebookId='${notebookId}'`
-  },
+  addNotebook: (userId, notebookName) => `INSERT INTO notebook(userId, notebookName) VALUES (${userId},'${notebookName}')`,
 
-  updateNoteBook: (notebookId, newNotebookName) => {
-    return `UPDATE notebook SET notebookName='${newNotebookName}' WHERE notebookId=${notebookId}`
-  },
+  deleteNoteBook: (notebookId) => `DELETE FROM notebook WHERE notebookId='${notebookId}'`,
 
-  checkNotebookName: (userId, notebookName) => {
-    return `SELECT notebookName FROM notebook WHERE userId=${userId} AND notebookName='${notebookName}'`
-  }
-  
+  updateNoteBook: (notebookId, newNotebookName) => `UPDATE notebook SET notebookName='${newNotebookName}' WHERE notebookId=${notebookId}`,
+
+  checkNotebookName: (userId, notebookName) => `SELECT notebookName FROM notebook WHERE userId=${userId} AND notebookName='${notebookName}'`
+
 }
