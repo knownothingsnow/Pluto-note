@@ -2,5 +2,5 @@ node_modules/
 dist/
 public/build/
 .idea/
-
+client/build
 plutonote.sql
